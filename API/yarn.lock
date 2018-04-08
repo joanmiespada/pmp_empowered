@@ -883,6 +883,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+cofeescript@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/cofeescript/-/cofeescript-0.0.1-security.tgz#29633bc63d98c8414866244c0602b46bd6bcec68"
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/collection-visit/-/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
