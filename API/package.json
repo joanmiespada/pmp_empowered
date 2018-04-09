@@ -24,6 +24,7 @@
     "build": "babel src -d dist",
     "serve": "node dist/index.js",
     "test": "mocha --require babel-core/register",
-    "build-dev": "webpack --config webpack.dev.config.js"
+    "build-dev": "webpack --config webpack.dev.config.js",
+    "build-prod": "webpack --config webpack.prod.config.js"
   }
 }

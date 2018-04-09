@@ -2,14 +2,13 @@
 
 var webpack = require('webpack');
 var path = require('path');
-var fs = require('fs');
 
 const config = {
     mode:'development',
     entry: './src/index.js',
     output: {
         path: path.join(__dirname, 'build'),
-        filename: 'api.min.js'
+        filename: 'api.dev.js'
     },
     devtool:'source-map',
     stats:{
