@@ -26,5 +26,8 @@
     "test": "mocha --require babel-core/register",
     "build-dev": "webpack --config webpack.dev.config.js",
     "build-prod": "webpack --config webpack.prod.config.js"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1"
   }
 }
