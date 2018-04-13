@@ -19,6 +19,8 @@ async function op(req,res)
 
   }catch(err){
     console.log('Error getting documents', err);
+    res.writeHead(400, {'Content-Type': 'text/plain'});
+    res.end('wrong header');
   }
 }
 
