@@ -14,5 +14,5 @@ The technical stack is:
 
 To execute it:
 ```
-yarn install & yarn start
+yarn install && yarn start
 ``` 
