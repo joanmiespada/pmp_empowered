@@ -1,28 +1,27 @@
 'use strict';
-
+var fs = require('fs');
 var webpack = require('webpack');
 var path = require('path');
 
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
+
 const config = {
     mode:'production',
-    entry: './src/index.js',
+    target:'node',
+    entry: ['./src/index.js'],
     output: {
         path: path.join(__dirname, 'build'),
-        filename: 'api.min.js'
+        filename: 'api.js'
     },
-    module: {
-        rules: [
-            { test: /\.json$/, loader: 'json-loader'}, 
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /(node_modules)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015', 'stage-2']
-                }
-            },
-         ]
-    },
+    externals: nodeModules
+    
 }
 
 module.exports = config;

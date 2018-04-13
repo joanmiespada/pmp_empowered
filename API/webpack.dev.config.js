@@ -1,32 +1,35 @@
 'use strict';
-
 var webpack = require('webpack');
+var fs = require('fs');
 var path = require('path');
+
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
 
 const config = {
     mode:'development',
-    entry: './src/index.js',
+    target:'node',
+    entry: [ './src/index.js'],
     output: {
         path: path.join(__dirname, 'build'),
-        filename: 'api.dev.js'
+        filename: 'api.js'
     },
+    externals: nodeModules, 
+    plugins: [
+        new webpack.IgnorePlugin(/\.(css|less)$/),
+        new webpack.BannerPlugin('require("source-map-support").install();')
+      ],
     devtool:'source-map',
     stats:{
         colors:true
     },
-    module: {
-        rules: [
-            { test: /\.json$/, loader: 'json-loader'}, 
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /(node_modules)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015', 'stage-2']
-                }
-            },
-         ]
-    },
+    
 }
 
 module.exports = config;
