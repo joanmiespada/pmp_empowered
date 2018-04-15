@@ -11,6 +11,8 @@ The technical stack is:
 | Babel      | Javascript last features       |   
 | Webpack | Build and bundle js files      | 
 | Mocha| Testing|
+|Firebase| Database NoSQL|
+|Express| API Routing |
 
 To execute it:
 ```

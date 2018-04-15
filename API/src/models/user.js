@@ -9,14 +9,14 @@ class user extends model
         this.email=undefined;
     }
 
-    get name(){ return this.name}
-    set name(value) { this.name=value}
+    get Name(){ return this.name}
+    set Name(value) { this.name=value}
 
-    get surname(){ return this.surname}
-    set surname(value) { this.surname=value}
+    get Surname(){ return this.surname}
+    set Surname(value) { this.surname=value}
 
-    get email(){ return this.email}
-    set email(value) { this.email=value}
+    get Email(){ return this.email}
+    set Email(value) { this.email=value}
 
     
 }

@@ -4,8 +4,8 @@ class model
         this.id=undefined;
     }
 
-    get id(){ return this.id}
-    set id(value) { this.id=value} 
+    get Id(){ return this.id}
+    set Id(value) { this.id=value} 
 }
 
 export default model; 
