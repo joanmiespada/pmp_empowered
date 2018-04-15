@@ -1,7 +1,21 @@
-
+const N200 = 200;
+const N201 = 201;
+const N204 = 204;
+const N400 = 400;
+const N500 = 500;
+const contentTextPlain = {'Content-Type': 'text/plain'}
+const contentTextJson = {'Content-Type': 'text/json'}
 
 class endpoint
 {
+   static get Http200(){return N200};
+   static get Http201(){return N201};
+   static get Http204(){return N204};
+   static get Http400(){return N400};
+   static get Http500(){return N500};
+
+   static get ContentTextPlain(){ return contentTextPlain;}
+   static get ContentTextJson(){ return contentTextJson;}
 
     constructor(router)
     {

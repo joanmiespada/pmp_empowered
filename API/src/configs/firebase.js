@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import * as admin from 'firebase-admin';
 
 dotenv.config();
-var private_key_cert = process.env.FIREBASE_PRIVATE_KEY_CERT.replace(/\\n/g, '\n');
+let private_key_cert = process.env.FIREBASE_PRIVATE_KEY_CERT.replace(/\\n/g, '\n');
 
 let config ={
     "type": "service_account",
@@ -23,9 +23,12 @@ admin.initializeApp({
   databaseURL: 'https://pmp-empowered.firebaseio.com'
 });
 
-let db = admin.firestore();
 
-export default db;
+
+let db = admin.firestore();
+let tables = { users:'users' } //add all collections here! 
+
+export { db, tables};
 
 
 

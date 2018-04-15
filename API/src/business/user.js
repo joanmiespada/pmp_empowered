@@ -5,9 +5,13 @@ class userLogic
 {
     getAllUsers(pageSize,pageNum)
     {
+
         return new Promise( (resolve, reject) => {
 
-            firebase.default.collection('users').get().then( (snapshot) => {  
+            let userRef = firebase.db.collection( firebase.tables.users );
+            let query = userRef.orderBy('surname').startAt(pageSize * (pageNum-1) ).limit(pageSize);
+
+            query.get().then( (snapshot) => {  
 
                 let result = [];
                 if(snapshot.empty) return result;

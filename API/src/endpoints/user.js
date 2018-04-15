@@ -2,7 +2,8 @@
 import user from '../models/user';
 import userlogic from '../business/user' 
 import { isNumber } from 'util';
-import endpoint from './endpoint'; 
+import endpoint from './endpoint';
+import messages from '../configs/messages'; 
 
 class userapi extends endpoint
 {
@@ -15,7 +16,7 @@ class userapi extends endpoint
 
     async createNew(req,res, next)
     {
-        res.status(201).json(new user());
+        res.status(endpoint.Http201).json(new user());
     }
 
     async getById(req,res, next)
@@ -26,27 +27,26 @@ class userapi extends endpoint
 
     async updateById(req,res, next)
     {
-        res.status(201).json(new user())
+        res.status(endpoint.Http201).json(new user())
     }
 
     async deleteById(req,res, next)
     {
-        res.status(204).end()
+        res.status(endpoint.Http204).end()
     }
 
     async getAll(req,res, next)
     {
-    
-        console.log(req.params);
-        let pageSize= req.params.pagesize;
-        let pageNumber= req.params.pagenumber;
 
+        let pageSize= req.params.pageSize;
+        let pageNumber= req.params.pageNumber;
+ 
         pageSize = Number.parseInt(pageSize);
         pageNumber = Number.parseInt(pageNumber);
         if( !isNumber(pageSize) || !isNumber(pageNumber))
         {
-            res.writeHead(400, {'Content-Type': 'text/plain'});
-            res.end('wrong pageNumber and/or pageSize params');
+            res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
+            res.end(messages.wrongPageSize);
             return;
         }
 
@@ -54,14 +54,14 @@ class userapi extends endpoint
             
             let business = new userlogic();
             let listOfusers = await business.getAllUsers(pageSize,pageNumber); 
-            console.log(listOfusers)
-            res.writeHead(200, {'Content-Type': 'text/json'});
+            
+            res.writeHead(endpoint.Http200, endpoint.ContentTextJson);
             res.end( JSON.stringify(listOfusers));
 
         }catch(err){
-            console.log('Error getting users', err);
-            res.writeHead(500, {'Content-Type': 'text/plain'});
-            res.end('Internal server error');
+            console.log( messages.errGettingUsers, err);
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
+            res.end( messages.errinternalServer);
         }
     }
 
