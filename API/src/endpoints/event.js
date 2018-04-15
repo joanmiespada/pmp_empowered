@@ -1,3 +1,8 @@
+import endpoint from './endpoint';
+import messages from '../configs/messages'; 
+
+const twoSeconds=2000;
+
 class eventapi
 {
 
@@ -6,6 +11,7 @@ class eventapi
         this._router= router;
         this._urlbase = '/events';
         this.setup();
+        
     }
 
     get router() {  return this._router; }
@@ -28,20 +34,20 @@ class eventapi
 
             // send a ping approx every 2 seconds
             var timer = setInterval(() => {
-                res.write('data: ping\n\n')
+                res.write('data: ping test\n\n')
 
                 // !!! this is the important part
                 res.flush()
-            }, 2000);
+            }, twoSeconds);
 
             res.on('close', () => {
                 clearInterval(timer)
             });
 
         }catch(err){
-            console.log('Error getting documents', err);
-            res.writeHead(400, {'Content-Type': 'text/plain'});
-            res.end('wrong header');
+            console.log('Error getting data', err);
+            res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
+            res.end(messages.errWrongHeader);
         }
     }
 
