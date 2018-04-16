@@ -3,6 +3,17 @@ import userModel from '../models/user';
 
 class userLogic
 {
+
+    mappingToUserModel(id,user)
+    {
+        let use = new userModel();   
+        use.Id = id;
+        use.Email = user.email;
+        use.Name = user.name;
+        use.Surname = user.surname;
+        return use; 
+    }
+
     getAllUsers(pageSize,pageNum)
     {
 
@@ -15,17 +26,9 @@ class userLogic
 
                 let result = [];
                 if(snapshot.empty) return result;
-                snapshot.forEach((doc) => {
-                   
-                    let aux =doc.data();
-                    let use = new userModel();
-                    
-                    use.Id = doc.id;
-                    use.Email = aux.email;
-                    use.Name = aux.name;
-                    use.Surname = aux.surname;
 
-                    result.push(use);
+                snapshot.forEach((doc) => {           
+                    result.push(this.mappingToUserModel(doc.id, doc.data()));
                 });
                 resolve(result);
             }).catch( (err) => { reject(err); } );

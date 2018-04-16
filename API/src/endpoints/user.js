@@ -5,6 +5,20 @@ import { isNumber } from 'util';
 import endpoint from './endpoint';
 import messages from '../configs/messages'; 
 
+function extracPageNumberPageSize(params)
+{
+    let pageSize= params.pageSize;
+    let pageNumber= params.pageNumber;
+
+    pageSize = Number.parseInt(pageSize);
+    pageNumber = Number.parseInt(pageNumber);
+    if( !isNumber(pageSize) || !isNumber(pageNumber))
+        return undefined;
+    else
+        return {'pageSize':pageSize,'pageNumber':pageNumber }
+
+}
+
 class userapi extends endpoint
 {
 
@@ -37,13 +51,8 @@ class userapi extends endpoint
 
     async getAll(req,res, next)
     {
-
-        let pageSize= req.params.pageSize;
-        let pageNumber= req.params.pageNumber;
- 
-        pageSize = Number.parseInt(pageSize);
-        pageNumber = Number.parseInt(pageNumber);
-        if( !isNumber(pageSize) || !isNumber(pageNumber))
+        let position = extracPageNumberPageSize(req.params);
+        if( position === undefined )
         {
             res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
             res.end(messages.wrongPageSize);
@@ -53,8 +62,8 @@ class userapi extends endpoint
         try{
             
             let business = new userlogic();
-            let listOfusers = await business.getAllUsers(pageSize,pageNumber); 
-            
+            let listOfusers = await business.getAllUsers(position.pageSize,
+                                                         position.pageNumber); 
             res.writeHead(endpoint.Http200, endpoint.ContentTextJson);
             res.end( JSON.stringify(listOfusers));
 

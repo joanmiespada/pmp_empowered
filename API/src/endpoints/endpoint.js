@@ -42,13 +42,9 @@ class endpoint
     }
 
     async createNew(req,res, next){}
-
     async getById(req,res, next){}
-
     async updateById(req,res, next){}
-
     async deleteById(req,res, next){}
-
     async getAll(req,res, next){}
 
 }
