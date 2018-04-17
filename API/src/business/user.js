@@ -41,6 +41,22 @@ class userLogic
        
     }
 
+    getUserById(id)
+    {
+        return this.userdata.getUserById(id);
+    }
+
+    getUsersByEmail(email)
+    {
+        return this.userdata.getUsersByEmail(email);
+        //return this.userdata.getAllUsers(10,1);
+    }
+
+    deleteUserById(id)
+    {
+        return this.userdata.deleteUserById(id); 
+    }
+
     checkIfMailExists(email)
     {
         return this.userdata.checkIfMailExists(email);

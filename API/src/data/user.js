@@ -64,7 +64,6 @@ class userData
             if(firebase.db === undefined)
                 reject( new Error(messages.errServerDataIsUnavailable));
 
-            console.log(email)
             let userRef = firebase.db.collection( firebase.tables.users );
             let query = userRef.where('email','==',email );
             
@@ -74,6 +73,55 @@ class userData
                     else
                         resolve(true);
             }).catch((err) => {reject(err)});
+        });
+    }
+
+    deleteUserById(id)
+    {
+        return new Promise( (resolve, reject) => {
+            if(firebase.db === undefined)
+                reject( new Error(messages.errServerDataIsUnavailable));
+
+            let userRef = firebase.db.collection( firebase.tables.users ).doc(id);
+            userRef.delete().then(()=>{resolve(true)}).catch(err=>reject(err));
+        });
+    }
+    
+    getUserById(id)
+    {
+        return new Promise( (resolve, reject) => {
+            if(firebase.db === undefined)
+                reject( new Error(messages.errServerDataIsUnavailable));
+
+            let userRef = firebase.db.collection( firebase.tables.users ).doc(id);
+            userRef.get().then((doc)=>{
+                let user = this.mappingFromStorageToUserModel(doc.id, doc.data())
+                resolve(user)
+            }).catch(err=>reject(err));
+        });
+    }
+
+    getUsersByEmail(email)
+    {
+        return new Promise( (resolve, reject) => {
+            if(firebase.db === undefined)
+                reject( new Error(messages.errServerDataIsUnavailable));
+
+            let userRef = firebase.db.collection( firebase.tables.users );
+            let query = userRef.where('email','==',email );
+
+            query.get().then( (snapshot) => {  
+
+                let result = [];
+                if(snapshot.empty) return result;
+
+                snapshot.forEach((doc) => {           
+                    result.push(this.mappingFromStorageToUserModel(doc.id, doc.data()));
+                });
+                
+                resolve(result);
+            }).catch( (err) => { reject(err); } );
+            
         });
     }
 }
