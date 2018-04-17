@@ -1,6 +1,6 @@
 
-import user from '../models/user';
-import userlogic from '../business/user' 
+
+import userLogic from '../business/user' 
 import { isNumber } from 'util';
 import endpoint from './endpoint';
 import messages from '../configs/messages'; 
@@ -30,18 +30,39 @@ class userapi extends endpoint
 
     async createNew(req,res, next)
     {
-        res.status(endpoint.Http201).json(new user());
+        
+        try{
+            
+            let business = new userLogic();
+            let opResult = await business.createNewUser(req.body);
+
+            if(opResult.result === true)
+            {
+                res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
+                res.end( JSON.stringify(opResult));
+            }else
+            {
+                res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
+                res.end();
+            }
+
+        }catch(err){
+            console.log( messages.errGettingUsers, err);
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
+            res.end( messages.errinternalServer);
+        }
     }
 
     async getById(req,res, next)
     {
         let userId = req.params.id;
-        res.json(new user());
+        res.json(new userModel());
     }
 
     async updateById(req,res, next)
     {
-        res.status(endpoint.Http201).json(new user())
+
+        res.status(endpoint.Http201).json(new userModel())
     }
 
     async deleteById(req,res, next)
@@ -61,7 +82,7 @@ class userapi extends endpoint
 
         try{
             
-            let business = new userlogic();
+            let business = new userLogic();
             let listOfusers = await business.getAllUsers(position.pageSize,
                                                          position.pageNumber); 
             res.writeHead(endpoint.Http200, endpoint.ContentTextJson);
