@@ -30,7 +30,6 @@
     "start": "babel-node ./src/index.js",
     "nodemon": "nodemon ./src/index.js --exec babel-node",
     "build": "babel src -d dist",
-    "test1": "yarn build && mocha --require babel-core/register",
     "test": "jest",
     "build-dev": "webpack --config webpack.dev.config.js",
     "build-prod": "webpack --config webpack.prod.config.js",

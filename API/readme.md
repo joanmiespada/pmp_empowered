@@ -10,9 +10,10 @@ The technical stack is:
 | Node V8      | Node runtime to execute the API |
 | Babel      | Javascript last features       |   
 | Webpack | Build and bundle js files      | 
-| Mocha| Testing|
+| Jest| Testing|
 |Firebase| Database NoSQL|
 |Express| API Routing |
+|
 
 To execute it:
 ```
