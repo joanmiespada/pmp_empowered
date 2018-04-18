@@ -45,8 +45,7 @@ describe('user testing', ()=>{
         try{
             let result = await userlayer.getUsersByEmail(newuser.email)
             expect(result[0]).toBeDefined()
-            console.log(result);
-            //expect(result[0].email).toEqual(newuser.email)
+            expect(result[0].email).toEqual(newuser.email)
         }catch(err){
             expect(false).toEqual(true)
         }
