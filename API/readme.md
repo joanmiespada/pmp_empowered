@@ -19,3 +19,5 @@ To execute it:
 ```
 yarn install && yarn start
 ``` 
+
+[![Build Status](https://travis-ci.org/joanmiespada/pmp_empowered.svg?branch=production)](https://travis-ci.org/joanmiespada/pmp_empowered)
