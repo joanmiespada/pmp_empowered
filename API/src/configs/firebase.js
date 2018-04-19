@@ -11,7 +11,7 @@ let cert = fs.readFileSync( path.join(__dirname ,'..','..',private_key_cert_file
 
 let config ={
     "type": "service_account",
-    "project_id": "pmp-empowered",
+    "project_id": "pmp-empowered-d1e1e",
     "private_key_id": process.env.FIREBASE_PRIVATE_KEY_ID,
     "private_key": cert,
     "client_email": "firebase-adminsdk-lmfei@pmp-empowered-d1e1e.iam.gserviceaccount.com",
