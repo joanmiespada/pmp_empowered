@@ -1,15 +1,22 @@
 import dotenv from 'dotenv';
 import * as admin from 'firebase-admin';
+import fs from 'fs';
+import path from 'path';
 
-dotenv.config();
-let private_key_cert = process.env.FIREBASE_PRIVATE_KEY_CERT.replace(/\\n/g, '\n');
+console.log('process.env.FIREBASE_PRIVATE_KEY_CERT_FILE: '+ process.env.FIREBASE_PRIVATE_KEY_CERT_FILE);
+
+if(process.env.FIREBASE_PRIVATE_KEY_CERT_FILE === undefined )
+  dotenv.config();
+
+let private_key_cert_file = process.env.FIREBASE_PRIVATE_KEY_CERT_FILE;
+let cert = fs.readFileSync( path.join(__dirname ,'..','..',private_key_cert_file),'utf8');
 
 let config ={
     "type": "service_account",
     "project_id": "pmp-empowered",
     "private_key_id": process.env.FIREBASE_PRIVATE_KEY_ID,
-    "private_key": private_key_cert,
-    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+    "private_key": cert,
+    "client_email": "firebase-adminsdk-ja8r7@pmp-empowered.iam.gserviceaccount.com",
     "client_id": process.env.FIREBASE_CLIENT_ID,
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://accounts.google.com/o/oauth2/token",
