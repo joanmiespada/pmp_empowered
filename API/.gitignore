@@ -65,4 +65,4 @@ dist
 build
 
 #cert files
-.pem
+*.pem
