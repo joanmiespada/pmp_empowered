@@ -1,5 +1,0 @@
-build:
-  language:
-    - node
-run:
-  web: yarn && yarn build-prod && yarn serve-prod
