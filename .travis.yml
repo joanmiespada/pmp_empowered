@@ -17,6 +17,7 @@ deploy:
   provider: heroku
   api_key:
     secure: DnUf3DfW7j0BIBtO+LcL3M9Uj9PYYGUKlNlLgCgiFOxvNvGbSK3jkHyqdIM7oooU0aU6hcDk6cq/Y3JJaCpmYtZEzP1GPcbf+ynFg6xK7tKwrsmpkdgIB0KE74u6l3gbmC6+EJlSWwYyA/nBexiLy7f7n6/vSPX03hxKWyJO0W5aSplkmJS2OQhGwgrdTcTlB6XO4zhuHQKweavPQ5rvybET+/GnLekNcBKQPbiT0Evg8u7THA/ErRtntw8EgXHmWvHEANJtQwTuwftUjkdkxxh0xNLM/zLhWC8G9XdxRx5Ddi6sUo9SgKKFJW+JnTn5Ss7wpBN/+bQdpu9Sob7WHzg5vk+SMQuZcRkBYCP+Ympb6qN2Wta5vlbMQT2BAY5kcNCFgIsPbz7lKYPpNUkxDpy13hoePoGClSem6Kzkj9Zf6ImE4bIJB8pI68GwgimZ7gJvoA1owp3oTpn2sYGo9zjPKX+kl62Jqz4mRDTKH34O4NffdQBmy9HISeV1O5tIcodsK6QX2hs05CdOfUDqHx/9iTYBzHyCpBuvRkAC2sjYqhvX7DT733dmx66QgG1dwXHSHM12W92nvs4+qeDnxrze1f3kH3RXNDEhfPE53Yav/C90e3r1F0M58jAe8aLqdE5qC/P7zJ1fLjLjJC/0Zbur3/LX+WSU05VnhcWFwTM=
-  app: pmp_empowered
+  app:
+    production: pmp_empowered
   on:
     repo: joanmiespada/pmp_empowered
