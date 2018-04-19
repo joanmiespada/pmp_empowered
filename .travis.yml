@@ -12,4 +12,4 @@ env:
   - secure: WvggWSvDWqnP6qFA0SNJgjUwwB/nSd6M1hNa8+qaq/zfT4CuZ8Gu6L/MZQR/hneNtSqXp3zh+69nXHBcpWX2zW1lrg/8ypYJxaiwqfWarv7+F7F8bTOuDjfi5HVj73MQw6saLQkFrpAuNbgrbNvpTd0iALzaZ5BbUo/vUuofWHwg/EUPg74n7MA3ivXpX76VIg8dNR7nfglFvdYomed4+asL3yGbUDPBRtceNgEilttYJw2JhxSiMduYBohKnSP24szywFT9QItc84o4sL/dqIwemMGALYDcewqVyZIacjOhoEVWuHIiRFvyCf9ND+Bn2RZ4YelRYcptl0Nx0jldXsdVt1TnnLwbrCYQuYooWWQAtwPqCWXHjjuI0dXpuHCD/NqL1DqUyDOonKZc1+bVUMsiVq4sVv9jxs2cOHgSGR1iZq4RD7GxILeySc906JznO7Ae93nHzmNTx0aCmEPsdaE/unFSwReBVBivj+HDmJRfxC6e5dcDJqSAA1T1zR7VKkDgI+3qCVALle18FgRZ13KG4oJZD68vYAwmYkNgMwWGiJb+ZhFBhTC/c4xWkZJd8e8ro4INd0bm0ulIgOAbMpCSg9ZHkFuJu0mtYSHVKT7Ofyk9hXuGWutvgXTdMCGQuaDNH4xIQri2PQCieHC0rrTxrNSFiZzTHnzkcd3/Hr4=
 before_install:
 - openssl aes-256-cbc -K $encrypted_b5075aaea773_key -iv $encrypted_b5075aaea773_iv
-  -in apicert.pem.enc -out ./apicert.pem -d
+  -in ./API/apicert.pem.enc -out ./API/apicert.pem -d
