@@ -7,7 +7,7 @@ cache:
 script: cd ./API && yarn && yarn test
 before_install:
 - openssl aes-256-cbc -K $encrypted_b5075aaea773_key -iv $encrypted_b5075aaea773_iv
-  -in apicert.pem.enc -out apicert.pem -d
+  -in ./API/apicert.pem.enc -out ./API/apicert.pem -d
 env:
   global:
   - secure: vY1SSpYRqOSjrJZjyVCUfMoJrSISXMvYCVxxAbP7o/YjKu5kgFk7QzN4OOFl2xlSsw3RNgsfXKCNmZNpWYqDxsQociAmQ72eoCSGG3/0GSwb5FnmOarWpjUn+5hiHzU+n4/gVZZ3Zs+ZZVZGvfwxXO4ZnIvanwtZNsETImeBvwR5QrXt+c8cIZDwYhWLAsNa1f1HUWWmCmIB2irlKuIk4hoaPrmBOoVPsngk3SSylo3fGhlbGFXgBtk0G7Op4ob6sbijLhYTpAaiVp2w/ndoWq+IOkVzKBlyf6ExJ7jdvLOkHT0OveF+MTiiePdvzNFPJfm7dBzT6lXr1gBYPS8eTJ8OcM2Q5FzH/5L0/humu9Y7zR6sQwhi1UvlQOQf9+Ca1TSsmLK3ja+AiItV6cK+8eu8WAtnomarbW5PI/hLye14XKK81HNaqnpVoNsT0U49DOdN12UUZ+l18j0xJ4uhA0RgVebUA5BQptEJHamELvXiFGEA+GnUVRwptdhWl0vzQhslL5zTt3jXqQEw06I1jrUHQvpCJPFDtZ4WdsHolIpcz31I5TV/1GU4UoI7/WFeynXF/kHcJLPqgv+ZgYJl9lJ16cJxi6NsJH5hwHOE4Hi4185+F7dLR/Qn3DgrMqxPhiPuU+e4+xh9Y2NbvFj9AGz3Tv9kPYhuhRlQweNlmjs=
