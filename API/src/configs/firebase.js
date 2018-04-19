@@ -14,7 +14,7 @@ let config ={
     "project_id": "pmp-empowered",
     "private_key_id": process.env.FIREBASE_PRIVATE_KEY_ID,
     "private_key": cert,
-    "client_email": "firebase-adminsdk-ja8r7@pmp-empowered.iam.gserviceaccount.com",
+    "client_email": "firebase-adminsdk-lmfei@pmp-empowered-d1e1e.iam.gserviceaccount.com",
     "client_id": process.env.FIREBASE_CLIENT_ID,
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://accounts.google.com/o/oauth2/token",
