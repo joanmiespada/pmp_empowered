@@ -1,1 +1,1 @@
-web: yarn && yarn build-prod && yarn serve-prod
+web: cd ./API && yarn && yarn build-prod && yarn serve-prod
