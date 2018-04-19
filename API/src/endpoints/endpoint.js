@@ -9,12 +9,12 @@ const contentTextJson = {'Content-Type': 'text/json'}
 
 class endpoint
 {
-   static get Http200(){return N200};
-   static get Http201(){return N201};
-   static get Http204(){return N204};
-   static get Http400(){return N400};
-   static get Http403(){return N403};
-   static get Http500(){return N500};
+   static get Http200(){return N200}
+   static get Http201(){return N201}
+   static get Http204(){return N204}
+   static get Http400(){return N400}
+   static get Http403(){return N403}
+   static get Http500(){return N500}
 
    static get ContentTextPlain(){ return contentTextPlain;}
    static get ContentTextJson(){ return contentTextJson;}
@@ -43,11 +43,11 @@ class endpoint
                 
     }
 
-    async createNew(req,res, next){}
-    async getById(req,res, next){}
-    async updateById(req,res, next){}
-    async deleteById(req,res, next){}
-    async getAll(req,res, next){}
+    async createNew(){}
+    async getById(){}
+    async updateById(){}
+    async deleteById(){}
+    async getAll(){}
 
 }
 

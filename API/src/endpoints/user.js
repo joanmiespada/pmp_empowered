@@ -1,9 +1,8 @@
 
-
 import userLogic from '../business/user' 
-import { isNumber } from 'util';
-import endpoint from './endpoint';
-import messages from '../configs/messages'; 
+import { isNumber } from 'util'
+import endpoint from './endpoint'
+import messages from '../configs/messages'
 
 function extracPageNumberPageSize(params)
 {
@@ -28,7 +27,7 @@ class userapi extends endpoint
         this._urlbase = '/users';
     }
 
-    async createNew(req,res, next)
+    async createNew(req,res)
     {
         
         try{
@@ -53,24 +52,48 @@ class userapi extends endpoint
         }
     }
 
-    async getById(req,res, next)
+    async getById(req,res)
     {
-        let userId = req.params.id;
-        res.json(new userModel());
+    
+        try{
+            
+            let business = new userLogic();
+            let opResult = await business.getUserById(req.params.id);
+
+            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
+            res.end( JSON.stringify(opResult));            
+
+        }catch(err){
+            console.log( messages.errGettingUsers, err);
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
+            res.end( messages.errinternalServer);
+        }
     }
 
-    async updateById(req,res, next)
+    async updateById(req,res)
     {
+        try{
+            
+            let business = new userLogic();
+            let opResult = await business.updateUserById(req.params.id,req.body);
 
-        res.status(endpoint.Http201).json(new userModel())
+            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
+            res.end( JSON.stringify(opResult));            
+
+        }catch(err){
+            console.log( messages.errGettingUsers, err);
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
+            res.end( messages.errinternalServer);
+        }
+        
     }
 
-    async deleteById(req,res, next)
+    async deleteById(req,res)
     {
         res.status(endpoint.Http204).end()
     }
 
-    async getAll(req,res, next)
+    async getAll(req,res)
     {
         let position = extracPageNumberPageSize(req.params);
         if( position === undefined )

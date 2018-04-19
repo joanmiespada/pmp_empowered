@@ -24,7 +24,7 @@ class eventapi
     }
 
 
-    emit_events(req,res, next)
+    emit_events(req,res)
     {
     
         try{

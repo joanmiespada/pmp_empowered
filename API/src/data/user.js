@@ -58,6 +58,33 @@ class userData
         });
     }
 
+    updateUserById(id, usermodel)
+    {
+        return new Promise( (resolve,reject)=>{
+            if(firebase.db === undefined)
+                reject( new Error(messages.errServerDataIsUnavailable));
+
+            let userRef = firebase.db.collection( firebase.tables.users );
+            let newUserDocRef = userRef.doc(id);
+            newUserDocRef.get().then(doc=>{
+
+                if(!doc.exists){ reject(messages.errNoUserExistWithId)}
+
+                let userInDb = doc.data();
+
+                if(usermodel.email != undefined)
+                    userInDb.email = usermodel.email;
+                if(usermodel.name != undefined)
+                    userInDb.name = usermodel.name;
+                if(usermodel.surname != undefined)
+                    userInDb.surname = usermodel.surname;
+
+                newUserDocRef.set(userInDb);
+                resolve(true);
+            }).catch(err=> reject(err));
+        });
+    }
+
     checkIfMailExists(email)
     {
         return new Promise( (resolve,reject) => {
@@ -96,7 +123,7 @@ class userData
             let userRef = firebase.db.collection( firebase.tables.users ).doc(id);
             userRef.get().then((doc)=>{
                 let user = this.mappingFromStorageToUserModel(doc.id, doc.data())
-                resolve(user)
+                resolve(user);
             }).catch(err=>reject(err));
         });
     }

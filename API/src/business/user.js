@@ -62,6 +62,12 @@ class userLogic
         return this.userdata.checkIfMailExists(email);
     }
 
+    updateUserById(id,params)
+    {
+        let usermod =  this.mappingFromRequestToUserModel(params);
+        return this.userdata.updateUserById(id,usermod);
+    }
+
 }
 
 export default userLogic;

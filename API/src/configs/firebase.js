@@ -3,9 +3,7 @@ import * as admin from 'firebase-admin';
 import fs from 'fs';
 import path from 'path';
 
-console.log('process.env.FIREBASE_PRIVATE_KEY_CERT_FILE: '+ process.env.FIREBASE_PRIVATE_KEY_CERT_FILE);
-
-if(process.env.FIREBASE_PRIVATE_KEY_CERT_FILE === undefined )
+if(process.env.FIREBASE_PRIVATE_KEY_CERT_FILE === undefined )//or else env variable is not defined
   dotenv.config();
 
 let private_key_cert_file = process.env.FIREBASE_PRIVATE_KEY_CERT_FILE;

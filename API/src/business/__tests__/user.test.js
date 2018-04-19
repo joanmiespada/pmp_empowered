@@ -1,4 +1,3 @@
-import userModel from '../../models/user'
 import userLogic from '../user'
 import expect from 'expect'
 import chance from 'chance'
@@ -25,7 +24,7 @@ describe('user testing', ()=>{
     it('check if email exist', async()=>{ 
         try{
             let result = await userlayer.checkIfMailExists(newuser.email)
-            expect(true).toEqual(true)
+            expect(result).toEqual(true)
         }catch(err){
             expect(false).toEqual(true)
         }
@@ -46,6 +45,15 @@ describe('user testing', ()=>{
             let result = await userlayer.getUsersByEmail(newuser.email)
             expect(result[0]).toBeDefined()
             expect(result[0].email).toEqual(newuser.email)
+        }catch(err){
+            expect(false).toEqual(true)
+        }
+    })
+
+    it('update users by id', async()=>{ 
+        try{
+            let result = await userlayer.updateUserById (newid,{email:random.email() })
+            expect(result).toEqual(true)
         }catch(err){
             expect(false).toEqual(true)
         }
