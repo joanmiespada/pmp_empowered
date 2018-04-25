@@ -4,7 +4,7 @@ cache:
   directories:
   - node_modules
   yarn: true
-script: cd ./API && yarn && yarn test
+script: cd ./API && yarn install --ignore-engines && yarn test
 env:
   global:
   - secure: jwk0DpBKM/T8WXfNovMyqxOC0Eso9KRb7w4MSQcUVdfZkd9W82J7ITntUijGJYfTTc2rFnuBUTUKj2AonKpP7L2/1nnqR7T2zWD7nzGhrRJiHlX8oVBNcwB3XIr2H5IqAHiR+XAN9Pazavt6XjQd9bF5BqyPYdZjK3PTO5XwjEarz9dH+FpnYl17IALYr7ezMcjNWCLnqqfNTl1PTJEZ7Bvp3lkSFo4Zh7pkJ7EpfooovG7Uag9sA7+JPrgTFbU+9FQKgeVrZNX0YjG9xut+sqw9AoU/x4EE1fm0V+DlGMq0IMKc35zrkvyQGajC8uX1cO/nBNF0VG1aHR+U/x8ar5BT9MsQsbhYb8xPypCakKNNKKP9ZW1uv4XIpD5kaFsAZKM68qxw+01ZHlxkGGfQTP4dD1+LQgKdDW7pA0/A/UXtO1N7HEYsdPMnJehBD56gK+K68SmcZ+VoCJ8iG+NMLHqIWhh/YxZJmbPpUVlwAxeLHtuHcWCnAoJw0PGNi1GiW+QW+kALLMqBtHWRwnNgHv9ezpKrBx9zcB5OXhRtMeF5SeDTFixAwaMJ4I3NseZkGHJ9dWpQk+exUCkeyviYImK+uQMzF2dNUE/mVRtvM0x83m0ODNLQkhFQOpu41nihXCClXXAj678iEXn9eRsyNahgSCExYm+nc7VuRzy2O/A=
