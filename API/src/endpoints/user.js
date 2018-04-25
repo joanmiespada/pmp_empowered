@@ -25,13 +25,13 @@ class userapi extends endpoint
     {
         super(router);
         this._urlbase = '/users';
+        
     }
 
     async createNew(req,res)
-    {
-        
+    {   
         try{
-            
+           
             let business = new userLogic();
             let opResult = await business.createNewUser(req.body);
 
@@ -44,7 +44,7 @@ class userapi extends endpoint
                 res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
                 res.end();
             }
-
+            
         }catch(err){
             console.log( messages.errGettingUsers, err);
             res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);

@@ -19,11 +19,11 @@ app.use(compression())
 let port = process.env.PORT || 8080;
 let version = '/v1'
 
-let user_api = new userapi( express.Router());
-app.use(version + user_api.urlbase, user_api.router);
-
 let event_api = new eventapi(express.Router());
 app.use(version + event_api.urlbase, event_api.router);
+
+let user_api = new userapi( express.Router() );
+app.use(version + user_api.urlbase, user_api.router);
 
 
 app.listen(port, () => { 
