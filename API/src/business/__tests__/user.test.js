@@ -14,12 +14,35 @@ describe('user testing', ()=>{
     let newuser = {email:random.email() , name: random.name() , surname: random.name(), password: password}
     let newid=undefined
     it('create new user', async()=>{
+        try{
+            const result = await userlayer.createNewUser(newuser)
+            newid = result.id;
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(true)
+            expect(result.id).toBeTruthy()
+        }catch(err){
+            expect(false).toEqual(true)
+        }
+
+    })
+
+    it('create new user with same email', async()=>{
         
-        const result = await userlayer.createNewUser(newuser)
-        newid = result.id;
-        expect(result).toBeDefined()
-        expect(result.result).toEqual(true)
-        expect(result.id).toBeTruthy()
+        try{
+            await userlayer.createNewUser(newuser)
+        }catch(err){
+            expect(true).toEqual(true)
+        }
+
+    })
+
+    it('create new user missing info ', async()=>{
+        
+        try{
+            await userlayer.createNewUser({})
+        }catch(err){
+            expect(true).toEqual(true)
+        }
 
     })
 
@@ -34,11 +57,16 @@ describe('user testing', ()=>{
 
     it('login fail', async()=>{ 
         try{
-            let result = await userlayer.login(newuser.email, password+password)
-
-            expect(result.result).toEqual(false)
+            await userlayer.login(newuser.email, password+password)
         }catch(err){
-            expect(false).toEqual(true)
+            expect(true).toEqual(true)
+        }
+    })
+    it('login missing params', async()=>{ 
+        try{
+            await userlayer.login(undefined, undefined)
+        }catch(err){
+            expect(true).toEqual(true)
         }
     })
 
@@ -92,7 +120,25 @@ describe('user testing', ()=>{
     it('delete non existing user', async()=>{ 
         try{
             await userlayer.deleteUserById('sdfsdfsdfsdf')
+            //expect(false).toEqual(true)
+        }catch(err){
+            expect(true).toEqual(true)
+        }
+    })
+
+    it('get all users', async()=>{ 
+        try{
+            let list= await userlayer.getAllUsers (10,1)
+            expect(list).toBeDefined()
+        }catch(err){
             expect(false).toEqual(true)
+        }
+    })
+
+    it('get all users wrong params', async()=>{ 
+        try{
+             await userlayer.getAllUsers (0,0)
+            //expect(list).toBeDefined()
         }catch(err){
             expect(true).toEqual(true)
         }

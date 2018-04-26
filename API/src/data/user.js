@@ -172,14 +172,16 @@ class userData
             query.get().then( (snapshot) => {  
 
                 let result;
-                if(snapshot.empty || snapshot.size >1) reject(messages.errNotUserFoundByEmail);
+                if(snapshot.empty || snapshot.size >1) 
+                    {  reject(messages.errNotUserFoundByEmail);  }
 
                 snapshot.forEach((doc) => {           
                     result = this.mappingFromStorageToUserModel(doc.id, doc.data());
                 });
 
-                encrypt.comparePassword(passwordPlain,result.password).then( (canIlogin) => resolve(canIlogin) )
-                                                        .catch( (err) => { reject(err); } );
+                encrypt.comparePassword(passwordPlain,result.password)
+                        .then( (canIlogin) => resolve(canIlogin))
+                        .catch( (err) =>  reject(err)  );
             }).catch( (err) => { reject(err); } );
             
         });

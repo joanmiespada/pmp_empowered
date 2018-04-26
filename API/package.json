@@ -37,7 +37,7 @@
     "nodemon-loginapi": "nodemon ./src/loginapi.js --exec babel-node",
     "nodemon-userapi": "nodemon ./src/userapi.js --exec babel-node",
     "build-raw": "babel src -d dist",
-    "test": "jest",
+    "test": "jest --config jest.config.json --coverage",
     "build-dev": "webpack --config webpack.dev.config.js",
     "build-prod": "webpack --config webpack.prod.config.js",
     "serve-prod-loginapi": "node ./build/api.login.js",
