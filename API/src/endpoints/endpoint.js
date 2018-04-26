@@ -43,11 +43,11 @@ class endpoint
                 
     }
 
-    async createNew(){}
-    async getById(){}
-    async updateById(){}
-    async deleteById(){}
-    async getAll(){}
+    createNew(){}
+    getById(){}
+    updateById(){}
+    deleteById(){}
+    getAll(){}
 
 }
 

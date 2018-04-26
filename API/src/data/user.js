@@ -1,7 +1,8 @@
-import * as firebase from '../configs/firebase';
-import userModel from '../models/user';
-import uuid from 'uuid/v1';
-import messages from '../configs/messages';
+import * as firebase from '../configs/firebase'
+import userModel from '../models/user'
+import uuid from 'uuid/v1'
+import messages from '../configs/messages'
+import encrypt from '../crosscutting/encrypt'
 
 class userData
 {
@@ -12,6 +13,7 @@ class userData
         use.Email = user.email;
         use.Name = user.name;
         use.Surname = user.surname;
+        use.Password = user.password;
         return use; 
     }
 
@@ -47,14 +49,20 @@ class userData
             let id = uuid();
             let newUserDocRef = userRef.doc(id);
             
-            let obj={  
-                email : usermodel.email,
-                name : usermodel.name,
-                surname : usermodel.surname
-            };
+            encrypt.cryptPassword(usermodel.password).then( (pass_hash)=> { 
 
-            newUserDocRef.set(obj);
-            resolve({result:true, id:id });
+                let obj={  
+                    email : usermodel.email,
+                    name : usermodel.name,
+                    surname : usermodel.surname,
+                    password: pass_hash
+                };
+    
+                newUserDocRef.set(obj).then( ()=>resolve({result:true, id:id }) ).catch((err) => { reject(err); });
+                
+            }).catch( (err) => { reject(err); } );
+
+            
         });
     }
 
@@ -151,6 +159,33 @@ class userData
             
         });
     }
+
+    login(email,passwordPlain)
+    {
+        return new Promise( (resolve, reject) => {
+            if(firebase.db === undefined)
+                reject( new Error(messages.errServerDataIsUnavailable));
+
+            let userRef = firebase.db.collection( firebase.tables.users );
+            let query = userRef.where('email','==',email );
+
+            query.get().then( (snapshot) => {  
+
+                let result;
+                if(snapshot.empty || snapshot.size >1) reject(messages.errNotUserFoundByEmail);
+
+                snapshot.forEach((doc) => {           
+                    result = this.mappingFromStorageToUserModel(doc.id, doc.data());
+                });
+
+                encrypt.comparePassword(passwordPlain,result.password).then( (canIlogin) => resolve(canIlogin) )
+                                                        .catch( (err) => { reject(err); } );
+            }).catch( (err) => { reject(err); } );
+            
+        });
+    }
+
+
 }
 
 export default userData;

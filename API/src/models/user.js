@@ -4,9 +4,10 @@ class user extends model
 {
     constructor() {
         super();
-        this.name=undefined;
+        this.name   =undefined;
         this.surname=undefined;
-        this.email=undefined;
+        this.email  =undefined;
+        this.password= undefined;
     }
 
     get Name(){ return this.name}
@@ -18,7 +19,8 @@ class user extends model
     get Email(){ return this.email}
     set Email(value) { this.email=value}
 
-    
+    get Password(){ return this.password}
+    set Password(value) { this.password=value}
 }
 
 export default user; 

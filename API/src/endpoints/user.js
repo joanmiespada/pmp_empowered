@@ -28,13 +28,10 @@ class userapi extends endpoint
         
     }
 
-    async createNew(req,res)
+    createNew(req,res)
     {   
-        try{
-           
-            let business = new userLogic();
-            let opResult = await business.createNewUser(req.body);
-
+        let business = new userLogic();
+        business.createNewUser(req.body).then( (opResult)=> {
             if(opResult.result === true)
             {
                 res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
@@ -44,56 +41,60 @@ class userapi extends endpoint
                 res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
                 res.end();
             }
-            
-        }catch(err){
+        }).catch( (err)=>{
             console.log( messages.errGettingUsers, err);
             res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
             res.end( messages.errinternalServer);
-        }
-    }
-
-    async getById(req,res)
-    {
-    
-        try{
-            
-            let business = new userLogic();
-            let opResult = await business.getUserById(req.params.id);
-
-            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
-            res.end( JSON.stringify(opResult));            
-
-        }catch(err){
-            console.log( messages.errGettingUsers, err);
-            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
-            res.end( messages.errinternalServer);
-        }
-    }
-
-    async updateById(req,res)
-    {
-        try{
-            
-            let business = new userLogic();
-            let opResult = await business.updateUserById(req.params.id,req.body);
-
-            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
-            res.end( JSON.stringify(opResult));            
-
-        }catch(err){
-            console.log( messages.errGettingUsers, err);
-            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
-            res.end( messages.errinternalServer);
-        }
+        }); 
         
     }
 
-    async deleteById(req,res)
-    {
-        res.status(endpoint.Http204).end()
+    getById(req,res)
+    {           
+        let business = new userLogic();
+        business.getUserById(req.params.id)
+        .then((opResult)=>{
+            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
+            res.end( JSON.stringify(opResult));  
+        })
+        .catch( (err)=>{
+            console.log( messages.errGettingUsers, err);
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
+            res.end( messages.errinternalServer);
+        });         
     }
 
-    async getAll(req,res)
+    updateById(req,res)
+    {
+        let business = new userLogic();
+        business.updateUserById(req.params.id,req.body)
+        .then((opResult)=> {
+            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
+            res.end( JSON.stringify(opResult)); 
+        })
+        .catch( (err)=>{
+            console.log( messages.errGettingUsers, err);
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
+            res.end( messages.errinternalServer);
+        });      
+    }
+
+    deleteById(req,res)
+    {
+        let business = new userLogic();
+        business.deleteUserById(req.params.id)
+        .then((opResult)=> {
+            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
+            res.end( JSON.stringify(opResult)); 
+        })
+        .catch( (err)=>{
+            console.log( messages.errGettingUsers, err);
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
+            res.end( messages.errinternalServer);
+        });   
+    }
+
+    getAll(req,res)
     {
         let position = extracPageNumberPageSize(req.params);
         if( position === undefined )
@@ -101,24 +102,19 @@ class userapi extends endpoint
             res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
             res.end(messages.wrongPageSize);
             return;
-        }
-
-        try{
-            
-            let business = new userLogic();
-            let listOfusers = await business.getAllUsers(position.pageSize,
-                                                         position.pageNumber); 
+        }    
+        let business = new userLogic();
+        business.getAllUsers(position.pageSize, position.pageNumber)
+        .then((listOfusers)=>{
             res.writeHead(endpoint.Http200, endpoint.ContentTextJson);
             res.end( JSON.stringify(listOfusers));
-
-        }catch(err){
+        })
+        .catch( (err)=>{
             console.log( messages.errGettingUsers, err);
             res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
             res.end( messages.errinternalServer);
-        }
+        });   
     }
-
-
 }
 
 export default userapi;

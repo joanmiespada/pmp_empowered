@@ -1,15 +1,17 @@
 import userLogic from '../user'
 import expect from 'expect'
 import chance from 'chance'
-
-jest.mock('../__mocks__/usermock')
-
+import generator from 'generate-password'
 
 describe('user testing', ()=>{
 
     let userlayer = new userLogic()       
     let random = new chance()
-    let newuser = {email:random.email() , name: random.name() , surname: random.name()}
+    let password = generator.generate({
+        length: 10,
+        numbers: true
+    });
+    let newuser = {email:random.email() , name: random.name() , surname: random.name(), password: password}
     let newid=undefined
     it('create new user', async()=>{
         
@@ -19,6 +21,25 @@ describe('user testing', ()=>{
         expect(result.result).toEqual(true)
         expect(result.id).toBeTruthy()
 
+    })
+
+    it('login ok', async()=>{ 
+        try{
+            let result = await userlayer.login(newuser.email, newuser.password)
+            expect(result.result).toEqual(true)
+        }catch(err){
+            expect(false).toEqual(true)
+        }
+    })
+
+    it('login fail', async()=>{ 
+        try{
+            let result = await userlayer.login(newuser.email, password+password)
+
+            expect(result.result).toEqual(false)
+        }catch(err){
+            expect(false).toEqual(true)
+        }
     })
 
     it('check if email exist', async()=>{ 
@@ -59,7 +80,7 @@ describe('user testing', ()=>{
         }
     })
 
-    it('delete existing user', async()=>{ 
+     it('delete existing user', async()=>{ 
         try{
             await userlayer.deleteUserById(newid)
             expect(true).toEqual(true)

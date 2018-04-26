@@ -27,18 +27,33 @@ class userLogic
         use.Email = params.email;
         use.Name = params.name;
         use.Surname = params.surname;
+        use.Password = params.password;
         return use; 
     }
 
-    async createNewUser(params)
+    createNewUser(params)
     {
-        let exists = await this.userdata.checkIfMailExists(params.email);
-        if(exists)
-            return {result:false}; 
-        
-        let newuser = this.mappingFromRequestToUserModel(params);
-        return this.userdata.createNewUser(newuser);
-       
+        return new Promise( (resolve,reject) => {
+
+            if(params.email === undefined) 
+                { reject(messages.errEmailIsMandatory)  }
+
+            if(params.password === undefined) 
+                { reject(messages.errPasswordIsMandatory)  }
+
+            this.userdata.checkIfMailExists(params.email).then( (exists) => {
+                if(exists)
+                    resolve({result:false});
+    
+                let newuser = this.mappingFromRequestToUserModel(params);
+                
+                this.userdata.createNewUser(newuser).then( (result) => { 
+                    
+                    resolve(result) }  ).catch(err=>reject(err));
+    
+            }).catch(err=>reject(err))
+
+        } );
     }
 
     getUserById(id)
@@ -66,6 +81,20 @@ class userLogic
     {
         let usermod =  this.mappingFromRequestToUserModel(params);
         return this.userdata.updateUserById(id,usermod);
+    }
+
+    login(email, password)
+    {
+        
+        if(email === undefined || password === undefined )
+        {     throw new Error(messages.errNoEmailandPassword)   }
+        
+        return new Promise( (resolve,reject) => {
+            this.userdata.login(email, password).then( (result) =>{
+                //here resolve token
+                resolve( {result:result, token:'sdfsddsffsdf' } ) }
+            ).catch(err=>reject(err))
+        })  
     }
 
 }

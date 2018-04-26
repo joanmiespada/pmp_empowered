@@ -6,6 +6,11 @@ let messages ={
     errPageSizePageNum: 'pageSize or pageNumer are not valid numbers',
     errServerDataIsUnavailable: 'server data is closed',
     errNoUserExistWithId:'no user exist with id',
+    errNotUserFoundByEmail:'not user found by email',
+    errNoEmailandPassword: 'no email and/or password defined',
+    errPasswordIsMandatory:'password is mandatory',
+    errEmailIsMandatory:'email is mandatory',
+
 };
 
 export default messages;
