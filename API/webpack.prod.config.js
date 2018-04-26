@@ -1,6 +1,5 @@
 'use strict';
 var fs = require('fs');
-var webpack = require('webpack');
 var path = require('path');
 
 var nodeModules = {};

@@ -1,5 +1,5 @@
 {
-  "name": "API",
+  "name": "apis-and-microservices",
   "version": "1.0.0",
   "description": "API for website",
   "main": "index.js",
@@ -32,13 +32,16 @@
   },
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
-    "start": "babel-node ./src/index.js",
-    "nodemon": "nodemon ./src/index.js --exec babel-node",
-    "build": "babel src -d dist",
+    "start-loginapi": "babel-node ./src/loginapi.js",
+    "start-userapi": "babel-node ./src/userapi.js",
+    "nodemon-loginapi": "nodemon ./src/loginapi.js --exec babel-node",
+    "nodemon-userapi": "nodemon ./src/userapi.js --exec babel-node",
+    "build-raw": "babel src -d dist",
     "test": "jest",
     "build-dev": "webpack --config webpack.dev.config.js",
     "build-prod": "webpack --config webpack.prod.config.js",
-    "serve-prod": "node ./build/api.js"
+    "serve-prod-loginapi": "node ./build/api.login.js",
+    "serve-prod-userapi": "node ./build/api.userapi.js"
   },
   "dependencies": {
     "bcrypt": "^2.0.1",
