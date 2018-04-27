@@ -8,23 +8,29 @@ class loginData
     {
         return new Promise( (resolve, reject) => {
             if(firebase.db === undefined)
-                reject( new Error(messages.errServerDataIsUnavailable));
+                reject( new Error(messages.errServerDataIsUnavailable))
 
-            let userRef = firebase.db.collection( firebase.tables.users );
-            let query = userRef.where('email','==',email );
+            let userRef = firebase.db.collection( firebase.tables.users )
+            let query = userRef.where('email','==',email )
 
             query.get().then( (snapshot) => {  
 
-                let result;
+                let result, id
                 if(snapshot.empty || snapshot.size >1) 
-                    {  reject(messages.errNotUserFoundByEmail);  }
+                    {  reject(messages.errNotUserFoundByEmail)  }
 
                 snapshot.forEach((doc) => {           
-                    result = this.mappingFromStorageToUserModel(doc.id, doc.data());
+                    result =  doc.data()
+                    id = doc.id
                 });
 
                 encrypt.comparePassword(passwordPlain,result.password)
-                        .then( (canIlogin) => resolve(canIlogin))
+                        .then( (canIlogin) => {
+                            if(canIlogin)
+                                resolve({login:true, user: result, id:id})
+                            else
+                                resolve({login:false, user: undefined, id:undefined})
+                        })
                         .catch( (err) =>  reject(err)  );
             }).catch( (err) => { reject(err); } );
             

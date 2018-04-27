@@ -1,8 +1,8 @@
 
-import userLogic from '../business/user' 
+import loginLogic from '../business/login' 
 import endpoint from './endpoint'
 import messages from '../configs/messages'
-
+import logger from '../crosscutting/logsys'
 
 class loginapi
 {
@@ -16,14 +16,16 @@ class loginapi
 
     login(req,res)
     {
-            let business = new userLogic();
+            let business = new loginLogic();
             business.login(req.body.email,req.body.password )
                 .then((opResult)=>{
+                    logger.app.info(`user ${req.body.email} and id: ${opResult.id} has been logged sucessefully`)
                     res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
-                    res.end( JSON.stringify(opResult));
+                    res.end( JSON.stringify({token: opResult.token}));
                 })
                 .catch((err)=>{
-                    console.log(`login err: ${messages.errNoEmailandPassword}`, err);
+                    //console.log(`login err: ${messages.errNoEmailandPassword}`, err);
+                    logger.app.error(`user ${req.body.email} hasn't been logged properly`,err)
                     res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
                     res.end( messages.errinternalServer);
                 } );

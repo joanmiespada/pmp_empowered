@@ -45,31 +45,6 @@ describe('user testing', ()=>{
         }
 
     })
-
-    it('login ok', async()=>{ 
-        try{
-            let result = await userlayer.login(newuser.email, newuser.password)
-            expect(result.result).toEqual(true)
-        }catch(err){
-            expect(false).toEqual(true)
-        }
-    })
-
-    it('login fail', async()=>{ 
-        try{
-            await userlayer.login(newuser.email, password+password)
-        }catch(err){
-            expect(true).toEqual(true)
-        }
-    })
-    it('login missing params', async()=>{ 
-        try{
-            await userlayer.login(undefined, undefined)
-        }catch(err){
-            expect(true).toEqual(true)
-        }
-    })
-
     it('check if email exist', async()=>{ 
         try{
             let result = await userlayer.checkIfMailExists(newuser.email)

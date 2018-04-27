@@ -23,28 +23,30 @@ class userapi extends endpoint
 
     constructor(router)
     {
-        super(router);
-        this._urlbase = '/users';
+        super(router)
+        this._urlbase = '/users'
         
     }
 
     createNew(req,res)
     {   
-        let business = new userLogic();
+        let business = new userLogic()
         business.createNewUser(req.body).then( (opResult)=> {
             if(opResult.result === true)
             {
-                res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
-                res.end( JSON.stringify(opResult));
+                this._log.debug(`new user created`)
+                res.writeHead(endpoint.Http201, endpoint.ContentTextJson)
+                res.end( JSON.stringify(opResult))
             }else
             {
-                res.writeHead(endpoint.Http400, endpoint.ContentTextPlain);
-                res.end();
+                res.writeHead(endpoint.Http400, endpoint.ContentTextPlain)
+                res.end()
             }
         }).catch( (err)=>{
-            console.log( messages.errGettingUsers, err);
-            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
-            res.end( messages.errinternalServer);
+            //console.log( messages.errGettingUsers, err);
+            this._log.error(`error creating new user`,err)
+            res.writeHead(endpoint.Http500, endpoint.ContentTextPlain)
+            res.end( messages.errinternalServer)
         }); 
         
     }
@@ -58,7 +60,8 @@ class userapi extends endpoint
             res.end( JSON.stringify(opResult));  
         })
         .catch( (err)=>{
-            console.log( messages.errGettingUsers, err);
+            //console.log( messages.errGettingUsers, err)
+            this._log.error(`error getting user by id: ${req.params.id}`,err)
             res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
             res.end( messages.errinternalServer);
         });         
@@ -73,7 +76,8 @@ class userapi extends endpoint
             res.end( JSON.stringify(opResult)); 
         })
         .catch( (err)=>{
-            console.log( messages.errGettingUsers, err);
+            //console.log( messages.errGettingUsers, err);
+            this._log.error(`error updating user by id: ${req.params.id}`,err)
             res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
             res.end( messages.errinternalServer);
         });      
@@ -88,7 +92,8 @@ class userapi extends endpoint
             res.end( JSON.stringify(opResult)); 
         })
         .catch( (err)=>{
-            console.log( messages.errGettingUsers, err);
+            //console.log( messages.errGettingUsers, err);
+            this._log.error(`error deleting user by id: ${req.params.id}`,err)
             res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
             res.end( messages.errinternalServer);
         });   
@@ -110,7 +115,8 @@ class userapi extends endpoint
             res.end( JSON.stringify(listOfusers));
         })
         .catch( (err)=>{
-            console.log( messages.errGettingUsers, err);
+            //console.log( messages.errGettingUsers, err);
+            this._log.error(`error getting all user pageSize: ${position.pageSize} pageNum: ${position.pageNumber}`,err)
             res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
             res.end( messages.errinternalServer);
         });   

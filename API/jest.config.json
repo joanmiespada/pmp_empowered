@@ -1,4 +1,5 @@
 {
+      "testEnvironment": "node",
       "verbose": true,
       "roots": ["<rootDir>/src"]
 }

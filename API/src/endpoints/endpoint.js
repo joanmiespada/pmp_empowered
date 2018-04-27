@@ -1,3 +1,5 @@
+import logger from '../crosscutting/logsys'
+
 const N200 = 200;
 const N201 = 201;
 const N204 = 204;
@@ -21,7 +23,8 @@ class endpoint
 
     constructor(router)
     {
-        this._router= router;
+        this._log = logger.app;
+        this._router = router;
         this.setup();
     }
 
