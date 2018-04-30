@@ -29,4 +29,22 @@ logger.app.info('Cheese is Gouda.');
 logger.app.warn('Cheese is quite smelly.');
 logger.app.error('Cheese is too ripe!');
 logger.app.fatal('Cheese was breeding ground for listeria.');
+
+by decorators!!!!
+function log(target, name, descriptor) {
+        
+            console.log(descriptor)
+            console.log(arguments)
+
+            let fn = descriptor.value;
+            let newFn  = function() {
+                //console.log(custompagarm, name);
+                fn.apply(target, arguments);
+                //console.log(custompagarm, name);
+            };
+            descriptor.value = newFn;
+            return descriptor;
+            
+    
+}
 */

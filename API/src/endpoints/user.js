@@ -31,7 +31,7 @@ class userapi extends endpoint
     createNew(business){
         return (req,res)=>
         {   
-            business.createNewUser(req.body).then( (opResult)=> {
+            business.createNewUser(req.headers.token,req.body).then( (opResult)=> {
                 if(opResult.result === true)
                 {
                     this._log.debug(`new user created`)
@@ -54,9 +54,9 @@ class userapi extends endpoint
 
     getById(business)
     {
-        (req,res)=>
+        return (req,res)=>
         {           
-            business.getUserById(req.params.id)
+            business.getUserById(req.headers.token,req.params.id)
             .then((opResult)=>{
                 res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
                 res.end( JSON.stringify(opResult));  
@@ -71,9 +71,9 @@ class userapi extends endpoint
     }
 
     updateById(business){
-        (req,res)=>
+        return (req,res)=>
         {
-            business.updateUserById(req.params.id,req.body)
+            business.updateUserById(req.headers.token,req.params.id,req.body)
             .then((opResult)=> {
                 res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
                 res.end( JSON.stringify(opResult)); 
@@ -88,9 +88,9 @@ class userapi extends endpoint
     }
 
     deleteById(business){
-        (req,res)=>
+        return (req,res)=>
         {
-            business.deleteUserById(req.params.id)
+            business.deleteUserById(req.headers.token,req.params.id)
             .then((opResult)=> {
                 res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
                 res.end( JSON.stringify(opResult)); 
@@ -105,7 +105,7 @@ class userapi extends endpoint
     }
 
     getAll(business){
-        (req,res)=>
+        return (req,res)=>
         {
             let position = extracPageNumberPageSize(req.params);
             if( position === undefined )
@@ -114,8 +114,7 @@ class userapi extends endpoint
                 res.end(messages.wrongPageSize);
                 return;
             }    
-
-            business.getAllUsers(position.pageSize, position.pageNumber)
+            business.getAllUsers(req.headers.token, position.pageSize, position.pageNumber)
             .then((listOfusers)=>{
                 res.writeHead(endpoint.Http200, endpoint.ContentTextJson);
                 res.end( JSON.stringify(listOfusers));

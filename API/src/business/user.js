@@ -1,13 +1,19 @@
 
-import userModel from '../models/user';
-import { isNumber } from 'util';
-import messages from '../configs/messages';
-import apiparams from '../configs/apiparams';
+import userModel from '../models/user'
+import { isNumber } from 'util'
+import messages from '../configs/messages'
+import apiparams from '../configs/apiparams'
 
-class userLogic
+import business from './business'
+
+
+     
+
+class userLogic extends business
 {
     constructor(dataaccess)
     {
+        super();
         this.userdata = dataaccess
     }
 
@@ -24,6 +30,8 @@ class userLogic
 
     getAllUsers(uToken,pageSize,pageNum)
     {
+        this.checkUserToken(uToken)
+            
         if (  pageSize>=apiparams.pageSizeMin && pageSize<=apiparams.pageSizeMax 
                             && isNumber(pageNum)  )
             return this.userdata.getAllUsers(pageSize,pageNum)
@@ -31,12 +39,12 @@ class userLogic
             throw new Error(messages.errPageSizePageNum) 
     }
 
-    createNewUser(params, userTokenRequired = true)
+    createNewUser(uToken,params, userTokenRequired = true)
     {
         return new Promise( (resolve,reject) => {
 
-            if(userTokenRequired && params.token === undefined) 
-                { reject(messages.errTokenIsMandatory)  }
+            if(userTokenRequired) 
+                this.checkUserToken(uToken)
 
             if(params.email === undefined) 
                 { reject(messages.errEmailIsMandatory)  }
@@ -52,7 +60,7 @@ class userLogic
                 
                 this.userdata.createNewUser(newuser).then( (result) => { 
                     
-                    resolve(result) }  ).catch(err=>reject(err));
+                    resolve(result) }  ).catch(err=>reject(err))
     
             }).catch(err=>reject(err))
 
@@ -61,19 +69,21 @@ class userLogic
 
     getUserById(uToken,id)
     {
-        return this.userdata.getUserById(id);
+        this.checkUserToken(uToken)
+        return this.userdata.getUserById(id)
     }
 
     getUsersByEmail(uToken,email)
     {
-        return this.userdata.getUsersByEmail(email);
+        this.checkUserToken(uToken)
+        return this.userdata.getUsersByEmail(email)
     }
 
     deleteUserById(uToken,id,userTokenRequired = true)
     {
         return new Promise((resolve,reject)=>{
-            if(userTokenRequired && uToken === undefined) 
-                    { reject(messages.errTokenIsMandatory)  }
+            if(userTokenRequired ) 
+                this.checkUserToken(uToken)
 
             this.userdata.deleteUserById(id)
                 .then( (result)=> resolve(result) )
@@ -84,11 +94,13 @@ class userLogic
 
     checkIfMailExists(uToken,email)
     {
+        this.checkUserToken(uToken)
         return this.userdata.checkIfMailExists(email);
     }
 
     updateUserById(uToken,id,params)
     {
+        this.checkUserToken(uToken)
         let usermod =  this.mappingFromRequestToUserModel(params);
         return this.userdata.updateUserById(id,usermod);
     }

@@ -8,7 +8,7 @@ import compression from 'compression'
 import logger from './crosscutting/logsys'
 import shutdown from './crosscutting/shutdown'
 
-import userapi from './endpoints/user'
+import userApi from './endpoints/user'
 import userLogic from './business/user'
 import userData from './data/user' 
 
@@ -24,7 +24,7 @@ app.use(logger.log4js.connectLogger(logger.http, { level: 'auto' }))
 let port = 8081
 let version = '/v1'
 
-let user_api = new userapi( express.Router(), 
+let user_api = new userApi( express.Router(), 
                             new userLogic( new userData() ) )
 app.use(version + user_api.urlbase, user_api.router)
 
