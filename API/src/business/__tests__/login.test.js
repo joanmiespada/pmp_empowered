@@ -20,7 +20,7 @@ describe('login testing', ()=>{
     let newid= undefined
     it('create new user', async()=>{
         try{
-            const result = await userlayer.createNewUser(newuser, false)
+            const result = await userlayer.createNewUser(undefined,newuser, false)
             newid = result.id
             expect(result).toBeDefined()
             expect(result.result).toEqual(true)
@@ -68,7 +68,7 @@ describe('login testing', ()=>{
 
     it('delete existing user', async()=>{ 
         try{
-            await userlayer.deleteUserById('',newid,false)
+            await userlayer.deleteUserById(undefined,newid,false)
             expect(true).toEqual(true)
         }catch(err){
             expect(false).toEqual(true)

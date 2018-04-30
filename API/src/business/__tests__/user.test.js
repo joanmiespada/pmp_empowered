@@ -23,7 +23,7 @@ describe('user testing', ()=>{
     let newid=undefined
     it('create new user', async()=>{
         try{
-            const result = await userlayer.createNewUser(newuser,false)
+            const result = await userlayer.createNewUser(undefined,newuser,false)
             newid = result.id;
             expect(result).toBeDefined()
             expect(result.result).toEqual(true)
