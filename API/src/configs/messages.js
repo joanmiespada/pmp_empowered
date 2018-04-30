@@ -10,7 +10,7 @@ let messages ={
     errNoEmailandPassword: 'no email and/or password defined',
     errPasswordIsMandatory:'password is mandatory',
     errEmailIsMandatory:'email is mandatory',
-
+    errTokenIsMandatory:'user token is mandatory, please login first'
 };
 
 export default messages;

@@ -11,15 +11,6 @@ class userLogic
         this.userdata = new userData();
     }
 
-    getAllUsers(pageSize,pageNum)
-    {
-        if (  pageSize>=apiparams.pageSizeMin && pageSize<=apiparams.pageSizeMax 
-                            && isNumber(pageNum)  )
-            return this.userdata.getAllUsers(pageSize,pageNum);
-        else
-            throw new Error(messages.errPageSizePageNum); 
-    }
-
     mappingFromRequestToUserModel(params)
     {
         let use = new userModel();   
@@ -31,9 +22,21 @@ class userLogic
         return use; 
     }
 
-    createNewUser(params)
+    getAllUsers(uToken,pageSize,pageNum)
+    {
+        if (  pageSize>=apiparams.pageSizeMin && pageSize<=apiparams.pageSizeMax 
+                            && isNumber(pageNum)  )
+            return this.userdata.getAllUsers(pageSize,pageNum);
+        else
+            throw new Error(messages.errPageSizePageNum); 
+    }
+
+    createNewUser(params, userTokenRequired = true)
     {
         return new Promise( (resolve,reject) => {
+
+            if(userTokenRequired && params.token === undefined) 
+                { reject(messages.errTokenIsMandatory)  }
 
             if(params.email === undefined) 
                 { reject(messages.errEmailIsMandatory)  }
@@ -56,28 +59,35 @@ class userLogic
         } );
     }
 
-    getUserById(id)
+    getUserById(uToken,id)
     {
         return this.userdata.getUserById(id);
     }
 
-    getUsersByEmail(email)
+    getUsersByEmail(uToken,email)
     {
         return this.userdata.getUsersByEmail(email);
-        //return this.userdata.getAllUsers(10,1);
     }
 
-    deleteUserById(id)
+    deleteUserById(uToken,id,userTokenRequired = true)
     {
-        return this.userdata.deleteUserById(id); 
+        return new Promise((resolve,reject)=>{
+            if(userTokenRequired && uToken === undefined) 
+                    { reject(messages.errTokenIsMandatory)  }
+
+            this.userdata.deleteUserById(id)
+                .then( (result)=> resolve(result) )
+                .catch( (err) => reject(err))
+        })
+        
     }
 
-    checkIfMailExists(email)
+    checkIfMailExists(uToken,email)
     {
         return this.userdata.checkIfMailExists(email);
     }
 
-    updateUserById(id,params)
+    updateUserById(uToken,id,params)
     {
         let usermod =  this.mappingFromRequestToUserModel(params);
         return this.userdata.updateUserById(id,usermod);

@@ -36,6 +36,12 @@ class loginLogic
         })  
     }
 
+    logout(uToken)
+    {
+        logger.app.debug(`token: ${uToken}`)
+        return true;
+    }
+
 }
 
 export default loginLogic;

@@ -3,11 +3,6 @@ import loginLogic from '../login'
 import expect from 'expect'
 import chance from 'chance'
 import generator from 'generate-password'
-import logger from '../../crosscutting/logsys'
-
-beforeEach(() => {
-    logger.app.info('Starting.....');
-  });
 
 describe('login testing', ()=>{
 
@@ -23,7 +18,7 @@ describe('login testing', ()=>{
     let newid= undefined
     it('create new user', async()=>{
         try{
-            const result = await userlayer.createNewUser(newuser)
+            const result = await userlayer.createNewUser(newuser, false)
             newid = result.id
             expect(result).toBeDefined()
             expect(result.result).toEqual(true)
@@ -34,11 +29,21 @@ describe('login testing', ()=>{
 
     })
 
-
+    let uToken = undefined
     it('login ok', async()=>{ 
         try{
             let result = await loginLayer.login(newuser.email, newuser.password)
-            expect(result.result).toEqual(true)
+            uToken = result.token
+            expect(result.token).toBeTruthy()
+        }catch(err){
+            expect(false).toEqual(true)
+        }
+    })
+
+    it('login out', async()=>{ 
+        try{
+            let result = await loginLayer.logout(uToken)
+            expect(result).toEqual(true)
         }catch(err){
             expect(false).toEqual(true)
         }
@@ -61,7 +66,7 @@ describe('login testing', ()=>{
 
     it('delete existing user', async()=>{ 
         try{
-            await userlayer.deleteUserById(newid)
+            await userlayer.deleteUserById('',newid,false)
             expect(true).toEqual(true)
         }catch(err){
             expect(false).toEqual(true)

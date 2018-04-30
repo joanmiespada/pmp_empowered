@@ -20,7 +20,7 @@ app.use(logger.log4js.connectLogger(logger.http, { level: 'auto' }))
 let port = 8080
 let version = '/v1'
 
-let login_api = new loginapi( express.Router() )
+let login_api = new loginapi( express.Router())
 app.use(version + login_api.urlbase, login_api.router)
 
 let server = app.listen(port, () => { 
