@@ -1,13 +1,13 @@
-import loginData from '../data/login'
+
 import messages from '../configs/messages'
 import createJWTtoken from '../crosscutting/encrypt'
 import logger from '../crosscutting/logsys'
 
 class loginLogic
 {
-    constructor()
+    constructor( dataaccess)
     {
-        this.userdata = new loginData();
+        this.userdata = dataaccess// new loginData();
     }
 
     login(email, password)

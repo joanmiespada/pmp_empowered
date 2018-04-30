@@ -1,13 +1,15 @@
 import userLogic from '../user'
 import loginLogic from '../login'
+import loginData from '../../data/login'
+import userData from '../../data/user'
 import expect from 'expect'
 import chance from 'chance'
 import generator from 'generate-password'
 
 describe('user testing', ()=>{
 
-    let userlayer = new userLogic()
-    let loginLayer = new loginLogic()
+    let userlayer = new userLogic( new userData() )
+    let loginLayer = new loginLogic( new loginData() )
 
     let random = new chance()
     let password = generator.generate({

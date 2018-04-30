@@ -4,9 +4,13 @@ import morgan from 'morgan'
 import methodOverride from 'method-override'
 import helmet from 'helmet'
 import compression from 'compression'
-import loginapi from './endpoints/login'
+
 import logger from './crosscutting/logsys'
 import shutdown from './crosscutting/shutdown'
+
+import loginapi from './endpoints/login'
+import loginData from './data/login'
+import loginLogic from './business/login' 
 
 let app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -20,7 +24,8 @@ app.use(logger.log4js.connectLogger(logger.http, { level: 'auto' }))
 let port = 8080
 let version = '/v1'
 
-let login_api = new loginapi( express.Router())
+let login_api = new loginapi( express.Router(),
+                              new loginLogic( new loginData()))
 app.use(version + login_api.urlbase, login_api.router)
 
 let server = app.listen(port, () => { 

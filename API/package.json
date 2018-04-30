@@ -39,7 +39,7 @@
     "build-raw": "babel src -d dist",
     "test": "jest --config jest.config.json --coverage",
     "build-dev": "webpack --config webpack.dev.config.js",
-    "build-prod": "webpack --config webpack.prod.config.js",
+    "build-prod": "webpack --config webpack.prod.loginapi.config.js && webpack --config webpack.prod.userapi.config.js ",
     "serve-prod-loginapi": "node ./build/api.login.js",
     "serve-prod-userapi": "node ./build/api.userapi.js"
   },

@@ -1,5 +1,4 @@
 'use strict';
-var webpack = require('webpack');
 var fs = require('fs');
 var path = require('path');
 
@@ -13,22 +12,14 @@ fs.readdirSync('node_modules')
   });
 
 const config = {
-    mode:'development',
+    mode:'production',
     target:'node',
-    entry: [ './src/loginapi.js'],
+    entry: ['./src/userapi.js'],
     output: {
         path: path.join(__dirname, 'build'),
-        filename: 'api.login.js'
+        filename: 'api.user.js'
     },
-    externals: nodeModules, 
-    plugins: [
-        new webpack.IgnorePlugin(/\.(css|less)$/),
-        new webpack.BannerPlugin('require("source-map-support").install();')
-      ],
-    devtool:'source-map',
-    stats:{
-        colors:true
-    },
+    externals: nodeModules
     
 }
 

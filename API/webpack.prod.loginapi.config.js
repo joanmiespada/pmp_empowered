@@ -14,10 +14,10 @@ fs.readdirSync('node_modules')
 const config = {
     mode:'production',
     target:'node',
-    entry: ['./src/index.js'],
+    entry: ['./src/loginapi.js'],
     output: {
         path: path.join(__dirname, 'build'),
-        filename: 'api.js'
+        filename: 'api.login.js'
     },
     externals: nodeModules
     

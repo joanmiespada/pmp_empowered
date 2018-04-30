@@ -1,4 +1,4 @@
-import userData from '../data/user'
+
 import userModel from '../models/user';
 import { isNumber } from 'util';
 import messages from '../configs/messages';
@@ -6,29 +6,29 @@ import apiparams from '../configs/apiparams';
 
 class userLogic
 {
-    constructor()
+    constructor(dataaccess)
     {
-        this.userdata = new userData();
+        this.userdata = dataaccess
     }
 
     mappingFromRequestToUserModel(params)
     {
-        let use = new userModel();   
-        use.Id = params.id;
-        use.Email = params.email;
-        use.Name = params.name;
-        use.Surname = params.surname;
-        use.Password = params.password;
-        return use; 
+        let use = new userModel() 
+        use.Id = params.id
+        use.Email = params.email
+        use.Name = params.name
+        use.Surname = params.surname
+        use.Password = params.password
+        return use
     }
 
     getAllUsers(uToken,pageSize,pageNum)
     {
         if (  pageSize>=apiparams.pageSizeMin && pageSize<=apiparams.pageSizeMax 
                             && isNumber(pageNum)  )
-            return this.userdata.getAllUsers(pageSize,pageNum);
+            return this.userdata.getAllUsers(pageSize,pageNum)
         else
-            throw new Error(messages.errPageSizePageNum); 
+            throw new Error(messages.errPageSizePageNum) 
     }
 
     createNewUser(params, userTokenRequired = true)

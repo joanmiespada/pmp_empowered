@@ -21,36 +21,37 @@ class endpoint
    static get ContentTextPlain(){ return contentTextPlain;}
    static get ContentTextJson(){ return contentTextJson;}
 
-    constructor(router)
+    constructor(router,business)
     {
         this._log = logger.app;
         this._router = router;
-        this.setup();
+        this.setup(business);
     }
 
     get router() {  return this._router; }
     get urlbase() { return this._urlbase; }
 
-    setup(){
+    setup(business){
 
         //Retrieve all users
-        this._router.get('/:pageSize/:pageNumber', this.getAll);
+        this._router.get('/:pageSize/:pageNumber', this.getAll(business));
         //create a new user
-        this._router.post('/', this.createNew);
+        this._router.post('/', this.createNew(business));
         //Retrieve single user
-        this._router.get('/:id', this.getById);
+        this._router.get('/:id', this.getById(business));
         //Update user by Id
-        this._router.put('/:id', this.updateById);
+        this._router.put('/:id', this.updateById(business));
         //Delete user by Id
-        this._router.delete('/:id', this.deleteById);
+        this._router.delete('/:id', this.deleteById(business));
                 
     }
-
+/*
     createNew(){}
     getById(){}
     updateById(){}
     deleteById(){}
     getAll(){}
+    */
 
 }
 
