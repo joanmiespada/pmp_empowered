@@ -7,13 +7,11 @@ class loginLogic
 {
     constructor( dataaccess)
     {
-        this.userdata = dataaccess// new loginData();
+        this.userdata = dataaccess
     }
 
     login(email, password)
     {
-
-        logger.app.debug(`email: ${email} pass: ${password}`)
         if(email === undefined || password === undefined )
         {     throw new Error(messages.errNoEmailandPassword)   }
         

@@ -11,7 +11,7 @@ class loginData
                 reject( new Error(messages.errServerDataIsUnavailable))
 
             let userRef = firebase.db.collection( firebase.tables.users )
-            let query = userRef.where('email','==',email )
+            let query = userRef.where('data.email','==',email )
 
             query.get().then( (snapshot) => {  
 
@@ -23,11 +23,11 @@ class loginData
                     result =  doc.data()
                     id = doc.id
                 });
-
-                encrypt.comparePassword(passwordPlain,result.password)
+                
+                encrypt.comparePassword(passwordPlain,result.data.password)
                         .then( (canIlogin) => {
                             if(canIlogin)
-                                resolve({login:true, user: result, id:id})
+                                resolve({login:true, user: result.data, id:id})
                             else
                                 resolve({login:false, user: undefined, id:undefined})
                         })

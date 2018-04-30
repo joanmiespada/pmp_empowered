@@ -25,7 +25,7 @@ class userData
             if(firebase.db === undefined)
                 reject( new Error(messages.errServerDataIsUnavailable))
             let userRef = firebase.db.collection( firebase.tables.users );
-            let query = userRef.orderBy('surname').startAt(pageSize * (pageNum-1) ).limit(pageSize);
+            let query = userRef.orderBy('data.surname').startAt(pageSize * (pageNum-1) ).limit(pageSize);
 
             query.get().then( (snapshot) => {  
 
@@ -51,11 +51,19 @@ class userData
             
             encrypt.cryptPassword(usermodel.password).then( (pass_hash)=> { 
 
-                let obj={  
-                    email : usermodel.email,
-                    name : usermodel.name,
-                    surname : usermodel.surname,
-                    password: pass_hash
+                let obj={
+                    meta:{
+                        email : 'string',
+                        name : 'string',
+                        surname : 'string',
+                        password:  'string'
+                    },
+                    data:{  
+                        email : usermodel.email,
+                        name : usermodel.name,
+                        surname : usermodel.surname,
+                        password: pass_hash
+                    }
                 };
     
                 newUserDocRef.set(obj).then( ()=>resolve({result:true, id:id }) ).catch((err) => { reject(err); });
@@ -81,11 +89,11 @@ class userData
                 let userInDb = doc.data();
 
                 if(usermodel.email != undefined)
-                    userInDb.email = usermodel.email;
+                    userInDb.data.email = usermodel.email;
                 if(usermodel.name != undefined)
-                    userInDb.name = usermodel.name;
+                    userInDb.data.name = usermodel.name;
                 if(usermodel.surname != undefined)
-                    userInDb.surname = usermodel.surname;
+                    userInDb.data.surname = usermodel.surname;
 
                 newUserDocRef.set(userInDb);
                 resolve(true);
@@ -97,17 +105,17 @@ class userData
     {
         return new Promise( (resolve,reject) => {
             if(firebase.db === undefined)
-                reject( new Error(messages.errServerDataIsUnavailable));
+                reject( new Error(messages.errServerDataIsUnavailable))
 
-            let userRef = firebase.db.collection( firebase.tables.users );
-            let query = userRef.where('email','==',email );
+            let userRef = firebase.db.collection( firebase.tables.users )
+            let query = userRef.where('data.email','==',email )
             
             query.get().then((snapshot) => { 
                     if(snapshot.size === 0)
-                        resolve(false);
+                        resolve(false)
                     else
-                        resolve(true);
-            }).catch((err) => {reject(err)});
+                        resolve(true)
+            }).catch((err) => {reject(err)})
         });
     }
 
@@ -115,10 +123,10 @@ class userData
     {
         return new Promise( (resolve, reject) => {
             if(firebase.db === undefined)
-                reject( new Error(messages.errServerDataIsUnavailable));
+                reject( new Error(messages.errServerDataIsUnavailable))
 
-            let userRef = firebase.db.collection( firebase.tables.users ).doc(id);
-            userRef.delete().then(()=>{resolve(true)}).catch(err=>reject(err));
+            let userRef = firebase.db.collection( firebase.tables.users ).doc(id)
+            userRef.delete().then(()=>{resolve(true)}).catch(err=>reject(err))
         });
     }
     
@@ -126,13 +134,14 @@ class userData
     {
         return new Promise( (resolve, reject) => {
             if(firebase.db === undefined)
-                reject( new Error(messages.errServerDataIsUnavailable));
+                reject( new Error(messages.errServerDataIsUnavailable))
 
-            let userRef = firebase.db.collection( firebase.tables.users ).doc(id);
+            let userRef = firebase.db.collection( firebase.tables.users ).doc(id)
             userRef.get().then((doc)=>{
-                let user = this.mappingFromStorageToUserModel(doc.id, doc.data())
-                resolve(user);
-            }).catch(err=>reject(err));
+                let userDataMeta = doc.data()
+                let user = this.mappingFromStorageToUserModel(doc.id,userDataMeta.data )
+                resolve(user)
+            }).catch(err=>reject(err))
         });
     }
 
@@ -140,18 +149,19 @@ class userData
     {
         return new Promise( (resolve, reject) => {
             if(firebase.db === undefined)
-                reject( new Error(messages.errServerDataIsUnavailable));
+                reject( new Error(messages.errServerDataIsUnavailable))
 
-            let userRef = firebase.db.collection( firebase.tables.users );
-            let query = userRef.where('email','==',email );
+            let userRef = firebase.db.collection( firebase.tables.users )
+            let query = userRef.where('data.email','==',email )
 
             query.get().then( (snapshot) => {  
 
-                let result = [];
-                if(snapshot.empty) return result;
+                let result = []
+                if(snapshot.empty) return result
 
-                snapshot.forEach((doc) => {           
-                    result.push(this.mappingFromStorageToUserModel(doc.id, doc.data()));
+                snapshot.forEach((doc) => {
+                    let userDataMeta = doc.data()           
+                    result.push(this.mappingFromStorageToUserModel(doc.id, userDataMeta.data))
                 });
                 
                 resolve(result);
@@ -159,34 +169,6 @@ class userData
             
         });
     }
-
-    login(email,passwordPlain)
-    {
-        return new Promise( (resolve, reject) => {
-            if(firebase.db === undefined)
-                reject( new Error(messages.errServerDataIsUnavailable));
-
-            let userRef = firebase.db.collection( firebase.tables.users );
-            let query = userRef.where('email','==',email );
-
-            query.get().then( (snapshot) => {  
-
-                let result;
-                if(snapshot.empty || snapshot.size >1) 
-                    {  reject(messages.errNotUserFoundByEmail);  }
-
-                snapshot.forEach((doc) => {           
-                    result = this.mappingFromStorageToUserModel(doc.id, doc.data());
-                });
-
-                encrypt.comparePassword(passwordPlain,result.password)
-                        .then( (canIlogin) => resolve(canIlogin))
-                        .catch( (err) =>  reject(err)  );
-            }).catch( (err) => { reject(err); } );
-            
-        });
-    }
-
 
 }
 
