@@ -7,5 +7,6 @@ Explore the repo:
 
 [API](./API/readme.md)
 
-WEB 
+[WEB](./web/readme.md)
+ 
 
