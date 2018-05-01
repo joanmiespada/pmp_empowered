@@ -4,7 +4,7 @@ import loginData from '../../data/login'
 import userData from '../../data/user'
 import expect from 'expect'
 import chance from 'chance'
-import generator from 'generate-password'
+//import generator from 'generate-password'
 
 describe('user testing', ()=>{
 
@@ -12,10 +12,11 @@ describe('user testing', ()=>{
     let loginLayer = new loginLogic( new loginData() )
 
     let random = new chance()
-    let password = generator.generate({
-        length: 10,
-        numbers: true
-    });
+    //let password = generator.generate({
+    //    length: 10,
+    //    numbers: true
+    //});
+    let password='pepe'
 
 
     
