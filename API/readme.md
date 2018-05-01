@@ -17,8 +17,9 @@ The technical stack is:
 | Eslint        | Linting for code style quality  |
 | log4js        | Loggin errors and app's messages|
 | JWT           | Json Web Tokens to protect you API |
+| Docker        | Api Dockerized                    |
 
-To execute it:
+To install dependencies:
 ```
 yarn install
 ``` 
@@ -29,5 +30,23 @@ Firt of all, starting with `loginapi`with command: `yarn nodemon-loginapi`.
 If you want execute CRUD operations to create users then run `yarn nodemon-userapi`. 
 
 Production: [![Build Status](https://travis-ci.org/joanmiespada/pmp_empowered.svg?branch=production)](https://travis-ci.org/joanmiespada/pmp_empowered)
+
+# Setup
+
+1) Create an account on Google Firebase.
+2) Download credentials file with API keys. It's a json file with all info together. 
+3) Create `.env` file in API folder with this structure:
+```
+FIREBASE_PRIVATE_KEY_CERT_FILE=<file name with the Firebase cert content>
+FIREBASE_PRIVATE_KEY_ID=<copy here firebase private key ID>
+FIREBASE_CLIENT_ID=<client id>
+PASSWORD_SALT=<write a number between 5 to 100>
+PASSWORD_JWT=<write random text with numbers and letters, 20 characters should be enought>
+```
+
+# Compile
+
+Please, read package.json scripts section. You'll be able to find some interesting options.
+
 
 
