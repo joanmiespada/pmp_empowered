@@ -1,4 +1,4 @@
-const elem = {
+module.exports = {
   plugins: {
     'postcss-cssnext': {
       warnForDuplicates: false,
@@ -6,4 +6,3 @@ const elem = {
     cssnano: {},
   },
 };
-export default elem;

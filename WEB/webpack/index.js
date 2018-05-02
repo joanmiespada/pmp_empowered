@@ -1,12 +1,15 @@
 const { resolve } = require('path');
 const vendor = require('./vendor');
 const rules = require('./rules');
-const plugins = require('./plugins.short');
+const plugins = require('./plugins');
 const devServer = require('./dev_server');
 const devtool = require('./devtool');
+const optimize = require('./optimize')
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 const settings = {
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   resolve: {
     extensions: ['*', '.js', '.jsx', '.css', '.scss'],
   },
@@ -29,5 +32,6 @@ const settings = {
   plugins,
   devServer,
   devtool,
+  optimization: isProduction ? optimize : {}
 };
 module.exports = settings;

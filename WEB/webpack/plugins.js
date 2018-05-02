@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const {GenerateSW} = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -44,38 +44,20 @@ if (isProduction) {
       minimize: true,
       debug: false,
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true,
-      },
-      output: {
-        comments: false,
-      },
-    }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new CopyWebpackPlugin([{
       from: require.resolve('workbox-sw'),
       to: 'workbox-sw.prod.js',
     }]),
-    new WorkboxPlugin({
+    new GenerateSW({
       globDirectory: dist,
       globPatterns: ['**/*.{html,js,css}'],
-      swSrc: join('src', 'service-worker.js'),
+      //swSrc: join('src', 'service-worker.js'),
       swDest: join(dist, 'service-worker.js'),
       clientsClaim: true,
       skipWaiting: true,
       navigateFallback: '/index.html',
-    }),
+    })
   );
 } else {
   plugins.push(
@@ -83,7 +65,7 @@ if (isProduction) {
       debug: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new BundleAnalyzerPlugin(),
-  );
+    new BundleAnalyzerPlugin()
+    );
 }
 module.exports = plugins;
