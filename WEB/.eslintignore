@@ -1,5 +1,5 @@
 webpack/*.js
-dist/*.js
+dist/
 src/service-worker.js
 **/node_modules/
 **/build/
