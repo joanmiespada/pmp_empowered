@@ -1,23 +1,11 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
-import { Layout, Panel } from 'react-toolbox';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import Login from './login';
-
-const LoginWrapper = () => (
-  <Layout>
-    <Panel>
-      <Login showme={false} />
-    </Panel>
-  </Layout>
-);
-
 
 const Routing = () => (
-  <Router>
-    <Route path="/" component={App} />
-    <Route path="login" component={LoginWrapper} />
-  </Router>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
 
 export default Routing;

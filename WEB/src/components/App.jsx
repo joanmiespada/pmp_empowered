@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, IconButton, Layout, NavDrawer, Panel, Sidebar, FontIcon } from 'react-toolbox';
+import { AppBar, IconButton, Layout, NavDrawer, MenuItem, MenuDivider, Panel, Sidebar, FontIcon } from 'react-toolbox';
 
 import Login from './login';
 
@@ -12,10 +12,6 @@ class App extends Component {
       sidebarPinned: false,
       loginDialog: false,
     };
-  }
-
-  componentDidMount() {
-    console.log('I was triggered during componentDidMount');
   }
 
   toggleDrawerActive = () => {
@@ -40,9 +36,11 @@ class App extends Component {
           permanentAt="xxxl"
           onOverlayClick={this.toggleDrawerActive}
         >
-          <p>
-            Navigation, account switcher, etc. go here.
-          </p>
+          <MenuItem value="download" icon="get_app" caption="Download" />
+          <MenuItem value="help" icon="favorite" caption="Favorite" />
+          <MenuItem value="settings" icon="open_in_browser" caption="Open in app" />
+          <MenuDivider />
+          <MenuItem value="signout" icon="delete" caption="Delete" disabled />
         </NavDrawer>
         <Panel>
           <AppBar
