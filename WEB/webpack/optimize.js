@@ -1,19 +1,19 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const optimize={
-    minimizer: [
-        new UglifyJSPlugin({
-          uglifyOptions: {
-            beautify: false,
-            compress: true,
-            comments: false,
-            mangle: false,
-            toplevel: false,
-            keep_fnames: true 
-          }
-        }),
-      ]
-}
+const optimize = {
+  minimizer: [
+    new UglifyJSPlugin({
+      uglifyOptions: {
+        beautify: false,
+        compress: true,
+        comments: false,
+        mangle: false,
+        toplevel: false,
+        keep_fnames: true,
+      },
+    }),
+  ],
+};
 
 module.exports = optimize;
 

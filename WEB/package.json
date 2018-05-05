@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "eslint .",
+    "linter": "eslint .",
     "start": "NODE_ENV=development webpack-dev-server --inline",
     "build": "NODE_ENV=production webpack"
   },
@@ -41,6 +41,7 @@
     "postcss-loader": "^2.1.4",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.1.2",
@@ -60,6 +61,7 @@
     "react-loadable": "^5.3.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-toolbox": "^2.0.0-beta.12",
     "react-virtualized": "^9.18.5",

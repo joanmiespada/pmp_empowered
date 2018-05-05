@@ -79,7 +79,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  showme: PropTypes.string.isRequired,
+  showme: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
 };
 

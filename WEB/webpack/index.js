@@ -4,7 +4,7 @@ const rules = require('./rules');
 const plugins = require('./plugins');
 const devServer = require('./dev_server');
 const devtool = require('./devtool');
-const optimize = require('./optimize')
+const optimize = require('./optimize');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -17,7 +17,7 @@ const settings = {
   entry: {
     app: [
       'react-hot-loader/patch',
-      'babel-polyfill',
+      // 'babel-polyfill',
       './src/index',
     ],
     vendor,
@@ -32,6 +32,6 @@ const settings = {
   plugins,
   devServer,
   devtool,
-  optimization: isProduction ? optimize : {}
+  optimization: isProduction ? optimize : {},
 };
 module.exports = settings;
