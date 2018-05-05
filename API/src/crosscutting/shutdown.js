@@ -4,9 +4,7 @@ exports.gracefulShutdown = (srv, customClose)=> {
     let server = srv
     return ()=>{
         
-        logger.log.app("Received kill signal, shutting down gracefully.")
-        server.close(()=>{
-                logger.app.info("Closed out remaining connections.")
+        server.close(()=>{               
                 customClose()
                 process.exit()
             })
