@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import Routing from './components/Routing';
-//import App from './components/App';
+import App from './components/App';
 
 const render = (Component) => {
   ReactDOM.render(
@@ -17,7 +16,7 @@ const render = (Component) => {
     });
   }
 };
-render(Routing);
+render(App);
 
 if (module.hot) {
   module.hot.accept();

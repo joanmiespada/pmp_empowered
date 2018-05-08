@@ -1,15 +1,34 @@
 import React, { Component } from 'react';
-import { AppBar, IconButton, Layout, NavDrawer, MenuItem, MenuDivider, Panel, Sidebar, FontIcon } from 'react-toolbox';
+import { AppBar, Layout, NavDrawer, Panel, FontIcon } from 'react-toolbox';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  BrowserRouter,
+} from 'react-router-dom';
+import Login from './Login';
+import MenuOption from './MenuOption';
 
-import Login from './login';
+
+const Home = () => (
+  <p> Home<br />matches.</p>
+);
+
+const WillMatch = () => <h3>Matched!</h3>;
+
+const NoMatch = () => (
+  <div>
+    <h3>
+      No matched component
+    </h3>
+  </div>
+);
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       drawerActive: false,
-      drawerPinned: false,
-      sidebarPinned: false,
       loginDialog: false,
     };
   }
@@ -17,50 +36,44 @@ class App extends Component {
   toggleDrawerActive = () => {
     this.setState({ drawerActive: !this.state.drawerActive });
   };
-  toggleDrawerPinned = () => {
-    this.setState({ drawerPinned: !this.state.drawerPinned });
-  };
-  toggleSidebar = () => {
-    this.setState({ sidebarPinned: !this.state.sidebarPinned });
-  };
+
   loginOpen = () => {
     this.setState({ loginDialog: !this.state.loginDialog });
   }
 
   render() {
     return (
-      <Layout>
-        <Login showme={this.state.loginDialog} handleToggle={this.loginOpen} />
-        <NavDrawer
-          active={this.state.drawerActive}
-          permanentAt="xxxl"
-          onOverlayClick={this.toggleDrawerActive}
-        >
-          <MenuItem value="download" icon="get_app" caption="Download" />
-          <MenuItem value="help" icon="favorite" caption="Favorite" />
-          <MenuItem value="settings" icon="open_in_browser" caption="Open in app" />
-          <MenuDivider />
-          <MenuItem value="signout" icon="delete" caption="Delete" disabled />
-        </NavDrawer>
-        <Panel>
-          <AppBar
-            title="Pmp enhanced"
-            leftIcon="menu"
-            rightIcon={<FontIcon value="account_circle" />}
-            onLeftIconClick={this.toggleDrawerActive}
-            onRightIconClick={this.loginOpen}
-          />
-          <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
-            <h1>Welcome</h1>
-          </div>
-        </Panel>
-        <Sidebar pinned={this.state.sidebarPinned} width={5}>
-          <div><IconButton icon="close" onClick={this.toggleSidebar} /></div>
-          <div style={{ flex: 1 }}>
-            <p>Supplemental content goes here.</p>
-          </div>
-        </Sidebar>
-      </Layout>
+      <BrowserRouter>
+        <Router>
+          <Layout>
+            <Login showme={this.state.loginDialog} handleToggle={this.loginOpen} />
+            <NavDrawer
+              active={this.state.drawerActive}
+              permanentAt="xxxl"
+              onOverlayClick={this.toggleDrawerActive}
+            >
+              <MenuOption close={this.toggleDrawerActive} label="User List" url="/users" />
+              <MenuOption close={this.toggleDrawerActive} label="Task List" url="/tasks" />
+            </NavDrawer>
+            <Panel>
+              <AppBar
+                title="Pmp enhanced"
+                leftIcon="menu"
+                rightIcon={<FontIcon value="account_circle" />}
+                onLeftIconClick={this.toggleDrawerActive}
+                onRightIconClick={this.loginOpen}
+              />
+              <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/users" component={WillMatch} />
+                  <Route component={NoMatch} />
+                </Switch>
+              </div>
+            </Panel>
+          </Layout>
+        </Router>
+      </BrowserRouter>
     );
   }
 }
