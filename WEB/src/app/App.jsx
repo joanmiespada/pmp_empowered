@@ -7,6 +7,7 @@ import {
   Switch,
   BrowserRouter,
 } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
 import Login from '../login/Login';
@@ -27,6 +28,9 @@ const NoMatch = () => (
 );
 
 class App extends Component {
+  static defaultProps = {
+    error: undefined,
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -104,6 +108,10 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  error: PropTypes.any, // eslint-disable-line react/forbid-prop-types
+};
 
 // const mapStateToProps = state => ({ error: state.error });
 const mapStateToProps = (state) => {

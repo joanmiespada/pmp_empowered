@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducers from '../rootReducer';
 
+
 export default function ConfigureStore(preloadedState) {
   const middleWare = [];
 
@@ -22,8 +23,7 @@ export default function ConfigureStore(preloadedState) {
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('../rootReducer', () => {
-      const nextRootReducer = require('../rootReducer');
-      store.replaceReducer(nextRootReducer);
+      store.replaceReducer(reducers);
     });
   }
 

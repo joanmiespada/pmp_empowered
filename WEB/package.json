@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "linter": "eslint .",
+    "pretest": "eslint -c .eslintrc src",
     "start": "NODE_ENV=development webpack-dev-server --inline",
     "build": "NODE_ENV=production webpack"
   },

@@ -3,7 +3,10 @@ import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 
 if(process.env.PASSWORD_SALT === undefined )//or else env variable is not defined
-  dotenv.config()
+{
+    const aux = __dirname+'/../../.env/production.env'
+    dotenv.config({ path: aux })
+}
 
 exports.cryptPassword = (password) =>{ 
     
