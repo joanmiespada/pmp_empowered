@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { AppBar, Layout, NavDrawer, Panel, FontIcon } from 'react-toolbox';
+import { connect } from 'react-redux';
+import { AppBar, Layout, NavDrawer, Panel, FontIcon, Snackbar } from 'react-toolbox';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   BrowserRouter,
 } from 'react-router-dom';
-import Login from './Login';
-import MenuOption from './MenuOption';
 
+
+import Login from '../login/Login';
+import MenuOption from './drawer/MenuOption';
 
 const Home = () => (
   <p> Home<br />matches.</p>
@@ -30,6 +32,7 @@ class App extends Component {
     this.state = {
       drawerActive: false,
       loginDialog: false,
+      errMessageBar: false,
     };
   }
 
@@ -37,8 +40,20 @@ class App extends Component {
     this.setState({ drawerActive: !this.state.drawerActive });
   };
 
-  loginOpen = () => {
+  toggleLoginWindow = () => {
     this.setState({ loginDialog: !this.state.loginDialog });
+  }
+
+  handleSnackbarClick = () => {
+    this.setState({ errMessageBar: false });
+  };
+
+  checkErrorMessage = () => {
+    if (this.props.error !== undefined) {
+      this.setState({ errMessageBar: true });
+      return true;
+    }
+    return false;
   }
 
   render() {
@@ -46,7 +61,10 @@ class App extends Component {
       <BrowserRouter>
         <Router>
           <Layout>
-            <Login showme={this.state.loginDialog} handleToggle={this.loginOpen} />
+            <Login
+              showme={this.state.loginDialog}
+              handleToggle={this.toggleLoginWindow}
+            />
             <NavDrawer
               active={this.state.drawerActive}
               permanentAt="xxxl"
@@ -61,7 +79,7 @@ class App extends Component {
                 leftIcon="menu"
                 rightIcon={<FontIcon value="account_circle" />}
                 onLeftIconClick={this.toggleDrawerActive}
-                onRightIconClick={this.loginOpen}
+                onRightIconClick={this.toggleLoginWindow}
               />
               <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
                 <Switch>
@@ -71,6 +89,15 @@ class App extends Component {
                 </Switch>
               </div>
             </Panel>
+            <Snackbar
+              action="Dismiss"
+              active={this.state.errMessageBar}
+              label={this.props.error}
+              timeout={2000}
+              onClick={this.handleSnackbarClick}
+              onTimeout={this.handleSnackbarClick}
+              type="cancel"
+            />
           </Layout>
         </Router>
       </BrowserRouter>
@@ -78,4 +105,15 @@ class App extends Component {
   }
 }
 
-export default App;
+// const mapStateToProps = state => ({ error: state.error });
+const mapStateToProps = (state) => {
+  let result;
+  if (state.length > 1) {
+    if (state[state.length - 1].error !== undefined) {
+      result = state[state.length - 1].error;
+    }
+  }
+  return { error: result };
+};
+
+export default connect(mapStateToProps)(App);

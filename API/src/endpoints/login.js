@@ -20,6 +20,7 @@ class loginapi
         let business = businessLogic
         return (req,res) =>
         {
+                console.log(req.body)
                 business.login(req.body.email,req.body.password )
                     .then((opResult)=>{
                         logger.app.info(`user ${req.body.email} and id: ${opResult.id} has been logged sucessefully`)

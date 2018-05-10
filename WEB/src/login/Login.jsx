@@ -1,14 +1,16 @@
 import React from 'react';
-import { Dialog, Input } from 'react-toolbox';
+import { connect } from 'react-redux';
+import { Dialog, Input, ProgressBar } from 'react-toolbox';
 import PropTypes from 'prop-types';
+import { login } from './Actions';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      passw: '',
-      formValid: false,
+      email: 'repefi@nej.hr',
+      passw: 'pepe',
+      formValid: true,
       formErrors: { email: undefined, passw: undefined },
     };
   }
@@ -25,6 +27,11 @@ class Login extends React.Component {
   }
 
   login = () => {
+    this.props.loginMethod(this.state.email, this.state.passw)
+      .then((res) => {
+        if (res) this.props.handleToggle();
+      })
+      .catch((err) => { alert(err); });
   }
 
   render() {
@@ -36,6 +43,11 @@ class Login extends React.Component {
     }
     if (this.state.formErrors.passw !== undefined) {
       errorMessage.push((<span style={red}> {this.state.formErrors.email} </span>));
+    }
+
+    let progressbar = null;
+    if (this.props.isFetching) {
+      progressbar = (<ProgressBar type="circular" mode="indeterminate" multicolor />);
     }
 
     const actions = [
@@ -65,6 +77,7 @@ class Login extends React.Component {
           maxLength={50}
           onChange={this.handleChange('email')}
         />
+        {progressbar}
         <Input
           type="password"
           label="Password"
@@ -81,7 +94,21 @@ class Login extends React.Component {
 Login.propTypes = {
   showme: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  loginMethod: PropTypes.func.isRequired,
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  let { loginSpining } = state;
+
+  if (loginSpining === undefined) { loginSpining = false; }
+
+  return { isFetching: loginSpining };
+};
+
+const mapLoginOnRequestToProps = dispatch => ({
+  loginMethod: (email, pass) => dispatch(login(email, pass)),
+});
+
+export default connect(mapStateToProps, mapLoginOnRequestToProps)(Login);
 

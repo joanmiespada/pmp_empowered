@@ -13,13 +13,20 @@ import loginData from './data/login'
 import loginLogic from './business/login' 
 
 let app = express()
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json({ type: 'application/json' }))
+app.use(bodyParser.text({ type: 'text/html' }))
 app.use(morgan('dev'))
 app.use(methodOverride())
 app.use(helmet())
 app.use(compression())
 app.use(logger.log4js.connectLogger(logger.http, { level: 'auto' }))
+app.use( (req,res,next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin')
+  next()
+})
 
 let port = 8080
 let version = '/v1'
