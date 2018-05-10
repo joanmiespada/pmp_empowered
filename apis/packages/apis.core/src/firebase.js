@@ -5,12 +5,12 @@ import path from 'path';
 
 if(process.env.FIREBASE_PRIVATE_KEY_CERT_FILE === undefined )//or else env variable is not defined
 {
-  const aux = __dirname+'/../../.env/production.env'
+  const aux = path.join(__dirname,'..','.env/production.env')
   dotenv.config({ path: aux })
 }
 
 let private_key_cert_file = process.env.FIREBASE_PRIVATE_KEY_CERT_FILE;
-let cert = fs.readFileSync( path.join(__dirname ,'..','..',private_key_cert_file),'utf8');
+let cert = fs.readFileSync( path.join(__dirname ,'..','certs',private_key_cert_file),'utf8');
 
 let config ={
     "type": "service_account",

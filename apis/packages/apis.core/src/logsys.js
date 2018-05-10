@@ -11,17 +11,15 @@ try{
   }
 }
 
-log4js.configure(path.join(__dirname,'/../config/log4js.json'))
+log4js.configure(path.join(__dirname,'../config/log4js.json'))
 
 
 const loggerApp = log4js.getLogger('app')
 const loggerHttp = log4js.getLogger('http')
 
-module.exports ={ 
-  log4js:log4js,
-  app:loggerApp,
-  http:loggerHttp
-}
+export const log = log4js;
+export const app = loggerApp;
+export const http = loggerHttp;
 
 /*
 logger.app.trace('Entering cheese testing');

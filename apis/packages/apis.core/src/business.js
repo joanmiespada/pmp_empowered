@@ -1,7 +1,7 @@
 import jwt from './encrypt'
-//import messages from '../configs/messages'
+import messages from './messages'
 
-class business
+export class business
 {
     constructor()
     {
@@ -11,9 +11,7 @@ class business
     {
         try{
             jwt.verifyJWTtoken(uToken)
-        }catch(err){ throw new Error('messages.errTokenUserIdentification')}
+        }catch(err){ throw new Error(messages.errTokenUserIdentification)}
     
     }
 }
-
-export default business;

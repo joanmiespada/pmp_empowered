@@ -1,30 +1,31 @@
-import * as firebase from 'apis-core/src/firebase'
-//import messages from '../configs/messages'
-import encrypt from 'apis-core/src/encrypt'
+import * as core from 'apis-core'
+import messages from '../messages'
+
 
 class loginData
 {
     login(email,passwordPlain)
     {
         return new Promise( (resolve, reject) => {
-            if(firebase.db === undefined)
-                reject( new Error('messages.errServerDataIsUnavailable'))
-
-            let userRef = firebase.db.collection( firebase.tables.users )
+            
+            if(core.firebase.db === undefined)
+                reject( new Error(messages.errServerDataIsUnavailable))
+            
+            let userRef = core.firebase.db.collection( core.firebase.tables.users )
             let query = userRef.where('data.email','==',email )
 
             query.get().then( (snapshot) => {  
 
                 let result, id
                 if(snapshot.empty || snapshot.size >1) 
-                    {  reject('messages.errNotUserFoundByEmail')  }
+                    {  reject(messages.errNotUserFoundByEmail)  }
 
                 snapshot.forEach((doc) => {           
                     result =  doc.data()
                     id = doc.id
                 });
                 
-                encrypt.comparePassword(passwordPlain,result.data.password)
+                core.encrypt.comparePassword(passwordPlain,result.data.password)
                         .then( (canIlogin) => {
                             if(canIlogin)
                                 resolve({login:true, user: result.data, id:id})

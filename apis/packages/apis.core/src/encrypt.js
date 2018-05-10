@@ -21,7 +21,7 @@ exports.cryptPassword = (password) =>{
 exports.comparePassword = (password, hash) =>{ 
         return new Promise((resolve, reject ) =>{
             bcrypt.compare(password, hash, (err, isPasswordMatch) => {
-                return err === undefined ? resolve( isPasswordMatch) :  reject(err)
+                return err === undefined ? resolve(isPasswordMatch) : reject(err)
             });
         });
 }

@@ -1,7 +1,6 @@
 
-//import messages from '../configs/messages'
-import createJWTtoken from 'apis-core/src/encrypt'
-import logger from 'apis-core/src/logsys'
+import messages from '../messages'
+import {encrypt,logsys } from 'apis-core'
 
 class loginLogic
 {
@@ -13,9 +12,10 @@ class loginLogic
     login(email, password)
     {
         if(email === undefined || password === undefined )
-        {     throw new Error('messages.errNoEmailandPassword')   }
+        {     throw new Error(messages.errNoEmailandPassword)   }
         
         return new Promise( (resolve,reject) => {
+            
             this.userdata.login(email, password).then( (result) =>{
                 
                 if(result.login)
@@ -25,7 +25,7 @@ class loginLogic
                             id: result.id ,
                             profiles:['admin'] 
                         }    
-                        let token = createJWTtoken.createJWTtoken(info)
+                        let token = encrypt.createJWTtoken(info)
                         resolve( {result:true, token:token, id:result.id}  ) 
                     }
                 else
@@ -36,7 +36,7 @@ class loginLogic
 
     logout(uToken)
     {
-        logger.app.debug(`token: ${uToken}`)
+        logsys.app.debug(`token: ${uToken}`)
         return true;
     }
 

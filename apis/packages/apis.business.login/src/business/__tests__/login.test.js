@@ -2,10 +2,8 @@ import loginLogic from '../login'
 import loginData from '../../data/login'
 import expect from 'expect'
 
-
 describe('login testing', ()=>{
 
-    
     let loginLayer = new loginLogic( new loginData() )
 
     let newuser = {email:'repefi@nej.hr' , name: 'josé' , surname: 'popo', password: 'pepe'}
@@ -44,7 +42,5 @@ describe('login testing', ()=>{
             expect(true).toEqual(true)
         }
     })
-
-    
 
 })

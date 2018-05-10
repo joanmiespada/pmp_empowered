@@ -1,7 +1,7 @@
 {
-  "name": "apis-business",
+  "name": "apis-business-login",
   "version": "1.0.0",
-  "description": "core components",
+  "description": "login system",
   "main": "src/index.js",
   "repository": {},
   "author": "joanmiespada",
@@ -30,13 +30,10 @@
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
-    "test": "jest --config jest.config.json --coverage",
-    "build-dev": "webpack --config webpack.dev.config.js",
-    "build-prod": "webpack --config webpack.prod.config.js"
+    "test": "jest --config jest.config.json --coverage"
   },
   "dependencies": {
     "apis-core": "1.0.0",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14"
+    "bcrypt": "^2.0.1"
   }
 }
