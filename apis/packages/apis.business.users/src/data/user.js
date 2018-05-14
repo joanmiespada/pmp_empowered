@@ -4,7 +4,7 @@ import uuid from 'uuid/v1'
 import messages from '../messages'
 
 
-class userData
+export class userData
 {
     mappingFromStorageToUserModel(id,user)
     {
@@ -171,5 +171,3 @@ class userData
     }
 
 }
-
-export default userData;

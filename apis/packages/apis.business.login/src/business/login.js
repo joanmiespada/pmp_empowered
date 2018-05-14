@@ -2,7 +2,7 @@
 import messages from '../messages'
 import {encrypt,logsys } from 'apis-core'
 
-class loginLogic
+export class loginLogic
 {
     constructor( dataaccess)
     {
@@ -29,7 +29,7 @@ class loginLogic
                         resolve( {result:true, token:token, id:result.id}  ) 
                     }
                 else
-                    {resolve( {result:false, token:undefined } ) }
+                    {resolve( {result:false, message: messages.errNotUserFoundByEmail  } ) }
             }).catch(err=>reject(err))
         })  
     }
@@ -41,5 +41,3 @@ class loginLogic
     }
 
 }
-
-export default loginLogic;

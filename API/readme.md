@@ -17,7 +17,8 @@ The technical stack is:
 | Eslint        | Linting for code style quality  |
 | log4js        | Loggin errors and app's messages|
 | JWT           | Json Web Tokens to protect you API |
-| Docker        | Api Dockerized                    |
+| Docker        | Api Dockerized                     |
+| Lerna         | Local packages dependencies        |
 
 To install dependencies:
 ```
@@ -50,5 +51,10 @@ PASSWORD_JWT=<write random text with numbers and letters, 20 characters should b
 
 Please, read package.json scripts section. You'll be able to find some interesting options.
 
+
+# TODO
+
+Add ELK support 
+Add RabbitMQ support
 
 

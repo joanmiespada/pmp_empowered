@@ -2,7 +2,7 @@ import * as core from 'apis-core'
 import messages from '../messages'
 
 
-class loginData
+export class loginData
 {
     login(email,passwordPlain)
     {
@@ -40,5 +40,3 @@ class loginData
 
 
 }
-
-export default loginData;

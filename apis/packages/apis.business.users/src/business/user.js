@@ -5,7 +5,7 @@ import messages from '../messages'
 import {apiParams, business} from 'apis-core'
  
 
-class userLogic extends business
+export class userLogic extends business
 {
     constructor(dataaccess)
     {
@@ -102,5 +102,3 @@ class userLogic extends business
     }
 
 }
-
-export default userLogic;

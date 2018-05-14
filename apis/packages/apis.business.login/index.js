@@ -1,9 +1,3 @@
-import loginLogic from './src/business/login'
-import loginData from './src/data/login'
-import messages from './src/messages'
-
-export {
-    loginLogic,
-    loginData,
-    messages
-}
+export * from './src/business/login'
+export * from './src/data/login'
+export * from './src/messages'
