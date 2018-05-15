@@ -8,13 +8,13 @@ export class userData
 {
     mappingFromStorageToUserModel(id,user)
     {
-        let use = new userModel();   
-        use.Id = id;
-        use.Email = user.email;
-        use.Name = user.name;
-        use.Surname = user.surname;
-        use.Password = user.password;
-        return use; 
+        let use = new userModel()   
+        use.Id = id
+        use.Email = user.email
+        use.Name = user.name
+        use.Surname = user.surname
+        use.Password = user.password
+        return use
     }
 
     getAllUsers(pageSize,pageNum)
@@ -24,19 +24,22 @@ export class userData
 
             if(firebase.db === undefined)
                 reject( new Error(messages.errServerDataIsUnavailable))
-            let userRef = firebase.db.collection( firebase.tables.users );
+            let userRef = firebase.db.collection( firebase.tables.users )
             let query = userRef.orderBy('data.surname').startAt(pageSize * (pageNum-1) ).limit(pageSize);
             
             query.get().then( (snapshot) => {  
 
                 let result = [];
-                if(snapshot.empty) return result;
+                if(snapshot.empty) return result
 
                 snapshot.forEach((doc) => {           
-                    result.push(this.mappingFromStorageToUserModel(doc.id, doc.data()));
+                    const userInfo = doc.data()
+                    const user = this.mappingFromStorageToUserModel(doc.id,userInfo.data )
+                    user.password='****'
+                    result.push(user)
                 });
-                resolve(result);
-            }).catch( (err) => { reject(err); } );
+                resolve(result)
+            }).catch( (err) => { reject(err); } )
         });
     }
 
@@ -138,8 +141,9 @@ export class userData
 
             let userRef = firebase.db.collection( firebase.tables.users ).doc(id)
             userRef.get().then((doc)=>{
-                let userDataMeta = doc.data()
-                let user = this.mappingFromStorageToUserModel(doc.id,userDataMeta.data )
+                const userDataMeta = doc.data()
+                const user = this.mappingFromStorageToUserModel(doc.id,userDataMeta.data )
+                user.password='****'
                 resolve(user)
             }).catch(err=>reject(err))
         });
@@ -160,8 +164,10 @@ export class userData
                 if(snapshot.empty) return result
 
                 snapshot.forEach((doc) => {
-                    let userDataMeta = doc.data()           
-                    result.push(this.mappingFromStorageToUserModel(doc.id, userDataMeta.data))
+                    const userDataMeta = doc.data()           
+                    const user = this.mappingFromStorageToUserModel(doc.id, userDataMeta.data)
+                    user.password='****'
+                    result.push(user)
                 });
                 
                 resolve(result);

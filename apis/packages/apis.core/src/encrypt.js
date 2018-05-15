@@ -30,6 +30,14 @@ exports.createJWTtoken = (data) =>{
     return jwt.sign(data, process.env.PASSWORD_JWT, { expiresIn: '1h' })
 }
 
+exports.verifyJWTtokenAsync = (token) =>{
+    return new Promise((resolve, reject ) =>{
+        jwt.verify(token,process.env.PASSWORD_JWT, (err, decoded) => {
+            err === null ? resolve(true) : resolve(false) //reject(err)
+        });
+    });
+}
+
 exports.verifyJWTtoken = (token) =>{
-    return jwt.verify(token,process.env.PASSWORD_JWT)
+    return jwt.verify(token,process.env.PASSWORD_JWT); 
 }

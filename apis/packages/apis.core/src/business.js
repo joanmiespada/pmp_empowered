@@ -10,8 +10,10 @@ export class business
     checkUserToken(uToken) 
     {
         try{
-            jwt.verifyJWTtoken(uToken)
-        }catch(err){ throw new Error(messages.errTokenUserIdentification)}
-    
+            return jwt.verifyJWTtoken(uToken)
+        }catch(err){ 
+            throw new Error(messages.errTokenUserIdentification)
+        }
+        
     }
 }

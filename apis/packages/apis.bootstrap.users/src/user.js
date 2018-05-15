@@ -3,7 +3,7 @@ import { isNumber } from 'util'
 import {endpoint} from 'apis-core'
 import messages from 'apis-core'
 //------
-import {logsys as logger} from 'apis-core'
+//import {logsys as logger} from 'apis-core'
 
 function extracPageNumberPageSize(params)
 {
@@ -19,33 +19,33 @@ function extracPageNumberPageSize(params)
 
 }
 
-class userapi //extends endpoint
+class userapi extends endpoint
 {
 
     constructor(router, business)
     {
-        //super(router,business)
-        this._log = logger.app
-        this.router = router
+        super(router,business)
+        //this._log = logger.app
+        //this._router = router
         //this.setup(business)
          //Retrieve all users
          //this._router.get('/:pageSize/:pageNumber', this.getAll(business)  )
-         this.router.get('/', this.getAll(business)  )
+         //this._router.get('/', (req,res)=>{ console.log('werwerwe') }  )
          //create a new user
-         this.router.post('/', this.createNew(business));
+        // this._router.post('/', this.createNew(business));
          //Retrieve single user
-         this.router.get('/:id', this.getById(business));
+        // this._router.get('/:id', this.getById(business));
          //Update user by Id
-         this.router.put('/:id', this.updateById(business));
+        // this._router.put('/:id', this.updateById(business));
          //Delete user by Id
-         this.router.delete('/:id', this.deleteById(business));
+       //  this._router.delete('/:id', this.deleteById(business));
         //------
         this._urlbase = '/users'
         
         
     }
 
-    //get router() {  return this.router }
+    get router() {  return this._router }
     get urlbase() { return this._urlbase }
 
     createNew(business){
@@ -83,6 +83,7 @@ class userapi //extends endpoint
             })
             .catch( (err)=>{
                 //console.log( messages.errGettingUsers, err)
+                console.log('sdfsdfsdfsdsfds')
                 this._log.error(`error getting user by id: ${req.params.id}`,err)
                 res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
                 res.end( messages.errinternalServer);
@@ -126,10 +127,8 @@ class userapi //extends endpoint
     }
 
     getAll(business){
-        console.log('sdfsdfsdfsdf')
         return (req,res)=>
         {
-            console.log(req)
             let position = extracPageNumberPageSize(req.params);
             if( position === undefined )
             {
