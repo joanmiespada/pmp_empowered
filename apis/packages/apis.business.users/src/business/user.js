@@ -26,13 +26,28 @@ export class userLogic extends business
 
     getAllUsers(uToken,pageSize,pageNum)
     {
-        this.checkUserToken(uToken)  
-        if (pageSize >= apiParams.pageSizeMin &&
-            pageSize <= apiParams.pageSizeMax &&
-            isNumber(pageNum))
-                return this.userdata.getAllUsers(pageSize,pageNum)
-        else
-            throw new Error(messages.errPageSizePageNum) 
+        return new Promise( (resolve,reject) => {
+
+            const res = this.checkUserToken(uToken)
+
+            if(!res.result) 
+                throw  {messageError:messages.errTokenUserIdentification}
+            else
+            {
+                if (pageSize >= apiParams.pageSizeMin &&
+                    pageSize <= apiParams.pageSizeMax &&
+                    isNumber(pageNum)){
+                        this.userdata.getAllUsers(pageSize,pageNum)
+                            .then( (result) => {
+                                resolve(result)
+                            })
+                            .catch( err => reject(err))
+                    }
+                else
+                    throw new Error(messages.errPageSizePageNum)
+                }
+         });
+         
     }
 
     createNewUser(uToken,params, userTokenRequired = true)

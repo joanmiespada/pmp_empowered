@@ -33,7 +33,7 @@
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
     "start": "NODE_ENV=development babel-node ./src/index.js",
-    "nodemon-dev": "NODE_ENV=development nodemon ./src/index.js --exec babel-node",
+    "nodemon-dev": "nodemon ./src/index.js --config ./nodemon.json --exec babel-node",
     "nodemon-prod": "NODE_ENV=production nodemon ./src/index.js --exec babel-node",
     "build-raw": "babel src -d dist",
     "test": "jest --config jest.config.json --coverage",

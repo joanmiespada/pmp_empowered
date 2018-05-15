@@ -10,9 +10,15 @@ export class business
     checkUserToken(uToken) 
     {
         try{
-            return jwt.verifyJWTtoken(uToken)
+            //console.log('token: ' + uToken)
+            const aux= jwt.verifyJWTtoken(uToken)
+
+            //console.log(aux)
+            return {result: true, data:aux}
         }catch(err){ 
-            throw new Error(messages.errTokenUserIdentification)
+            //console.log(err)
+            //throw new Error(messages.errTokenUserIdentification)
+            return {result: false, error:err }
         }
         
     }

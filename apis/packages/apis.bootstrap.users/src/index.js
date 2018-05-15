@@ -34,25 +34,6 @@ const isProduction = process.env.NODE_ENV === 'production'
 }else{
 */
 
-  function setupDomains(req,res,next)
-  {
-    var reqd = domain.create()
-    domain.active = reqd
-    reqd.add(req)
-    reqd.add(res)
-    reqd.on('error', function(err) {
-      console.log(`error in PID ${process.pid} and url: ` + req.url)
-      console.log(err)
-      req.next(err)
-    });
-    res.on('end', function() {
-      console.log('disposing domain for url ' + req.url)
-      reqd.dispose()
-    });
-    reqd.run(next)
-  }
-
-  const domain = domain()
   const app = express()
   //app.use(bodyParser.urlencoded({ extended: true }))
   //app.use(bodyParser.json())
@@ -74,7 +55,6 @@ const isProduction = process.env.NODE_ENV === 'production'
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin')
     next()
   })
-  app.use(setupDomains)
 
   const port = 8081
   const version = '/v1'
@@ -88,6 +68,7 @@ const isProduction = process.env.NODE_ENV === 'production'
   const server = app.listen(port, () => { 
     const aux = `PID: ${process.pid} - Server user api running at http://127.0.0.1:${port}`;
     logger.app.info(aux)
+    
   })
 
   const closeServer = () => {
