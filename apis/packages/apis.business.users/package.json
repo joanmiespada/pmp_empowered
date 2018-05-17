@@ -28,13 +28,12 @@
     "generate-password": "^1.4.0"
   },
   "scripts": {
-    "pretest": "eslint -c .eslintrc src",
+    "dasdadpretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
     "test": "jest --config jest.config.json --coverage"
   },
   "dependencies": {
     "apis-core": "1.0.0",
-    "apis-business-login":"1.0.0",
     "bcrypt": "^2.0.1"
   }
 }

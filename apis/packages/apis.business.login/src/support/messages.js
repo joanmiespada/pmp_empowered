@@ -1,7 +1,7 @@
 import {messages} from 'apis-core'
 
 let myMessages = {
-    errNotUserFoundByEmail:'not user found by email',
+    errNotUserFoundByEmail:'not user found by email or password incorrect',
     errNoEmailandPassword: 'no email and/or password defined'
 };
 

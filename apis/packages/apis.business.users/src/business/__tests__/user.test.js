@@ -1,58 +1,56 @@
-import {loginLogic, loginData}  from 'apis-business-login'
+
 import expect from 'expect'
 import chance from 'chance'
-import userLogic from '../user'
-import userData from '../../data/user'
+import uuid from 'uuid/v1'
 
-//import generator from 'generate-password'
+import {encrypt} from 'apis-core'
+
+import {userLogic} from '../user'
+import {userData} from '../../data/user'
+
 
 describe('user testing', ()=>{
+ 
+    const userlayer = new userLogic( new userData() )
 
-       
-    let userlayer = new userLogic( new userData() )
-    const aux = new loginData()
-    let loginLayer = new loginLogic( aux )
+    const userLogged = {
+        id: uuid(),
+        profiles:['admin', 'user'] //add roles here 
+    }    
+    const uToken = encrypt.createJWTtoken(userLogged)
 
-    let random = new chance()
+    const random = new chance()
     //let password = generator.generate({
     //    length: 10,
     //    numbers: true
     //});
-    let password='pepe'
+    const password='pepe'
     
-    let newuser = {email:random.email() , name: random.name() , surname: random.name(), password: password}
+    const newuser = {email:random.email() , name: random.name() , surname: random.name(), password: password}
     let newid=undefined
+
     it('create new user', async()=>{
         try{
-            const result = await userlayer.createNewUser(undefined,newuser,false)
-            newid = result.id;
+            const result = await userlayer.createNewUser(uToken,newuser)
+            
+            newid = result.data.id;
             expect(result).toBeDefined()
             expect(result.result).toEqual(true)
-            expect(result.id).toBeTruthy()
+            expect(result.data.id).toBeTruthy()
         }catch(err){
+            console.log(err)
             expect(false).toEqual(true)
         }
     })
-
-    let uToken = undefined
-    it('login ok', async()=>{ 
-        try{
-            let result = await loginLayer.login(newuser.email, newuser.password)
-            uToken = result.token
-            expect(result.token).toBeTruthy()
-        }catch(err){
-            expect(false).toEqual(true)
-        }
-    })
-
-
 
     it('create new user with same email', async()=>{
         
         try{
             await userlayer.createNewUser(uToken, newuser)
         }catch(err){
-            expect(true).toEqual(true)
+            expect(err.result).toEqual(false)
+            expect(err.error.codeError).toBeTruthy()
+            expect(err.error.messageError).toBeTruthy()
         }
 
     })
@@ -62,90 +60,118 @@ describe('user testing', ()=>{
         try{
             await userlayer.createNewUser(uToken,{})
         }catch(err){
-            expect(true).toEqual(true)
+            expect(err.result).toEqual(false)
+            expect(err.error.codeError).toBeTruthy()
+            expect(err.error.messageError).toBeTruthy()
         }
 
     })
+    
     it('check if email exist', async()=>{ 
         try{
-            let result = await userlayer.checkIfMailExists(uToken, newuser.email)
-            expect(result).toEqual(true)
+            const result = await userlayer.checkIfMailExists(uToken, newuser.email)
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(true)
+            expect(result.data.exists).toEqual(true)
         }catch(err){
+            console.log(err)
             expect(false).toEqual(true)
         }
     })
 
     it('get user by id', async()=>{ 
         try{
-            let result = await userlayer.getUserById(uToken,newid)
+            const result = await userlayer.getUserById(uToken,newid)
             expect(result).toBeDefined()
-            expect(result.id).toEqual(newid)
+            expect(result.result).toEqual(true)
+            expect(result.data.id).toEqual(newid)
         }catch(err){
+            console.log(err)
             expect(false).toEqual(true)
         }
     })
 
     it('get users by email', async()=>{ 
         try{
-            let result = await userlayer.getUsersByEmail(uToken,newuser.email)
-            expect(result[0]).toBeDefined()
-            expect(result[0].email).toEqual(newuser.email)
+            const result = await userlayer.getUsersByEmail(uToken,newuser.email)
+            
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(true)
+            expect(result.data[0]).toBeDefined()
+            expect(result.data[0].email).toEqual(newuser.email)
         }catch(err){
+            console.log(err)
             expect(false).toEqual(true)
         }
     })
 
     it('update users by id', async()=>{ 
         try{
-            let result = await userlayer.updateUserById (uToken,newid,{email:random.email() })
-            expect(result).toEqual(true)
+            const result = await userlayer.updateUserById (uToken,newid,{email:random.email() })
+        
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(true)
+            
         }catch(err){
+            console.log(err)
             expect(false).toEqual(true)
         }
     })
 
      it('delete existing user', async()=>{ 
         try{
-            await userlayer.deleteUserById(uToken,newid)
-            expect(true).toEqual(true)
+            const result = await userlayer.deleteUserById(uToken,newid)
+        
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(true)
+            expect(result.data.deleted).toBeDefined()
+            expect(result.data.deleted).toEqual(true)
+
         }catch(err){
+            console.log(err)
             expect(false).toEqual(true)
         }
     })
 
     it('delete non existing user', async()=>{ 
         try{
-            await userlayer.deleteUserById(uToken,'sdfsdfsdfsdf')
-            //expect(false).toEqual(true)
+            const result = await userlayer.deleteUserById(uToken,'sdfsdfsdfsdf')
+            //console.log(result)
         }catch(err){
-            expect(true).toEqual(true)
+            //console.log(err)
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(false)
+            expect(result.data.deleted).toBeDefined()
+            expect(result.data.deleted).toEqual(false)
         }
     })
 
     it('get all users', async()=>{ 
         try{
-            let list= await userlayer.getAllUsers (uToken,10,1)
-            expect(list).toBeDefined()
+            const params = {pageSize: 10, pageNumber:1}
+            let result = await userlayer.getAllUsers (uToken,params)
+            
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(true)
+            expect(result.data).toBeDefined()
+
         }catch(err){
+            console.log(err)
             expect(false).toEqual(true)
         }
     })
 
-    it('get all users wrong params', async()=>{ 
+    it('get all users with wrong page size', async()=>{ 
         try{
-             await userlayer.getAllUsers (uToken,0,0)
+            const params = {pageSize: 10, pageNumber:1}
+            await userlayer.getAllUsers (uToken,params)
+            
         }catch(err){
-            expect(true).toEqual(true)
-        }
-    })
-
-
-    it('login out', async()=>{ 
-        try{
-            let result = await loginLayer.logout(uToken)
-            expect(result).toEqual(true)
-        }catch(err){
-            expect(false).toEqual(true)
+            expect(result).toBeDefined()
+            expect(result.result).toEqual(false)
+            expect(result.error.codeError).toBeDefined()
+            expect(result.error.messageError).toBeDefined()
+            
         }
     })
 

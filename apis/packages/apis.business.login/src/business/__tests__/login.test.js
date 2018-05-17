@@ -1,45 +1,38 @@
-import loginLogic from '../login'
-import loginData from '../../data/login'
+import {loginLogic} from '../login'
+import {loginData} from '../../data/login'
 import expect from 'expect'
 
 describe('login testing', ()=>{
 
-    let loginLayer = new loginLogic( new loginData() )
-
-    let newuser = {email:'repefi@nej.hr' , name: 'josé' , surname: 'popo', password: 'pepe'}
+    const loginLayer = new loginLogic( new loginData() )
+    const user = {email:'ahese@non.bh' , name: 'josé' , surname: 'popo', password: 'pepe'}
     
-    let uToken = undefined
     it('login ok', async()=>{ 
-        try{
-            let result = await loginLayer.login(newuser.email, newuser.password)
-            uToken = result.token
-            expect(result.token).toBeTruthy()
-        }catch(err){
-            expect(false).toEqual(true)
-        }
+        const result = await loginLayer.login(user.email, user.password)
+        
+        expect(result.result).toEqual(true)
+        expect(result.data.login).toEqual(true)
+        expect(result.data.token).toBeTruthy()
+        expect(result.data.id).toBeTruthy()
     })
-
-    it('login out', async()=>{ 
-        try{
-            let result = await loginLayer.logout(uToken)
-            expect(result).toEqual(true)
-        }catch(err){
-            expect(false).toEqual(true)
-        }
-    })
-
+    
     it('login fail', async()=>{ 
-        try{
-            await loginLayer.login(newuser.email, newuser.password+'password')
-        }catch(err){
-            expect(true).toEqual(true)
-        }
+        const result = await loginLayer.login(user.email, user.password+'password')
+        
+        expect(result.result).toEqual(true)
+        expect(result.data.login).toEqual(false)
     })
+
     it('login missing params', async()=>{ 
+        
         try{
             await loginLayer.login(undefined, undefined)
-        }catch(err){
-            expect(true).toEqual(true)
+        }catch(err)
+        {
+            expect(err.result).toEqual(false)
+            expect(err.error.codeError).toBeTruthy()
+            expect(err.error.messageError).toBeTruthy()
+            
         }
     })
 

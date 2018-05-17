@@ -1,6 +1,8 @@
 
-import messages from '../messages'
-import {encrypt,logsys } from 'apis-core'
+import {encrypt, utils as _u } from 'apis-core'
+import messages from '../support/messages'
+import errCodes from '../support/errorcodes'
+import keys from '../support/keys'
 
 export class loginLogic
 {
@@ -11,33 +13,30 @@ export class loginLogic
 
     login(email, password)
     {
-        if(email === undefined || password === undefined )
-        {     throw new Error(messages.errNoEmailandPassword)   }
-        
         return new Promise( (resolve,reject) => {
+
+            if(email === undefined || password === undefined )
+            {    // throw new Error(messages.errNoEmailandPassword)   
+                reject( _u.jsonError(keys.errNoEmailandPassword,errCodes,messages ) )
+                return
+            }
             
             this.userdata.login(email, password).then( (result) =>{
                 
                 if(result.login)
                     {
                         const info = {
-                            name: result.user.name,
+                            //name: result.data.name,
                             id: result.id ,
-                            profiles:['admin'] 
+                            profiles:['admin', 'user'] //add roles here 
                         }    
                         let token = encrypt.createJWTtoken(info)
-                        resolve( {result:true, token:token, id:result.id}  ) 
+                        resolve(  _u.jsonOK( {login:true, token:token, id:result.id }, {login:'bool', token:'string', id:'uuid'} ) )
                     }
                 else
-                    {resolve( {result:false, message: messages.errNotUserFoundByEmail  } ) }
+                    resolve( _u.jsonOK( {login:false, message: messages.errNotUserFoundByEmail },{login:'bool', message:'string'} )) 
             }).catch(err=>reject(err))
         })  
     }
-
-    logout(uToken)
-    {
-        logsys.app.debug(`token: ${uToken}`)
-        return true;
-    }
-
+    
 }
