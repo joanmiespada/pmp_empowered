@@ -14,6 +14,6 @@ const vendor = [
   'lodash',
   'moment',
   'localforage',
-  'react-loadable',
+  'react-loadable'
 ];
 module.exports = vendor;

@@ -20,6 +20,11 @@ const rules = [{
       },
     }, {
       loader: 'postcss-loader',
+      options: {
+        config: {
+          path: './postcss.config.js'
+        }
+       }
     }, {
       loader: 'sass-loader',
       options: {
@@ -41,6 +46,11 @@ const rules = [{
     },
   }, {
     loader: 'postcss-loader',
+    options: {
+      config: {
+        path: './postcss.config.js'
+      }
+     }
   }],
 }, {
   test: /\.(woff2|woff|ttf|eot|svg)(\?.*$|$)/,

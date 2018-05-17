@@ -12,19 +12,25 @@ const settings = {
   mode: process.env.NODE_ENV,
   resolve: {
     extensions: ['*', '.js', '.jsx', '.css', '.scss'],
+    modules: [
+      'node_modules',
+    ],
+    symlinks: false,
   },
   context: resolve(__dirname, '..'),
   entry: {
     app: [
-      'react-hot-loader/patch',
+      //'react-hot-loader/patch',
       // 'babel-polyfill',
-      './src/index',
+      './src/index.jsx',
     ],
     vendor,
+    depens: ['backoffice-users']
   },
   output: {
     filename: '[name].[hash].js',
     path: resolve(__dirname, '..', 'dist'),
+    chunkFilename: '[name].[hash].js',
   },
   module: {
     rules,

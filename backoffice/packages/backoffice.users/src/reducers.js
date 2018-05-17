@@ -4,7 +4,7 @@ import {
     USER_GETALL_FAIL
 } from './actions';
   
-  const reducers = (state = [], action) => {
+export const reducers = (state = [], action) => {
     switch (action.type) {
       case USER_GETALL_REQUEST:
         return [
@@ -33,4 +33,4 @@ import {
         return state;
     }
   };
-  export reducers;
+ 

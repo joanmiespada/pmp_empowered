@@ -9,6 +9,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const isProduction = process.env.NODE_ENV === 'production';
+
 const dist = 'dist';
 // the path(s) that should be cleaned
 const pathsToClean = [
@@ -22,7 +23,8 @@ const cleanOptions = {
   dry: false,
 };
 const plugins = [
-  new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
+  //new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
+  new webpack.EnvironmentPlugin({ NODE_ENV: process.env.NODE_ENV }),
   new CleanWebpackPlugin(pathsToClean, cleanOptions),
   new LodashModuleReplacementPlugin(),
   new HtmlWebpackPlugin({

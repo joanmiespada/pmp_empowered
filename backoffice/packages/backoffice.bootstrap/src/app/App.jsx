@@ -8,6 +8,7 @@ import {
   BrowserRouter,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {View as userView} from 'backoffice-users'
 
 
 import Login from '../login/Login';
@@ -17,7 +18,7 @@ const Home = () => (
   <p> Home<br />matches.</p>
 );
 
-const WillMatch = () => <h3>Matched!</h3>;
+//const WillMatch = () => <h3>Matched!</h3>;
 
 const NoMatch = () => (
   <div>
@@ -88,7 +89,7 @@ class App extends Component {
               <div style={{ flex: 1, overflowY: 'auto', padding: '1.8rem' }}>
                 <Switch>
                   <Route exact path="/" component={Home} />
-                  <Route exact path="/users" component={WillMatch} />
+                  <Route exact path="/users" component={userView} />
                   <Route component={NoMatch} />
                 </Switch>
               </div>

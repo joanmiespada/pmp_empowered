@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dialog, Input, ProgressBar } from 'react-toolbox';
-import {Table } from 'react-toolbox';
+import { Table } from 'react-toolbox';
 import PropTypes from 'prop-types';
 import { login } from './actions';
 
@@ -23,7 +23,9 @@ const users = [
 
 
 export class View extends React.Component {
-    state = { selected: [], source: users };
+    constructor()
+        this.state = { selected: [], source: users };
+    }
     handleChange = (row, key, value) => {
         const source = this.state.source;
         source[row][key] = value;
