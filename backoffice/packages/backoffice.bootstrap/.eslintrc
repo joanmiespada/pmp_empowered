@@ -1,0 +1,26 @@
+{
+
+    "parser": "babel-eslint",
+    "plugins": ["babel", "react"],
+    "env":{
+        "browser": true,
+        "es6":true,
+        "node":true
+    },
+    "extends": "airbnb", 
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "allowImportExportEverywhere": false,
+        "codeFrame": false
+    },
+    "rules": {
+        "max-len": [1, 100, 2],
+        "no-console":"warn",
+        "no-useless-escape":"off",
+        "no-unneeded-ternary":"off",
+        "no-plusplus":"off"
+      }
+    
+    
+}

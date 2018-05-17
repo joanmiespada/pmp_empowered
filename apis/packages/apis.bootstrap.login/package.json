@@ -32,13 +32,13 @@
   },
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
-    "start": "babel-node ./src/index.js",
-    "nodemon": "nodemon ./src/index.js --exec babel-node",
+    "start": "NODE_ENV=development babel-node ./src/index.js",
+    "nodemon": "nodemon ./src/index.js --config ./nodemon.json --exec babel-node",
     "build-raw": "babel src -d dist",
     "test": "jest --config jest.config.json --coverage",
     "build-dev": "webpack --config webpack.dev.config.js",
     "build-prod": "webpack --config webpack.prod.config.js",
-    "serve-prod": "node ./build/api.login.js"
+    "serve-prod": "NODE_ENV=production node ./build/api.login.js"
   },
   "dependencies": {
     "apis-business-login": "1.0.0",

@@ -5,8 +5,8 @@ Welcom to PMP-Empowered! This repo is a full-example using best practices with J
 
 Explore the repo:
 
-[API](./API/readme.md)
+[API](./apis/readme.md)
 
-[WEB](./web/readme.md)
+[BackOffice](./backoffice/readme.md)
  
 

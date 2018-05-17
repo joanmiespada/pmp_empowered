@@ -25,13 +25,14 @@ class loginapi
                         if(opResult.result)
                         {
                             logger.app.info(`pid: ${process.pid} user with email: ${req.body.email} and id: ${opResult.id} has been logged sucessefully`)
-                            res.writeHead(endpoint.Http201, endpoint.ContentTextJson);
-                            res.end( JSON.stringify({token: opResult.token}));
+                            res.writeHead(endpoint.Http200, endpoint.ContentTextJson);
+                            
                         } else {
                             logger.app.info(`pid: ${process.pid} user with email: ${req.body.email} and passworf:*** doesn't exist`)
                             res.writeHead(endpoint.Http403, endpoint.ContentTextPlain);
-                            res.end( opResult.message );
+                            
                         }
+                        res.end( JSON.stringify(opResult));
                     })
                     .catch((err)=>{
                         //console.log(`login err: ${messages.errNoEmailandPassword}`, err);

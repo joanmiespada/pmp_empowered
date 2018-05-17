@@ -9,10 +9,12 @@ fs.readdirSync('node_modules')
   })
   .forEach(function(mod) {
     nodeModules[mod] = 'commonjs ' + mod;
-  });
+});
+
+const env = process.env.NODE_ENV
 
 const config = {
-    mode:'production',
+    mode:env || 'production',
     target:'node',
     entry: ['./src/index.js'],
     output: {

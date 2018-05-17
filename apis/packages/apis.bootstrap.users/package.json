@@ -33,15 +33,16 @@
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
     "start": "NODE_ENV=development babel-node ./src/index.js",
-    "nodemon-dev": "nodemon ./src/index.js --config ./nodemon.json --exec babel-node",
-    "nodemon-prod": "NODE_ENV=production nodemon ./src/index.js --exec babel-node",
+    "nodemon": "nodemon ./src/index.js --config ./nodemon.json --exec babel-node",
     "build-raw": "babel src -d dist",
     "test": "jest --config jest.config.json --coverage",
-    "build-dev": "NODE_ENV=development webpack --config webpack.dev.config.js",
-    "build-prod": "NODE_ENV=production webpack --config webpack.prod.config.js ",
+    "build-dev": "webpack --config webpack.dev.config.js",
+    "build-prod": "webpack --config webpack.prod.config.js ",
     "serve-prod": "NODE_ENV=production node ./build/api.userapi.js"
   },
   "dependencies": {
+    "apis-business-users": "1.0.0",
+    "apis-core": "1.0.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
