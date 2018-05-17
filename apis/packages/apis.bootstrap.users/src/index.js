@@ -4,8 +4,8 @@ import morgan from 'morgan'
 import methodOverride from 'method-override'
 import helmet from 'helmet'
 import compression from 'compression'
-//import cluster from 'cluster'
-//import os from 'os'
+import cluster from 'cluster'
+import os from 'os'
 
 import {logsys as logger } from 'apis-core'
 import {shutdown} from 'apis-core'
@@ -16,7 +16,7 @@ import {userData} from 'apis-business-users'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-/*if( cluster.isMaster ) {
+if( cluster.isMaster ) {
   const numCpus = os.cpus().length
   logger.app.info(`Master process is running, PID: ${process.pid}`)
   for (let i = 0; i < numCpus; i++) {
@@ -31,11 +31,8 @@ const isProduction = process.env.NODE_ENV === 'production'
   });
 
 }else{
-*/
 
   const app = express()
-  //app.use(bodyParser.urlencoded({ extended: true }))
-  //app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json({ type: 'application/json' }))
   app.use(bodyParser.text({ type: 'text/html' }))
@@ -57,9 +54,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 
   const port = 8081
   const version = '/v1'
-  const router = express.Router()
   
-  const user_api = new userapi( router , 
+  const user_api = new userapi( express.Router() , 
                               new userLogic( new userData() ) )
   
   app.use(version + user_api.urlbase, user_api.router)
@@ -77,4 +73,4 @@ const isProduction = process.env.NODE_ENV === 'production'
   process.on ('SIGTERM', shutdown.gracefulShutdown(server,closeServer));
   process.on ('SIGINT',  shutdown.gracefulShutdown(server,closeServer)); 
 
-//}
+}

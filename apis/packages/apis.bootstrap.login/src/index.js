@@ -14,19 +14,33 @@ import loginapi from './login'
 import {loginData} from 'apis-business-login'
 import {loginLogic} from 'apis-business-login' 
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 if( cluster.isMaster ) {
   const numCpus = os.cpus().length
   logger.app.info(`Master process is running, PID: ${process.pid}`)
   for (let i = 0; i < numCpus; i++) {
     cluster.fork();
   }
+  cluster.on('exit', (worker) => {
+    logger.app.info(`Process ${worker.process.pid} died`);
+  });
+  cluster.on('disconnect', (worker) => {
+    console.error('disconnect! ${worker.process.pid}');
+    cluster.fork();
+  });
+
 }else{
 
   const app = express()
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json({ type: 'application/json' }))
   app.use(bodyParser.text({ type: 'text/html' }))
-  app.use(morgan('dev'))
+  if(isProduction){
+    app.use(morgan('combined', {stream: { write: (str) =>{ logger.app.error(str) }}} ))
+  }else{
+    app.use(morgan('dev'))
+  }
   app.use(methodOverride())
   app.use(helmet())
   app.use(compression())
