@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import login from './login/Reducers';
 
-import {reducers as userReducers} from 'backoffice-user'
+//import {reducers as userReducers} from 'backoffice-user'
 
 console.log(userReducers)
 

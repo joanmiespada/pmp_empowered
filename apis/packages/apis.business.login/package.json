@@ -30,7 +30,7 @@
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
-    "test": "jest --config jest.config.json --coverage"
+    "test": "jest ./src/* --verbose --env=node --coverage"
   },
   "dependencies": {
     "apis-core": "1.0.0",

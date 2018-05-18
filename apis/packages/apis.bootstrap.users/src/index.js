@@ -26,7 +26,7 @@ if( cluster.isMaster ) {
     logger.app.info(`Process ${worker.process.pid} died`);
   });
   cluster.on('disconnect', (worker) => {
-    console.error('disconnect! ${worker.process.pid}');
+    console.error(`disconnect! ${worker.process.pid}`);
     cluster.fork();
   });
 

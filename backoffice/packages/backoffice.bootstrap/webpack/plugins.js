@@ -6,7 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const {GenerateSW} = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+//const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -67,7 +67,7 @@ if (isProduction) {
       debug: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new BundleAnalyzerPlugin()
+   // new BundleAnalyzerPlugin()
     );
 }
 module.exports = plugins;

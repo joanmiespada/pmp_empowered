@@ -5,5 +5,10 @@
 	},
 	"workspaces": [
 		"packages/*"
-	  ]
+	],
+	"scripts": {
+		"clear": "clear",
+		"bootstrap": "lerna bootstrap",
+		"test": "lerna exec yarn test"
+	}
 }

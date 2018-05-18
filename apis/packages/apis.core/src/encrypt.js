@@ -31,8 +31,8 @@ exports.createJWTtoken = (data) =>{
 }
 
 exports.verifyJWTtokenAsync = (token) =>{
-    return new Promise((resolve, reject ) =>{
-        jwt.verify(token,process.env.PASSWORD_JWT, (err, decoded) => {
+    return new Promise((resolve ) =>{
+        jwt.verify(token,process.env.PASSWORD_JWT, (err) => {
             err === null ? resolve(true) : resolve(false) //reject(err)
         });
     });
