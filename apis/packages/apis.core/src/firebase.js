@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin';
 import fs from 'fs';
-import path from 'path';
 
 let db = undefined; // = admin.firestore();
 let tables = { users:'users' } //add all collections here! 

@@ -37,7 +37,7 @@ If you want execute CRUD operations to create users then run `yarn nodemon-usera
 
 1) Create an account on Google Firebase.
 2) Download credentials file with API keys. It's a json file with all info together. 
-3) Create `.env` file in API folder with this structure:
+3) Create new forlder with name `.env` in apis forlder following this structure:
 ```
 FIREBASE_PRIVATE_KEY_CERT_FILE=<file name with the Firebase cert content>
 FIREBASE_PRIVATE_KEY_ID=<copy here firebase private key ID>
@@ -45,6 +45,15 @@ FIREBASE_CLIENT_ID=<client id>
 PASSWORD_SALT=<write a number between 5 to 100>
 PASSWORD_JWT=<write random text with numbers and letters, 20 characters should be enought>
 ```
+4) Create new folder with name `certs` in apis folder. Then add `apicert.pem` file sourced by firebase here.
+
+# Bootstrap the KIT
+
+Inside apis folder write `yarn bootstrap`. All dependencies will be resolved.
+
+# Test
+
+Execute `yarn test` and all tests in every package will be executed.  
 
 # Compile
 
