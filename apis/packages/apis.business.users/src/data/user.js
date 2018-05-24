@@ -1,4 +1,4 @@
-import {firebase, encrypt, utils as _u} from 'apis-core'
+import {firebase as _f, encrypt, utils as _u} from 'apis-core'
 import userModel from '../models/user'
 import uuid from 'uuid/v1'
 import messages from '../support/messages'
@@ -16,6 +16,7 @@ export class userData
             surname : 'string',
             password:  'string'
         };
+        this.firebase = _f.start()
     }
 
     mappingFromStorageToUserModel(id,user)
@@ -33,12 +34,12 @@ export class userData
     {
         return new Promise( (resolve, reject) => {
 
-            if(firebase.db === undefined){
+            if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
             }
 
-            const userRef = firebase.db.collection( firebase.tables.users )
+            const userRef = this.firebase.db.collection( this.firebase.tables.users )
             const query = userRef.orderBy('data.surname')
                                 .startAfter(params.pageSize * (params.pageNum-1) )
                                 .limit(params.pageSize);
@@ -64,12 +65,12 @@ export class userData
     createNewUser(usermodel)
     {
         return new Promise( (resolve,reject)=>{
-            if(firebase.db === undefined){
+            if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
             }
             
-            const userRef = firebase.db.collection( firebase.tables.users );
+            const userRef = this.firebase.db.collection( this.firebase.tables.users );
             const id = uuid();
             const newUserDocRef = userRef.doc(id);
             
@@ -98,12 +99,12 @@ export class userData
     updateUserById(id, usermodel)
     {
         return new Promise( (resolve,reject)=>{
-            if(firebase.db === undefined){
+            if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
             }
 
-            const userRef = firebase.db.collection( firebase.tables.users );
+            const userRef = this.firebase.db.collection( this.firebase.tables.users );
             const newUserDocRef = userRef.doc(id);
             newUserDocRef.get().then(async (doc) => {
 
@@ -132,12 +133,12 @@ export class userData
     checkIfMailExists(email)
     {
         return new Promise( (resolve,reject) => {
-            if(firebase.db === undefined){
+            if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
             }
 
-            const userRef = firebase.db.collection( firebase.tables.users )
+            const userRef = this.firebase.db.collection( this.firebase.tables.users )
             const query = userRef.where('data.email','==',email )
             
             query.get().then((snapshot) => { 
@@ -152,12 +153,12 @@ export class userData
     deleteUserById(id)
     {
         return new Promise( (resolve, reject) => {
-            if(firebase.db === undefined){
+            if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
             }
 
-            const userRef = firebase.db.collection( firebase.tables.users )
+            const userRef = this.firebase.db.collection( this.firebase.tables.users )
             const doc = userRef.doc(id)
             //console.log(doc)
             doc.delete()
@@ -169,12 +170,12 @@ export class userData
     getUserById(id)
     {
         return new Promise( (resolve, reject) => {
-            if(firebase.db === undefined){
+            if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
             }
 
-            const userRef = firebase.db.collection( firebase.tables.users ).doc(id)
+            const userRef = this.firebase.db.collection( this.firebase.tables.users ).doc(id)
             userRef.get().then((doc)=>{
                 const userDataMeta = doc.data()
                 const user = this.mappingFromStorageToUserModel(doc.id,userDataMeta.data )
@@ -187,12 +188,12 @@ export class userData
     getUsersByEmail(email)
     {
         return new Promise( (resolve, reject) => {
-            if(firebase.db === undefined){
+            if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
             }
 
-            const userRef = firebase.db.collection( firebase.tables.users )
+            const userRef = this.firebase.db.collection( this.firebase.tables.users )
             const query = userRef.where('data.email','==',email )
 
             query.get().then( (snapshot) => {  

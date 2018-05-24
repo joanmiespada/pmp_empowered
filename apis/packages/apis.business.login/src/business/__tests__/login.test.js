@@ -1,6 +1,13 @@
+import expect from 'expect'
+import path from 'path'
+import dotenv from 'dotenv'
+
 import {loginLogic} from '../login'
 import {loginData} from '../../data/login'
-import expect from 'expect'
+
+
+const aux = path.join(__dirname,'../../../../../.env/env02.env')
+dotenv.config({ path: aux })
 
 describe('login testing', ()=>{
 

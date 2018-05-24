@@ -2,15 +2,20 @@
 import expect from 'expect'
 import chance from 'chance'
 import uuid from 'uuid/v1'
+import path from 'path'
+import dotenv from 'dotenv'
 
 import {encrypt} from 'apis-core'
 
 import {userLogic} from '../user'
 import {userData} from '../../data/user'
 
+const aux = path.join(__dirname,'../../../../../.env/env02.env')
+dotenv.config({ path: aux })
 
 describe('user testing', ()=>{
- 
+
+
     const userlayer = new userLogic( new userData() )
 
     const userLogged = {
@@ -135,9 +140,9 @@ describe('user testing', ()=>{
 
     it('delete non existing user', async()=>{ 
         try{
-            const result = await userlayer.deleteUserById(uToken,'sdfsdfsdfsdf')
+            await userlayer.deleteUserById(uToken,'sdfsdfsdfsdf')
             //console.log(result)
-        }catch(err){
+        }catch(result){
             //console.log(err)
             expect(result).toBeDefined()
             expect(result.result).toEqual(false)
@@ -166,7 +171,7 @@ describe('user testing', ()=>{
             const params = {pageSize: 10, pageNumber:1}
             await userlayer.getAllUsers (uToken,params)
             
-        }catch(err){
+        }catch(result){
             expect(result).toBeDefined()
             expect(result.result).toEqual(false)
             expect(result.error.codeError).toBeDefined()
