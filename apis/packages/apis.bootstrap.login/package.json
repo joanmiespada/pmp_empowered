@@ -38,7 +38,7 @@
     "nodemon": "NODE_ENV=development ENVFILE=../../../.env/env02.env nodemon ./src/index.js --config ../../nodemon.json --exec babel-node",
     "build-raw": "babel src -d dist",
     "test": "jest ./src/* --verbose --env=node --coverage",
-    "build-dev" : "NODE_ENV=development webpack --config webpack.config.js",
+    "build-dev": "NODE_ENV=development webpack --config webpack.config.js",
     "build-prod": "NODE_ENV=production  webpack --config webpack.config.js",
     "serve-prod": "NODE_ENV=production  node ./build/api.login.js"
   },
@@ -48,6 +48,7 @@
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "firebase-admin": "^5.12.0",
     "helmet": "^3.12.0",

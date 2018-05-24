@@ -33,7 +33,7 @@ If you want execute CRUD operations to create users then run `yarn nodemon-usera
 | ----------|-------------| 
 |[![Build Status](https://travis-ci.org/joanmiespada/pmp_empowered.svg?branch=production)](https://travis-ci.org/joanmiespada/pmp_empowered) | [![Build Status](https://travis-ci.org/joanmiespada/pmp_empowered.svg?branch=master)](https://travis-ci.org/joanmiespada/pmp_empowered)  |
 
-# Setup
+### Setup
 
 1) Create an account on Google Firebase.
 2) Download credentials file with API keys. It's a json file with all info together. 
@@ -51,20 +51,33 @@ For example, create a file with name: env01.env for production and env02.env for
 
 4) Create new folder with name `certs` in apis folder. Then add `apicert.pem` file sourced by firebase here.
 
-# Bootstrap the KIT
+### Bootstrap the KIT
 
 Inside apis folder write `yarn bootstrap`. All dependencies will be resolved.
 
-# Test
+### Test
 
 Execute `yarn test` and all tests in every package will be executed.  
 
-# Compile
+### Compile
 
-Please, read package.json scripts section. You'll be able to find some interesting options.
+Please, read package.json scripts section. You'll be able to find some interesting options such as `yarn start` or `yarn nodemon`.
 
+### Code structure
 
-# TODO
+Apis folder has been splitted by 5 projects:
 
-Add ELK support 
+|compoenent| Description | Details |
+|----------|-------------|------|
+|apis.bootstrap.login| microservice for login features| [readme](./apis.bootstrap.login/readme.md) |
+|apis.bootstrap.users| microservice related with user's CRUD| |
+|apis.business.login| business logic to provide login and tests| |
+|apis.business.users| business logic with features related CRUD operations for users| |
+|apis.core| shared components for bootstrap and business packages| |
+
+### TODO
+
+Add ELK support
+
 Add RabbitMQ support
+
