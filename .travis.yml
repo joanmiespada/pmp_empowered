@@ -4,10 +4,10 @@ cache:
   directories:
   - node_modules
   yarn: true
-script: cd ./API && yarn install --ignore-engines && yarn test
+script: cd ./apis && yarn bootstrap --ignore-engines && yarn test
 before_install:
 - openssl aes-256-cbc -K $encrypted_b5075aaea773_key -iv $encrypted_b5075aaea773_iv
-  -in ./API/apicert.pem.enc -out ./API/apicert.pem -d
+  -in ./apis/certs/apicert.pem.enc -out ./apis/certs/apicert.pem -d
 env:
   global:
   - secure: s30RvYHOuZ9XdfzOjbx+ZP7x5gaaQVhTeOJM4oDY45YUVpo6NtR0f2GkLFuQzGlh1skrKhgcmqp2tGJQ4koDlca2LX9DoeHcUu8l/xFp2o33sCtA3JIqGSxYE3vuQ5gB3cdL6vMlCQiMY9gSItFI90k3wjRxIWlPzWbNabqMsvzIlGiirHbQqbpd3kg4T13Vrd04iBDLfkz2pkiJrGyUS3/w4Ek9aTiy002Arj2P8hJm0dqlUhQnumbb0Rfijop1aRXfG67T06i1wBlkx8AcqWc5008xJQl3fDAqFNBWbpvLr8r6sSUHd8VP/LkOlD4UK+Q24klVILFjr448vlTnZYr1ammfZRicKEG4awGoB8i/7xpV6kB23dqk2FUTVfNeDOaQlHc4Ii+ZH7dw5qU1PtO8JORx1OXso3sDmCVWpaosgyPw+SEeTuwZqcaud2tVrwZaNDYW4I91QSp89eXJwg739slqWQQbLWUgRj5eiWSz8KuWLkNIlMigP+nJt3myo88mzBKIS5vbEdwxVhonUoccPmJANwkdPOwV+gE0hPlO+JfUq8VyrPUKt7KFb7aUw2kTMKMI3RBUNbjpaHPps7l49xSUpWYVp6AS/UdGDM8Q0AaXEl7J2gPMmTlRrmtV9vxk6a6Th+Km40EUjm1IecakRl9Opsv8UzVaeQA4UAY=

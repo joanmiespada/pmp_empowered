@@ -67,3 +67,6 @@ build
 
 #cert files
 *.pem
+
+lib/
+dist/
