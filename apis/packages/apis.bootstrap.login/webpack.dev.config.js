@@ -22,10 +22,39 @@ const config = {
         path: path.join(__dirname, 'build'),
         filename: 'api.login.js'
     },
+
+    resolve: {
+        extensions: ['.js'],
+        modules: [
+          'node_modules',
+        ],
+        symlinks: false,
+      },
+    
+    module: {
+        rules: [
+            {
+                test: /.js$/,
+                use: 'babel-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
+
     externals: nodeModules, 
     plugins: [
-        new webpack.IgnorePlugin(/\.(css|less)$/),
-        new webpack.BannerPlugin('require("source-map-support").install();')
+        new webpack.BannerPlugin({ banner:'require("source-map-support").install();',
+                                                  raw:true, entryOnly:false}  ),
+        
+         new webpack.optimize.SplitChunksPlugin({
+            cacheGroups: {
+                commons: {
+                    name: "commons",
+                    chunks: "initial",
+                    minChunks: 2
+                }
+            }
+          }),
       ],
     devtool:'source-map',
     stats:{

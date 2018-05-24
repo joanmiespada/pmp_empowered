@@ -16,7 +16,7 @@ exports.gracefulShutdown = (srv, customClose)=> {
             
         // if after 
         setTimeout(()=> {
-            logger.error.info("Could not close connections in time, forcefully shutting down");
+            logger.app.info("Could not close connections in time, forcefully shutting down");
             process.exit()
         }, 10*1000);
     }

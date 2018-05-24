@@ -7,8 +7,8 @@
 		"packages/*"
 	],
 	"scripts": {
-		"clear": "clear",
 		"bootstrap": "lerna bootstrap",
-		"test": "lerna exec yarn test"
+		"test": "lerna exec --parallel -- yarn test",
+		"nodemon":"lerna exec --parallel -- yarn nodemon"
 	}
 }

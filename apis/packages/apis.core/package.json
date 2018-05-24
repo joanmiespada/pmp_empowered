@@ -29,7 +29,8 @@
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
-    "test": "echo --notests--"
+    "test": "echo --notests--",
+    "nodemon":"echo --noNodemon--"
     
   },
   "dependencies": {

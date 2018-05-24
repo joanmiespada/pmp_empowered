@@ -1,6 +1,6 @@
 import { isNumber } from 'util'
 
-import jwt from './encrypt'
+import * as encrypt from './encrypt'
 import messages from './messages'
 import errCodes from './errorcodes'
 import keys from './keys'
@@ -9,7 +9,7 @@ import apiParams from './apiparams'
 const checkUserToken = (uToken) => 
 {
     try{
-        const aux= jwt.verifyJWTtoken(uToken)
+        const aux= encrypt.verifyJWTtoken(uToken)
         return jsonOK(aux) //{result: true, data:aux}
     }catch(err){ 
         return jsonError(keys.errTokenUserIdentification) //{result: false, error: buildError( ) }

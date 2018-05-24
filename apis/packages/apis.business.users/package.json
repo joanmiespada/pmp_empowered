@@ -30,7 +30,8 @@
   "scripts": {
     "dasdadpretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
-    "test": "jest ./src/* --verbose --env=node --coverage"
+    "test": "jest ./src/* --verbose --env=node --coverage",
+    "nodemon":"echo --noNodemon--"
   },
   "dependencies": {
     "apis-core": "1.0.0",

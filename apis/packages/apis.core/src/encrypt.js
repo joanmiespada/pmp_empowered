@@ -8,7 +8,7 @@ if(process.env.PASSWORD_SALT === undefined )//or else env variable is not define
     dotenv.config({ path: aux })
 }
 
-exports.cryptPassword = (password) =>{ 
+const cryptPassword = (password) =>{ 
     
     return new Promise( (resolve, reject) =>{
         bcrypt.genSalt( parseInt(process.env.PASSWORD_SALT) , (err, salt) => {
@@ -18,7 +18,7 @@ exports.cryptPassword = (password) =>{
     });
 }
 
-exports.comparePassword = (password, hash) =>{ 
+const comparePassword = (password, hash) =>{ 
         return new Promise((resolve, reject ) =>{
             bcrypt.compare(password, hash, (err, isPasswordMatch) => {
                 return err === undefined ? resolve(isPasswordMatch) : reject(err)
@@ -26,11 +26,11 @@ exports.comparePassword = (password, hash) =>{
         });
 }
 
-exports.createJWTtoken = (data) =>{
+const createJWTtoken = (data) =>{
     return jwt.sign(data, process.env.PASSWORD_JWT, { expiresIn: '1h' })
 }
 
-exports.verifyJWTtokenAsync = (token) =>{
+const verifyJWTtokenAsync = (token) =>{
     return new Promise((resolve ) =>{
         jwt.verify(token,process.env.PASSWORD_JWT, (err) => {
             err === null ? resolve(true) : resolve(false) //reject(err)
@@ -38,6 +38,15 @@ exports.verifyJWTtokenAsync = (token) =>{
     });
 }
 
-exports.verifyJWTtoken = (token) =>{
+const verifyJWTtoken = (token) =>{
     return jwt.verify(token,process.env.PASSWORD_JWT); 
+}
+
+export 
+{
+    cryptPassword,
+    comparePassword,
+    createJWTtoken,
+    verifyJWTtokenAsync,
+    verifyJWTtoken
 }

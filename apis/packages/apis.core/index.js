@@ -8,7 +8,7 @@ import * as firebase from './src/firebase'
 import * as logsys from './src/logsys'
 import messages from './src/messages'
 import apiParams from './src/apiparams'
-import shutdown from './src/shutdown'
+import * as shutdown from './src/shutdown'
 import errCodes from './src/errorcodes'
 import keys from './src/keys'
 
