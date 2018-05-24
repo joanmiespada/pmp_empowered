@@ -45,6 +45,10 @@ FIREBASE_CLIENT_ID=<client id>
 PASSWORD_SALT=<write a number between 5 to 100>
 PASSWORD_JWT=<write random text with numbers and letters, 20 characters should be enought>
 ```
+
+You should create one file per environtment (test, prouduction,etc...). 
+For example, create a file with name: env01.env for production and env02.env for test.
+
 4) Create new folder with name `certs` in apis folder. Then add `apicert.pem` file sourced by firebase here.
 
 # Bootstrap the KIT
