@@ -8,7 +8,6 @@ class userapi extends endpoint
     {
         super(router,business)
         this._urlbase = '/users'
-
     }
 
     get router() {  return this._router }

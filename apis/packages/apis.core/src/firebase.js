@@ -1,18 +1,20 @@
-import dotenv from 'dotenv';
 import * as admin from 'firebase-admin';
 import fs from 'fs';
 import path from 'path';
 
-if(process.env.FIREBASE_PRIVATE_KEY_CERT_FILE === undefined )//or else env variable is not defined
+let db = undefined; // = admin.firestore();
+let tables = { users:'users' } //add all collections here! 
+
+export function start()
 {
-  const aux = path.join(__dirname,'..','.env/production.env')
-  dotenv.config({ path: aux })
-}
+  if(process.env.FIREBASE_PRIVATE_KEY_CERT_FILE === undefined )//or else env variable is not defined
+  {
+      throw new Error('missing ENV config')  
+  }
 
-let private_key_cert_file = process.env.FIREBASE_PRIVATE_KEY_CERT_FILE;
-let cert = fs.readFileSync( path.join(__dirname ,'..','certs',private_key_cert_file),'utf8');
+  let cert = fs.readFileSync( process.env.FIREBASE_PRIVATE_KEY_CERT_FILE ,'utf8');
 
-let config ={
+  let config ={
     "type": "service_account",
     "project_id": "pmp-empowered-d1e1e",
     "private_key_id": process.env.FIREBASE_PRIVATE_KEY_ID,
@@ -25,18 +27,15 @@ let config ={
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ja8r7%40pmp-empowered.iam.gserviceaccount.com"
   }
 
- 
-admin.initializeApp({
-  credential: admin.credential.cert(config),
-  databaseURL: 'https://pmp-empowered.firebaseio.com'
-});
+  admin.initializeApp({
+    credential: admin.credential.cert(config),
+    databaseURL: 'https://pmp-empowered.firebaseio.com'
+  });
 
+  db = admin.firestore();
+  return { db, tables};
+}
 
-
-let db = admin.firestore();
-let tables = { users:'users' } //add all collections here! 
-
-export { db, tables};
 
 
 

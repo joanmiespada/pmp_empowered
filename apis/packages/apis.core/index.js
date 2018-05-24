@@ -1,6 +1,7 @@
 export * from './src/business'
 export * from './src/model'
 export * from './src/endpoint'
+export * from './src/bootstrap'
 
 import * as encrypt from './src/encrypt'
 import * as utils from './src/utils'

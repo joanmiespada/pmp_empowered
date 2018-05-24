@@ -9,6 +9,10 @@
 	"scripts": {
 		"bootstrap": "lerna bootstrap",
 		"test": "lerna exec --parallel -- yarn test",
-		"nodemon":"lerna exec --parallel -- yarn nodemon"
+		"nodemon":"lerna exec --parallel -- yarn nodemon",
+		"start":"lerna exec --parallel -- yarn start",
+		"build-dev":"lerna exec --parallel -- yarn build-dev",
+		"build-prod":"lerna exec --parallel -- yarn build-prod",
+		"serve-prod":"lerna exec --parallel -- yarn serve-prod"
 	}
 }

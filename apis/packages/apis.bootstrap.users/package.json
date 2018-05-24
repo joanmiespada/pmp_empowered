@@ -32,13 +32,13 @@
   },
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
-    "start": "NODE_ENV=development babel-node ./src/index.js",
-    "nodemon": "nodemon ./src/index.js --config ../../nodemon.json --exec babel-node",
+    "start": "NODE_ENV=development ENVFILE=../../../.env/env02.env babel-node ./src/index.js ",
+    "nodemon": "NODE_ENV=development ENVFILE=../../../.env/env02.env nodemon ./src/index.js --config ../../nodemon.json --exec babel-node",
     "build-raw": "babel src -d dist",
     "test": "echo --notests--",
-    "build-dev": "webpack --config webpack.dev.config.js",
-    "build-prod": "webpack --config webpack.prod.config.js ",
-    "serve-prod": "NODE_ENV=production node ./build/api.userapi.js"
+    "build-dev" : "NODE_ENV=development webpack --config webpack.config.js",
+    "build-prod": "NODE_ENV=production  webpack --config webpack.config.js",
+    "serve-prod": "NODE_ENV=production  node ./build/api.users.js"
   },
   "dependencies": {
     "apis-business-users": "1.0.0",

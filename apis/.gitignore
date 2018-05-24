@@ -69,3 +69,7 @@ build
 
 #log folder
 log/
+
+.env/*.env
+certs/*.pem
+!certs/*.enc

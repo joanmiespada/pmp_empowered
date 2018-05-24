@@ -1,6 +1,7 @@
 import log4js from 'log4js'
 import fs from 'fs'
-import path from 'path'
+
+import config from '../config/log4js.json'
 
 try{
   fs.mkdirSync('./log')
@@ -11,8 +12,7 @@ try{
   }
 }
 
-log4js.configure(path.join(__dirname,'../config/log4js.json'))
-
+log4js.configure(config)
 
 const loggerApp = log4js.getLogger('app')
 const loggerHttp = log4js.getLogger('http')

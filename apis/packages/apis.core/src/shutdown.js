@@ -1,6 +1,6 @@
 import * as logger from './logsys'
 
-exports.gracefulShutdown = (srv, customClose)=> {
+const gracefulShutdown = (srv, customClose)=> {
     const server = srv
     return ()=>{
         
@@ -21,3 +21,5 @@ exports.gracefulShutdown = (srv, customClose)=> {
         }, 10*1000);
     }
 }
+
+export {gracefulShutdown} 

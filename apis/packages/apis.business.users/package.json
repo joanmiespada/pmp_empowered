@@ -31,7 +31,11 @@
     "dasdadpretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
     "test": "jest ./src/* --verbose --env=node --coverage",
-    "nodemon":"echo --noNodemon--"
+    "nodemon":"echo --noNodemon--",
+    "start":"echo --noStart--",
+		"build-dev":"echo  --noBuildDev--",
+		"build-prod":"echo --noBuildProd--",
+		"serve-prod":"echo --noServeProd--"
   },
   "dependencies": {
     "apis-core": "1.0.0",
