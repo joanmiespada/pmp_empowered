@@ -59,15 +59,21 @@ Inside apis folder write `yarn bootstrap`. All dependencies will be resolved.
 
 Execute `yarn test` and all tests in every package will be executed.  
 
+### Add new packages
+
+If you need add more dependencies in one package, then you should do:
+1) Go to the package, example `apis.core`
+2) Write `lerna add crypto-js` if you want add cryptoJS library. Lerna will check all graph dependencies and will add it for you. 
+
 ### Compile
 
 Please, read package.json scripts section. You'll be able to find some interesting options such as `yarn start` or `yarn nodemon`.
 
 ### Code structure
 
-Apis folder has been splitted by 5 projects:
+Apis folder has been split by 5 projects:
 
-|compoenent| Description | Details |
+|Component | Description | Details |
 |----------|-------------|------|
 |apis.bootstrap.login| microservice for login features| [readme](./apis.bootstrap.login/readme.md) |
 |apis.bootstrap.users| microservice related with user's CRUD| |

@@ -7,11 +7,12 @@ export class loginData
     constructor()
     {
         this.firebase = _f.start()
+        this.isProduction = process.env.NODE_ENV === 'production'
     }
 
     login(email,passwordPlain)
     {
-        return new Promise( (resolve, reject) => {
+        return new Promise( async (resolve, reject) => {
             
             if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
@@ -19,7 +20,9 @@ export class loginData
             }
             
             let userRef = this.firebase.db.collection( this.firebase.tables.users )
-            let query = userRef.where('data.email','==',email )
+
+            const hashemail = await encrypt.obfuscateEmail(email)
+            let query = userRef.where('data.login','==', hashemail )
 
             query.get().then( (snapshot) => {  
 
@@ -35,7 +38,7 @@ export class loginData
                     id = doc.id
                 });
                 
-                encrypt.comparePassword(passwordPlain,result.data.password)
+                encrypt.compareToHash(passwordPlain,result.data.password)
                         .then( (canIlogin) => {
                             if(canIlogin)
                                 resolve( {login:true, user: result.data, id:id} )

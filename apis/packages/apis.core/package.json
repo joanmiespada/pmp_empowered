@@ -30,18 +30,18 @@
     "pretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
     "test": "echo --notests--",
-    "nodemon":"echo --noNodemon--",
-    "start":"echo --noStart--",
-		"build-dev":"echo  --noBuildDev--",
-		"build-prod":"echo --noBuildProd--",
-		"serve-prod":"echo --noServeProd--"
-
+    "nodemon": "echo --noNodemon--",
+    "start": "echo --noStart--",
+    "build-dev": "echo  --noBuildDev--",
+    "build-prod": "echo --noBuildProd--",
+    "serve-prod": "echo --noServeProd--"
   },
   "dependencies": {
-    "firebase-admin": "^5.12.0",
-    "log4js": "^2.5.3",
     "bcrypt": "^2.0.1",
+    "crypto-js": "^3.1.9-1",
     "dotenv": "^5.0.1",
-    "jsonwebtoken": "^8.2.1"
+    "firebase-admin": "^5.12.0",
+    "jsonwebtoken": "^8.2.1",
+    "log4js": "^2.5.3"
   }
 }

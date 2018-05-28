@@ -32,6 +32,7 @@ describe('user testing', ()=>{
     const password='pepe'
     
     const newuser = {email:random.email() , name: random.name() , surname: random.name(), password: password}
+    //const newuser = {email:'pepe5@notemail.uk.com' , name: 'josé' , surname: 'popo', password: 'pepe'}
     let newid=undefined
 
     it('create new user', async()=>{
@@ -141,9 +142,9 @@ describe('user testing', ()=>{
     it('delete non existing user', async()=>{ 
         try{
             await userlayer.deleteUserById(uToken,'sdfsdfsdfsdf')
-            //console.log(result)
+            console.log('ERROR')
+            expect(false).toEqual(true)
         }catch(result){
-            //console.log(err)
             expect(result).toBeDefined()
             expect(result.result).toEqual(false)
             expect(result.data.deleted).toBeDefined()

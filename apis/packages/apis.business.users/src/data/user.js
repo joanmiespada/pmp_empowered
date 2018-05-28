@@ -10,13 +10,16 @@ export class userData
 {
     constructor()
     {
+        this.isProduction = process.env.NODE_ENV === 'production'
         this.userMetaData = {
             email : 'string',
             name : 'string',
             surname : 'string',
-            password:  'string'
+            password:  'string',
+            login: 'string'
         };
         this.firebase = _f.start()
+        
     }
 
     mappingFromStorageToUserModel(id,user)
@@ -28,6 +31,11 @@ export class userData
         use.Surname = user.surname
         use.Password = user.password
         return use
+    }
+
+    checkEncriptation(text, func)
+    {
+        return this.isProduction ? func(text): text
     }
 
     getAllUsers(params)
@@ -52,8 +60,11 @@ export class userData
 
                     snapshot.forEach((doc) => {           
                         const userInfo = doc.data()
-                        const user = this.mappingFromStorageToUserModel(doc.id,userInfo.data )
+                        const user = this.mappingFromStorageToUserModel(doc.id, userInfo.data )
                         user.password='****'
+                        user.email = this.checkEncriptation(user.email, encrypt.decryptoText), 
+                        user.name = this.checkEncriptation(user.name, encrypt.decryptoText), 
+                        user.surname = this.checkEncriptation(user.surname, encrypt.decryptoText), 
                         result.push(user)
                     });
                     resolve( _u.jsonOK(result))
@@ -64,7 +75,7 @@ export class userData
 
     createNewUser(usermodel)
     {
-        return new Promise( (resolve,reject)=>{
+        return new Promise( async (resolve,reject)=>{
             if(this.firebase.db === undefined){
                 reject( _u.jsonError(keys.errServerDataIsUnavailable))
                 return
@@ -74,15 +85,18 @@ export class userData
             const id = uuid();
             const newUserDocRef = userRef.doc(id);
             
-            encrypt.cryptPassword(usermodel.password).then( (pass_hash)=> { 
-
+            try{
+                const pass_hash = await encrypt.cryptToHash(usermodel.password) 
+                const login_hash = await encrypt.obfuscateEmail(usermodel.email)
+                
                 let obj={
                     meta: this.userMetaData,
                     data:{  
-                        email : usermodel.email,
-                        name : usermodel.name,
-                        surname : usermodel.surname,
-                        password: pass_hash
+                        email: this.checkEncriptation(usermodel.email, encrypt.cryptoText), 
+                        name: this.checkEncriptation(usermodel.name, encrypt.cryptoText), 
+                        surname : this.checkEncriptation(usermodel.surname, encrypt.cryptoText), 
+                        password: pass_hash,
+                        login: login_hash
                     }
                 };
                 
@@ -90,8 +104,11 @@ export class userData
                     .then(  ()  => resolve(_u.jsonOK({id:id}, {id:'uuid'} ) ) ) 
                     .catch( err => reject (_u.jsonError(err) ) )
                 
-            }).catch( (err) => { reject(_u.jsonError(err) ) } )
-
+            
+            }catch(err)
+            {
+                reject(_u.jsonError(err))
+            }
             
         });
     }

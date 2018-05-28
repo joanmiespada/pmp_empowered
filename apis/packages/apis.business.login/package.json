@@ -23,22 +23,23 @@
     "eslint-plugin-jest": "^21.15.0",
     "eslint-plugin-node": "^6.0.1",
     "expect": "^22.4.3",
+    "generate-password": "^1.4.0",
     "jest": "^22.4.3",
-    "mocha": "^5.0.5",
-    "generate-password": "^1.4.0"
+    "mocha": "^5.0.5"
   },
   "scripts": {
     "pretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
     "test": "jest ./src/* --verbose --env=node --coverage",
-    "nodemon":"echo --noNodemon--",
-    "start":"echo --noStart--",
-		"build-dev":"echo  --noBuildDev--",
-		"build-prod":"echo --noBuildProd--",
-		"serve-prod":"echo --noServeProd--"
+    "nodemon": "echo --noNodemon--",
+    "start": "echo --noStart--",
+    "build-dev": "echo  --noBuildDev--",
+    "build-prod": "echo --noBuildProd--",
+    "serve-prod": "echo --noServeProd--"
   },
   "dependencies": {
     "apis-core": "1.0.0",
-    "bcrypt": "^2.0.1"
+    "bcrypt": "^2.0.1",
+    "crypto-js": "^3.1.9-1"
   }
 }
