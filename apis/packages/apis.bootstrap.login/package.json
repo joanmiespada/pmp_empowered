@@ -37,7 +37,9 @@
     "start": "NODE_ENV=development ENVFILE=../../../.env/env02.env babel-node ./src/index.js ",
     "nodemon": "NODE_ENV=development ENVFILE=../../../.env/env02.env nodemon ./src/index.js --config ../../nodemon.json --exec babel-node",
     "build-raw": "babel src -d dist",
-    "test": "jest ./src/* --verbose --env=node --coverage",
+    "test": "echo --noTests--",
+    "test-easy": "echo --noTests--",
+    "test-endpoint": "jest ./src/* --verbose --env=node --coverage",
     "build-dev": "NODE_ENV=development webpack --config webpack.config.js",
     "build-prod": "NODE_ENV=production  webpack --config webpack.config.js",
     "serve-prod": "NODE_ENV=production  node ./build/api.login.js"

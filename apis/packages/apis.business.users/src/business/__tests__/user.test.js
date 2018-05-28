@@ -142,8 +142,8 @@ describe('user testing', ()=>{
     it('delete non existing user', async()=>{ 
         try{
             await userlayer.deleteUserById(uToken,'sdfsdfsdfsdf')
-            console.log('ERROR')
-            expect(false).toEqual(true)
+            //console.log('ERROR')
+            //expect(false).toEqual(true)
         }catch(result){
             expect(result).toBeDefined()
             expect(result.result).toEqual(false)

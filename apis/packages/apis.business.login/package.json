@@ -31,6 +31,7 @@
     "pretest": "eslint -c .eslintrc src",
     "build-raw": "babel src -d dist",
     "test": "jest ./src/* --verbose --env=node --coverage",
+    "test-easy": "jest ./src/* --env=node --noStackTrace",
     "nodemon": "echo --noNodemon--",
     "start": "echo --noStart--",
     "build-dev": "echo  --noBuildDev--",

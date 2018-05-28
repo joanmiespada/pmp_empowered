@@ -9,6 +9,7 @@
 	"scripts": {
 		"bootstrap": "lerna bootstrap",
 		"test": "lerna exec --parallel -- yarn test",
+		"test-easy": "lerna exec --parallel -- yarn test-easy",
 		"nodemon":"lerna exec --parallel -- yarn nodemon",
 		"start":"lerna exec --parallel -- yarn start",
 		"build-dev":"lerna exec --parallel -- yarn build-dev",
