@@ -48,7 +48,6 @@ class userapi extends endpoint
             })
             .catch( (err)=>{
                 //console.log( messages.errGettingUsers, err)
-                console.log('sdfsdfsdfsdsfds')
                 this._log.error(`error getting user by id: ${req.params.id}`,err)
                 res.writeHead(endpoint.Http500, endpoint.ContentTextPlain);
                 res.end( messages.errinternalServer);
@@ -59,7 +58,6 @@ class userapi extends endpoint
     updateById(business){
         return (req,res)=>
         {
-            console.log(req)
             business.updateUserById(req.headers.token,req.params.id,req.body)
             .then((opResult)=> {
                 res.writeHead(endpoint.Http201, endpoint.ContentTextJson);

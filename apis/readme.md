@@ -75,6 +75,12 @@ Apis folder has been splitted by 5 projects:
 |apis.business.users| business logic with features related CRUD operations for users| |
 |apis.core| shared components for bootstrap and business packages| |
 
+### Docker
+
+If you want to run all apis together: 
+
+- docker-compose up -d
+
 ### TODO
 
 Add ELK support
