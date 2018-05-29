@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 import {loginLogic} from '../login'
 import {loginData} from '../../data/login'
 
-const isTravis = process.env.NODE_ENV === 'travis'
+const isTravis = process.env.TRAVIS === true
 
 if(!isTravis)
 {

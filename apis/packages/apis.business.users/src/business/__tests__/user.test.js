@@ -10,7 +10,7 @@ import {encrypt} from 'apis-core'
 import {userLogic} from '../user'
 import {userData} from '../../data/user'
 
-const isTravis = process.env.NODE_ENV === 'travis'
+const isTravis = process.env.TRAVIS === true
 
 if(!isTravis)
 {
