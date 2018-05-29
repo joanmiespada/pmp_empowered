@@ -4,10 +4,10 @@ class user extends model
 {
     constructor() {
         super();
-        this.name   =undefined;
-        this.surname=undefined;
-        this.email  =undefined;
-        this.password= undefined;
+        this.name   =undefined
+        this.surname=undefined
+        this.email  =undefined
+        this.password= undefined
     }
 
     get Name(){ return this.name}

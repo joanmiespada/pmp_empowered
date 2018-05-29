@@ -1,6 +1,6 @@
-# Web client
+### BackOffice Web client
 
-This project is a client web to consume API services. 
+This project is a BackOffice web client to consume API microservices. 
 
 Technical Stack:
 
@@ -12,4 +12,4 @@ Technical Stack:
 |Webpack    |module bundler for web browsers |
 |React      |Components library |
 |Redux      |State Management |
-|Toolbox | React components http://www.react-toolbox.io.|
+|Toolbox    | React components http://www.react-toolbox.io.|

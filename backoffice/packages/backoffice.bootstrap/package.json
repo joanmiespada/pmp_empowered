@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint -c .eslintrc src",
+    "pretest": "eslint -c ../../.eslintrc ./src",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack/index.js  --inline",
     "build": "NODE_ENV=production webpack --config ./webpack/index.js"
   },

@@ -23,8 +23,9 @@ const users = [
 
 
 export class View extends React.Component {
-    constructor()
-        this.state = { selected: [], source: users };
+    constructor() {
+        super()
+        this.state = { selected: [], source: users }
     }
     handleChange = (row, key, value) => {
         const source = this.state.source;
@@ -36,7 +37,7 @@ export class View extends React.Component {
         this.setState({selected});
     };
 
-    render(){
+    render() {
         return (
         <Table
             model={UserModel}
