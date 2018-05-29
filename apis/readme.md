@@ -21,9 +21,10 @@ The technical stack is:
 
 To install dependencies:
 ```
+yarn global add lerna 
 lerna bootstrap
 ``` 
-If you are running with Node 10, please, use `yarn --ignore-engines`
+If you are running with Node 10, please, use yarn with `--ignore-engines`
 
 Once all modules are in node_modules folder you should run every API in unique terminal.
 Firt of all, starting with `loginapi`with command: `yarn nodemon-loginapi`.
@@ -89,7 +90,6 @@ If you want to run all apis together:
 
 ### TODO
 
-Add ELK support
+- Several improvements 
 
-Add RabbitMQ support
 
