@@ -26,9 +26,12 @@ lerna bootstrap
 ``` 
 If you are running with Node 10, please, use yarn with `--ignore-engines`
 
-Once all modules are in node_modules folder you should run every API in unique terminal.
-Firt of all, starting with `loginapi`with command: `yarn nodemon-loginapi`.
+Once all modules are in node_modules folder (in apis folder) you should run every API in unique terminal.
+First of all, starting with `loginapi` with command: `yarn nodemon-loginapi`.
 If you want execute CRUD operations to create users then run `yarn nodemon-userapi`. 
+However, if you want start all apis at the same time, execute: `yarn nodemon`.
+
+Please, check `package.json` script section for details.
 
 
 ### Setup
@@ -56,7 +59,8 @@ Inside apis folder write `yarn bootstrap`. All dependencies will be resolved.
 
 ### Test
 
-Execute `yarn test` and all tests in every package will be executed.  
+Execute `yarn test` and all tests in every package will be executed.
+Execute `yarn test-easy` and all tests in every package will be executed with few details.    
 
 ### Add new packages
 
