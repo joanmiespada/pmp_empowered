@@ -5,9 +5,9 @@ import dotenv from 'dotenv'
 import {loginLogic} from '../login'
 import {loginData} from '../../data/login'
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isTravis = process.env.NODE_ENV === 'travis'
 
-if(!isProduction)
+if(!isTravis)
 {
     const aux = path.join(__dirname,'../../../../../.env/env02.env')
     dotenv.config({ path: aux })

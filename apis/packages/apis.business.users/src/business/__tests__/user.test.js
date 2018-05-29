@@ -10,9 +10,9 @@ import {encrypt} from 'apis-core'
 import {userLogic} from '../user'
 import {userData} from '../../data/user'
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isTravis = process.env.NODE_ENV === 'travis'
 
-if(!isProduction)
+if(!isTravis)
 {
     const aux = path.join(__dirname,'../../../../../.env/env02.env')
     dotenv.config({ path: aux })
