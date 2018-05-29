@@ -49,7 +49,7 @@ describe('user testing', ()=>{
             expect(result.result).toEqual(true)
             expect(result.data.id).toBeTruthy()
         }catch(err){
-            console.log(err)
+            console.log(err) //eslint-disable-line
             expect(false).toEqual(true)
         }
     })
@@ -85,7 +85,7 @@ describe('user testing', ()=>{
             expect(result.result).toEqual(true)
             expect(result.data.exists).toEqual(true)
         }catch(err){
-            console.log(err)
+            console.log(err) //eslint-disable-line
             expect(false).toEqual(true)
         }
     })
@@ -97,7 +97,7 @@ describe('user testing', ()=>{
             expect(result.result).toEqual(true)
             expect(result.data.id).toEqual(newid)
         }catch(err){
-            console.log(err)
+            console.log(err) //eslint-disable-line
             expect(false).toEqual(true)
         }
     })
@@ -111,7 +111,7 @@ describe('user testing', ()=>{
             expect(result.data[0]).toBeDefined()
             expect(result.data[0].email).toEqual(newuser.email)
         }catch(err){
-            console.log(err)
+            console.log(err) //eslint-disable-line
             expect(false).toEqual(true)
         }
     })
@@ -124,7 +124,7 @@ describe('user testing', ()=>{
             expect(result.result).toEqual(true)
             
         }catch(err){
-            console.log(err)
+            console.log(err) //eslint-disable-line
             expect(false).toEqual(true)
         }
     })
@@ -139,7 +139,7 @@ describe('user testing', ()=>{
             expect(result.data.deleted).toEqual(true)
 
         }catch(err){
-            console.log(err)
+            console.log(err) //eslint-disable-line
             expect(false).toEqual(true)
         }
     })
@@ -147,7 +147,7 @@ describe('user testing', ()=>{
     it('delete non existing user', async()=>{ 
         try{
             await userlayer.deleteUserById(uToken,'sdfsdfsdfsdf')
-            //console.log('ERROR')
+            //console.log('ERROR') //eslint-disable-line
             //expect(false).toEqual(true)
         }catch(result){
             expect(result).toBeDefined()
@@ -167,7 +167,7 @@ describe('user testing', ()=>{
             expect(result.data).toBeDefined()
 
         }catch(err){
-            console.log(err)
+            console.log(err) //eslint-disable-line
             expect(false).toEqual(true)
         }
     })

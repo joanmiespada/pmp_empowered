@@ -27,7 +27,7 @@
     "mocha": "^5.0.5"
   },
   "scripts": {
-    "pretest": "eslint -c .eslintrc src",
+    "pretest": "eslint -c ../../.eslintrc ./src",
     "build-raw": "babel src -d dist",
     "test": "echo --noTests--",
     "test-easy": "echo --noTests--",

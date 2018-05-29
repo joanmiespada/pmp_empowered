@@ -26,7 +26,7 @@ describe('login testing', ()=>{
         expect(result.data.token).toBeTruthy()
         expect(result.data.id).toBeTruthy()
     })
-    /*
+    
     it('login fail', async()=>{ 
         const result = await loginLayer.login(user.email, user.password+'password')
         
@@ -46,5 +46,5 @@ describe('login testing', ()=>{
             
         }
     })
-*/
+
 })

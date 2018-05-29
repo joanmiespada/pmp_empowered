@@ -22,23 +22,33 @@ export const bootstrap = (config) =>
         const aux = path.join(__dirname,process.env.ENVFILE) 
         dotenv.config({ path: aux })
     }
+    const message = `Boostraping microservice ${config.description} with env: ${process.env.NODE_ENV}`
+    logger.app.info(message)
+    console.log(message) //eslint-disable-line
 
-    if( cluster.isMaster ) {
+    if( cluster.isMaster && isProduction ) {
 
         const numCpus = os.cpus().length
-        logger.app.info(`Master process is running, PID: ${process.pid}`)
+        const aux = `Master process for ${config.description} is running, PID: ${process.pid}`
+        logger.app.info(aux)
+        console.log(aux)//eslint-disable-line
+
         for (let i = 0; i < numCpus; i++) {
             cluster.fork();
         }
         cluster.on('exit', (worker) => {
-            logger.app.info(`Process ${worker.process.pid} died`);
+            const aux = `Process ${worker.process.pid} died`
+            logger.app.info(aux)
+            console.log(aux)//eslint-disable-line
         });
-        if(isProduction){
-            cluster.on('disconnect', (worker) => {
-            logger.app.info(`Process ${worker.process.pid} disconnected, restarting...`);
+        
+        cluster.on('disconnect', (worker) => {
+            const aux = `Process ${worker.process.pid} disconnected, restarting...`
+            logger.app.info(aux)
+            console.log(aux)//eslint-disable-line
             cluster.fork();
-            });
-        }
+        });
+        
 
     } else {
 
@@ -66,11 +76,15 @@ export const bootstrap = (config) =>
         app.use(config.version + logic.urlbase, logic.router)
 
         const server = app.listen(config.port, () => { 
-            logger.app.info(`PID: ${process.pid} - Server ${config.description} api running at http://127.0.0.1:${config.port}`)
+            const aux= `Child process with PID: ${process.pid} - Server ${config.description} api is running at http://127.0.0.1:${config.port}`
+            logger.app.info(aux)
+            console.log(aux)//eslint-disable-line
         })
 
         const closeServer = () => {
-            logger.app.info(`PID: ${process.pid} - Server ${config.description} api has been stopped`)
+            const aux = `Child process with PID: ${process.pid} - Server ${config.description} api has been stopped`
+            logger.app.info(aux)
+            console.log(aux)//eslint-disable-line
         }
 
         process.on ('SIGTERM', shutdown.gracefulShutdown(server,closeServer))

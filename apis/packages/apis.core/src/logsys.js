@@ -7,7 +7,7 @@ try{
   fs.mkdirSync('./log')
 }catch(err){
   if(err.code != 'EEXIST') {
-    console.error('Could not set up log directory, error was: ', err)
+    console.error('Could not set up log directory, error was: ', err) //eslint-disable-line
     process.exit(1)
   }
 }

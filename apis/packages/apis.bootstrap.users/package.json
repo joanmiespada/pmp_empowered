@@ -31,7 +31,7 @@
     "request": "^2.85.0"
   },
   "scripts": {
-    "pretest": "eslint -c .eslintrc src",
+    "pretest": "eslint -c ../../.eslintrc ./src",
     "start": "NODE_ENV=development ENVFILE=../../../.env/env02.env babel-node ./src/index.js ",
     "nodemon": "NODE_ENV=development ENVFILE=../../../.env/env02.env nodemon ./src/index.js --config ../../nodemon.json --exec babel-node",
     "build-raw": "babel src -d dist",
