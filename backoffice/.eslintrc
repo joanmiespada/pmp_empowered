@@ -7,20 +7,8 @@
         "es6":true,
         "node":true
     },
-    "extends": "airbnb", 
+    "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 8,
-        "sourceType": "module",
-        "allowImportExportEverywhere": false,
-        "codeFrame": false
-    },
-    "rules": {
-        "max-len": [1, 100, 2],
-        "no-console":"warn",
-        "no-useless-escape":"off",
-        "no-unneeded-ternary":"off",
-        "no-plusplus":"off"
-      }
-    
-    
+        "sourceType": "module"
+    }
 }

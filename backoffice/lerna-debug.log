@@ -1,35 +1,78 @@
-0 silly input [ 'babel',
-0 silly input   './src',
-0 silly input   '-d',
-0 silly input   './lib',
-0 silly input   '--config-file',
-0 silly input   '../../.babelrc' ]
-1 silly flags { _: [ 'exec' ],
+0 silly input [ 'build' ]
+1 silly flags { _: [ 'run' ],
 1 silly flags   'reject-cycles': false,
 1 silly flags   rejectCycles: false,
-1 silly flags   parallel: true,
-1 silly flags   command: 'babel',
-1 silly flags   args: [ './src', '-d', './lib', '--config-file', '../../.babelrc' ] }
+1 silly flags   script: 'build',
+1 silly flags   args: [] }
 2 verbose rootPath /Users/joanmi/Projects/pmp3/backoffice
 3 info version 2.11.0
 4 silly existsSync /Users/joanmi/Projects/pmp3/backoffice/VERSION
 5 silly initialize attempt
 6 silly initialize success
 7 silly execute attempt
-8 info exec in 2 package(s): babel ./src -d ./lib --config-file ../../.babelrc
-9 error execute callback with error
-10 error Error: Command failed: babel ./src -d ./lib --config-file ../../.babelrc
-10 error SyntaxError: src/view.jsx: 'this' is not allowed before super()
-10 error   25 | export class View extends React.Component {
-10 error   26 |     constructor() {
-10 error > 27 |         this.state = { selected: [], source: users };
-10 error      |         ^
-10 error   28 |     }
-10 error   29 |     handleChange = (row, key, value) => {
-10 error   30 |         const source = this.state.source;
-10 error
-10 error src/actions.js -> lib/actions.js
-10 error src/model.js -> lib/model.js
-10 error src/reducers.js -> lib/reducers.js
-10 error
-10 error     at Promise.all.then.arr (/Users/joanmi/Projects/pmp3/backoffice/node_modules/lerna/node_modules/execa/index.js:236:11)
+8 silly runScriptInDir build [] backoffice.bootstrap
+9 silly getExecOpts { cwd: '/Users/joanmi/Projects/pmp3/backoffice/packages/backoffice.bootstrap' }
+10 error build Errored while running script in 'backoffice-bootstrap'
+11 error execute callback with error
+12 error Error: Command failed: yarn run build
+12 error (node:68063) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+12 error clean-webpack-plugin: /Users/joanmi/Projects/pmp3/backoffice/packages/backoffice.bootstrap/dist/*.* has been removed.
+12 error error An unexpected error occurred: "Command failed.
+12 error Exit code: 2
+12 error Command: sh
+12 error Arguments: -c NODE_ENV=production webpack --config ./webpack/index.js
+12 error Directory: /Users/joanmi/Projects/pmp3/backoffice/packages/backoffice.bootstrap
+12 error Output:
+12 error ".
+12 error $ NODE_ENV=production webpack --config ./webpack/index.js
+12 error Hash: bea4ec3f831bb1a4c40b
+12 error Version: webpack 4.8.3
+12 error Time: 36937ms
+12 error Built at: 29/05/2018 23:05:59
+12 error  3 assets
+12 error Entrypoint app = app.bea4ec3f831bb1a4c40b.js
+12 error Entrypoint vendor = vendor.bea4ec3f831bb1a4c40b.js
+12 error Entrypoint depens = depens.bea4ec3f831bb1a4c40b.js
+12 error [../../node_modules/react-redux/es/index.js] /Users/joanmi/Projects/pmp3/backoffice/node_modules/react-redux/es/index.js + 19 modules 40.7 KiB {1} {2} [built]
+12 error     |    20 modules
+12 error [../../node_modules/react-router/es/Redirect.js] /Users/joanmi/Projects/pmp3/backoffice/node_modules/react-router/es/Redirect.js + 8 modules 35 KiB {1} {2} [built]
+12 error     |    9 modules
+12 error [../../node_modules/react-virtualized/dist/es/index.js] /Users/joanmi/Projects/pmp3/backoffice/node_modules/react-virtualized/dist/es/index.js + 59 modules 305 KiB {1} [built]
+12 error     |    60 modules
+12 error [../../node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 509 bytes {1} {2} [built]
+12 error [../../node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 519 bytes {1} [built]
+12 error [./node_modules/redux-observable/lib/esm/index.js] ./node_modules/redux-observable/lib/esm/index.js + 5 modules 7.7 KiB {1} [built]
+12 error     |    6 modules
+12 error [./node_modules/rxjs/_esm5/index.js] ./node_modules/rxjs/_esm5/index.js + 98 modules 257 KiB {1} [built]
+12 error     |    99 modules
+12 error [./src/app/App.jsx] 6.55 KiB {2} [built]
+12 error [./src/app/drawer/MenuOption.jsx] 3.12 KiB {2} [built]
+12 error [0] multi backoffice-users 28 bytes {0} [built]
+12 error [./src/index.jsx] 1.22 KiB {2} [built]
+12 error [./src/login/Login.jsx] 6.31 KiB {2} [built]
+12 error [1] multi babel-polyfill react react-dom react-redux react-router react-router-redux react-virtualized redux redux-observable react-toolbox react-hot-loader rxjs lodash moment localforage react-loadable 208 bytes {1} [built]
+12 error [2] multi ./src/index.jsx 28 bytes {2} [built]
+12 error [./src/state/ConfigureStore.js] 1.14 KiB {2} [built]
+12 error     + 1203 hidden modules
+12 error
+12 error ERROR in /Users/joanmi/Projects/pmp3/backoffice/node_modules/backoffice-users/src/view.jsx
+12 error Module parse failed: Unexpected token (30:17)
+12 error You may need an appropriate loader to handle this file type.
+12 error |         this.state = { selected: [], source: users }
+12 error |     }
+12 error |     handleChange = (row, key, value) => {
+12 error |         const source = this.state.source;
+12 error |         source[row][key] = value;
+12 error  @ /Users/joanmi/Projects/pmp3/backoffice/node_modules/backoffice-users/index.js 3:0-26 3:0-26
+12 error  @ multi backoffice-users
+12 error Child html-webpack-plugin for "index.html":
+12 error      1 asset
+12 error     Entrypoint undefined = index.html
+12 error     [../../node_modules/html-webpack-plugin/lib/loader.js!./src/index.html] /Users/joanmi/Projects/pmp3/backoffice/node_modules/html-webpack-plugin/lib/loader.js!./src/index.html 431 bytes {0} [built]
+12 error     [../../node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 509 bytes {0} [built]
+12 error     [../../node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 519 bytes {0} [built]
+12 error         + 1 hidden module
+12 error info If you think this is a bug, please open a bug report with the information provided in "/Users/joanmi/Projects/pmp3/backoffice/packages/backoffice.bootstrap/yarn-error.log".
+12 error info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+12 error
+12 error     at Promise.all.then.arr (/Users/joanmi/Projects/pmp3/backoffice/node_modules/lerna/node_modules/execa/index.js:236:11)
