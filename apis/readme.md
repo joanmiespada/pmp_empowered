@@ -44,7 +44,8 @@ FIREBASE_PRIVATE_KEY_CERT_FILE=<file name with the Firebase cert content>
 FIREBASE_PRIVATE_KEY_ID=<copy here firebase private key ID>
 FIREBASE_CLIENT_ID=<client id>
 PASSWORD_SALT=<write a number between 5 to 100>
-PASSWORD_JWT=<write random text with numbers and letters, 20 characters should be enought>
+PASSWORD_JWT=....
+<please, check file ./env/template.env in 'apis.core' package to find other env variables>
 ```
 
 You should create one file per environtment (test, prouduction,etc...). 
