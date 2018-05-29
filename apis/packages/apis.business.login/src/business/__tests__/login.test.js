@@ -13,6 +13,16 @@ if(!isTravis)
     dotenv.config({ path: aux })
 }
 
+console.log('--------------------')
+console.log(process.env.TRAVIS)
+console.log(process.env.FIREBASE_PRIVATE_KEY_CERT_FILE)
+console.log(process.env.FIREBASE_PRIVATE_KEY_ID)
+console.log(process.env.FIREBASE_CLIENT_ID)
+console.log(process.env.PASSWORD_SALT)
+console.log(process.env.PASSWORD_JWT)
+console.log(process.env.PASSWORD_AES)
+console.log('--------------------')
+
 describe('login testing', ()=>{
 
     const loginLayer = new loginLogic( new loginData() )

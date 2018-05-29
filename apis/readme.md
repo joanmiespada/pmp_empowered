@@ -76,7 +76,7 @@ Apis folder has been split by 5 projects:
 
 |Component | Description | Details |
 |----------|-------------|------|
-|apis.bootstrap.login| microservice for login features| [readme](./apis.bootstrap.login/readme.md) |
+|apis.bootstrap.login| microservice for login features| [readme](./packages/apis.bootstrap.login/readme.md) |
 |apis.bootstrap.users| microservice related with user's CRUD| |
 |apis.business.login| business logic to provide login and tests| |
 |apis.business.users| business logic with features related CRUD operations for users| |
