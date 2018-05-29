@@ -10,8 +10,13 @@ import {encrypt} from 'apis-core'
 import {userLogic} from '../user'
 import {userData} from '../../data/user'
 
-const aux = path.join(__dirname,'../../../../../.env/env02.env')
-dotenv.config({ path: aux })
+const isProduction = process.env.NODE_ENV === 'production'
+
+if(!isProduction)
+{
+    const aux = path.join(__dirname,'../../../../../.env/env02.env')
+    dotenv.config({ path: aux })
+}
 
 describe('user testing', ()=>{
 
