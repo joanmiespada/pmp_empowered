@@ -18,6 +18,7 @@ The technical stack is:
 | JWT           | Json Web Tokens to protect you API |
 | Docker        | Api Dockerized                     |
 | Lerna         | Local packages dependencies        |
+| Webpack       | Bundle all local packages in a unique file per microservice |
 
 To install dependencies:
 ```
