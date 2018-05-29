@@ -11,9 +11,7 @@ export function start()
       throw new Error('missing ENV config')  
   }
 
-  const aux = process.env.FIREBASE_PRIVATE_KEY_CERT_FILE
-  console.log(`path: ${aux}`)
-  let cert = fs.readFileSync( aux  ,'utf8')
+  let cert = fs.readFileSync( process.env.FIREBASE_PRIVATE_KEY_CERT_FILE  ,'utf8')
 
   let config ={
     "type": "service_account",
